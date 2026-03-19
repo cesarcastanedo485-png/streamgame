@@ -1,5 +1,5 @@
 /* Service worker — cache app shell; paths respect GitHub Pages subfolder (registration scope). */
-const CACHE_NAME = "tarot-gate-v5-fonts-greens";
+const CACHE_NAME = "tarot-gate-v6-default-deck-uploads";
 
 function scopePathPrefix() {
   try {
