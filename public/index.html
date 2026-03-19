@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TikTok Tarot Overlay</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" />
+    <style>
+      :root {
+        --bg: #05020a;
+        --card-bg: rgba(15, 10, 30, 0.9);
+        --accent: #f5c76a;
+        --accent-soft: rgba(245, 199, 106, 0.3);
+        --text-primary: #f7f0ff;
+        --text-secondary: #b8a8e5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: radial-gradient(circle at top, #2b0f5b 0, #05020a 55%);
+        color: var(--text-primary);
+        overflow: hidden;
+      }
+
+      .overlay {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .glow-orb {
+        position: absolute;
+        width: 40vmax;
+        height: 40vmax;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(245, 199, 106, 0.2), transparent);
+        filter: blur(10px);
+        opacity: 0.8;
+        pointer-events: none;
+      }
+
+      .panel {
+        position: relative;
+        z-index: 2;
+        border-radius: 24px;
+        background: linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.04),
+            rgba(0, 0, 0, 0.6)
+          ),
+          radial-gradient(circle at top left, rgba(245, 199, 106, 0.18), transparent);
+        border: 1px solid rgba(245, 199, 106, 0.35);
+        box-shadow: 0 0 45px rgba(0, 0, 0, 0.8),
+          0 0 80px rgba(92, 49, 191, 0.6);
+        padding: 1.5rem 2rem 1.75rem;
+        max-width: 960px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 1.25rem;
+      }
+
+      .panel-header {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.5rem;
+      }
+
+      .title {
+        font-size: 1.4rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .subtitle {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        opacity: 0.8;
+      }
+
+      .mystical-title {
+        font-family: "Jolly Lodger", cursive;
+        font-size: 2em;
+        text-shadow: 2px 2px 4px #000;
+        color: #ff4500;
+      }
+      .card-name {
+        font-family: "Jolly Lodger", cursive;
+        font-size: 1.5em;
+      }
+      .interp-text {
+        font-family: "Jolly Lodger", cursive;
+      }
+      .card:hover {
+        animation: jitter 0.3s ease-in-out;
+      }
+      @keyframes jitter {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-1px, 1px); }
+        75% { transform: translate(1px, -1px); }
+      }
+
+      .cards-area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        flex-wrap: nowrap;
+      }
+
+      .card {
+        position: relative;
+        width: 120px;
+        height: 210px;
+        border-radius: 14px;
+        background: radial-gradient(circle at top, #6b4acb, #140b2a);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+        overflow: hidden;
+        border: 1px solid rgba(245, 199, 106, 0.4);
+        transform-origin: center bottom;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .card-label {
+        position: absolute;
+        bottom: 4px;
+        left: 6px;
+        right: 6px;
+        padding: 0.15rem 0.4rem;
+        border-radius: 999px;
+        background: rgba(5, 2, 10, 0.85);
+        font-size: 0.7rem;
+        text-align: center;
+        color: var(--accent);
+      }
+
+      .card.reversed img {
+        transform: rotate(180deg);
+      }
+
+      .card.reversed .card-label {
+        background: rgba(120, 24, 48, 0.85);
+        color: #ffd5e1;
+      }
+
+      .card-position {
+        position: absolute;
+        top: 4px;
+        left: 6px;
+        padding: 0.15rem 0.5rem;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.65);
+        font-size: 0.65rem;
+        color: var(--text-secondary);
+      }
+
+      .text-area {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .user-line {
+        font-size: 0.95rem;
+        color: var(--accent);
+      }
+
+      .question {
+        font-size: 0.95rem;
+        color: var(--text-primary);
+      }
+
+      .ai-text {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        max-height: 8.5rem;
+        overflow: hidden;
+      }
+
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-top: 0.2rem;
+      }
+
+      .badge {
+        font-size: 0.7rem;
+        border-radius: 999px;
+        padding: 0.15rem 0.6rem;
+        border: 1px solid rgba(245, 199, 106, 0.35);
+        background: rgba(5, 2, 10, 0.7);
+        color: var(--text-secondary);
+      }
+
+      .hint {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        opacity: 0.85;
+      }
+
+      .status {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        opacity: 0.75;
+        text-align: right;
+      }
+
+      .notification {
+        position: absolute;
+        top: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(5, 2, 10, 0.9);
+        border: 1px solid rgba(245, 199, 106, 0.5);
+        font-size: 0.8rem;
+        color: var(--accent);
+        max-width: 80vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .notification.visible {
+        opacity: 1;
+      }
+
+      .idle-message {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .card-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, #2a1a4a, #140b2a);
+        color: var(--text-secondary);
+        font-size: 0.65rem;
+        text-align: center;
+        padding: 4px;
+      }
+      .grid-container {
+        display: none;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 0.5rem;
+        align-items: center;
+        justify-items: center;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .grid-container.visible {
+        display: grid;
+      }
+      .grid-container .pos-a { grid-column: 1; grid-row: 3; }
+      .grid-container .pos-b { grid-column: 2 / span 2; grid-row: 3; }
+      .grid-container .pos-c { grid-column: 4; grid-row: 3; }
+      .grid-container .pos-f { grid-column: 1; grid-row: 2; }
+      .grid-container .pos-g { grid-column: 2; grid-row: 2; }
+      .grid-container .pos-h { grid-column: 3; grid-row: 2; }
+      .grid-container .pos-i { grid-column: 4; grid-row: 2; }
+      .grid-container .pos-d { grid-column: 1; grid-row: 1; }
+      .grid-container .pos-e { grid-column: 4; grid-row: 1; }
+      .grid-container .card {
+        width: 80px;
+        height: 140px;
+      }
+      .equilibrium-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+      }
+      .equilibrium-actions input {
+        flex: 1;
+        min-width: 120px;
+        padding: 0.4rem 0.6rem;
+        border-radius: 8px;
+        border: 1px solid rgba(245, 199, 106, 0.35);
+        background: rgba(5, 2, 10, 0.8);
+        color: var(--text-primary);
+        font-size: 0.85rem;
+      }
+      .equilibrium-actions button {
+        padding: 0.4rem 0.8rem;
+        border-radius: 8px;
+        border: 1px solid var(--accent);
+        background: rgba(245, 199, 106, 0.15);
+        color: var(--accent);
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+      .equilibrium-actions button:hover {
+        background: rgba(245, 199, 106, 0.25);
+      }
+      .advice-of-the-dead {
+        font-size: 0.8rem;
+        color: var(--accent);
+        font-style: italic;
+        margin-top: 0.5rem;
+      }
+
+      /* Attuning overlay (shown when a gift is sent) */
+      .attuning-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(ellipse at center, rgba(43, 15, 91, 0.97) 0%, rgba(5, 2, 10, 0.98) 70%);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+        pointer-events: none;
+      }
+      .attuning-overlay.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      .attuning-content {
+        text-align: center;
+        max-width: 520px;
+        padding: 2rem;
+      }
+      .attuning-title {
+        font-size: 1.4rem;
+        color: var(--accent);
+        letter-spacing: 0.12em;
+        margin-bottom: 1rem;
+        animation: attune-pulse 2.5s ease-in-out infinite;
+      }
+      @keyframes attune-pulse {
+        0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(245, 199, 106, 0.4); }
+        50% { opacity: 0.85; text-shadow: 0 0 35px rgba(245, 199, 106, 0.6); }
+      }
+      .attuning-subtitle {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+      }
+      .attuning-copy {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: var(--text-primary);
+        font-style: italic;
+        opacity: 0.95;
+      }
+      .attuning-copy strong { color: var(--accent); }
+
+      @media (max-width: 768px) {
+        .panel {
+          grid-template-columns: 1fr;
+        }
+        .cards-area {
+          justify-content: flex-start;
+          overflow-x: auto;
+        }
+        .card {
+          width: 90px;
+          height: 160px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay">
+      <div class="glow-orb"></div>
+      <div class="notification" id="notification"></div>
+
+      <div class="attuning-overlay" id="attuningOverlay">
+        <div class="attuning-content">
+          <div class="attuning-title mystical-title">The cards are attuning to <span id="attuningUsername">@username</span></div>
+          <div class="attuning-subtitle mystical-title" id="attuningSpread">Reading</div>
+          <p class="attuning-copy">
+            Breathe. Still your mind. Let your question rise to <strong>La Santa Muerte</strong>—she who walks between worlds. Do not fear her. In the end, we each meet the Night Mother; let her guide you while you still live. Speak your question in chat when the moment is right. Only you may ask.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="title mystical-title">Live Tarot Gate</div>
+            <div class="subtitle">
+              1k likes · shares · Universe gifts → automatic readings
+            </div>
+          </div>
+          <div class="status" id="status">Connecting…</div>
+        </div>
+
+        <div class="cards-area" id="cards"></div>
+        <div class="grid-container" id="equilibriumGrid"></div>
+
+        <div class="text-area">
+          <div class="equilibrium-actions">
+            <input type="text" id="equilibriumQuestion" placeholder="Question for Equilibrium Spread" />
+            <button type="button" id="equilibriumBtn">Equilibrium Spread</button>
+          </div>
+          <div class="user-line" id="user"></div>
+          <div class="question" id="question"></div>
+          <div class="ai-text interp-text" id="aiText"></div>
+          <div class="badge-row">
+            <div class="badge">1,000 likes (you) → yes/no · Share (you) → 2-card · Gifts → 3/5/7/9-card</div>
+            <div class="badge">Gifts: Sunglasses→3 · Money Rain→5 · Galaxy→7 · Lion/Universe→Equilibrium</div>
+            <div class="badge">!equilibrium → Santa Muerte 9-card</div>
+          </div>
+          <div class="hint" id="hint">
+            Waiting for the next reading… Encourage viewers to send likes, shares,
+            or a Universe gift and then ask their question in chat.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const statusEl = document.getElementById("status");
+      const cardsEl = document.getElementById("cards");
+      const userEl = document.getElementById("user");
+      const questionEl = document.getElementById("question");
+      const aiTextEl = document.getElementById("aiText");
+      const hintEl = document.getElementById("hint");
+      const notificationEl = document.getElementById("notification");
+
+      let ws;
+
+      function connectWebSocket() {
+        const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+        const url = protocol + "://" + window.location.host;
+        ws = new WebSocket(url);
+
+        ws.onopen = () => {
+          statusEl.textContent = "Connected";
+        };
+
+        ws.onclose = () => {
+          statusEl.textContent = "Disconnected – retrying…";
+          setTimeout(connectWebSocket, 2000);
+        };
+
+        ws.onerror = () => {
+          statusEl.textContent = "Error – reconnecting…";
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.event === "new_reading") {
+              document.getElementById("attuningOverlay").classList.remove("visible");
+              document.getElementById("equilibriumGrid").classList.remove("visible");
+              document.getElementById("cards").style.display = "flex";
+              renderReading(data);
+            } else if (data.event === "equilibrium_reading") {
+              document.getElementById("attuningOverlay").classList.remove("visible");
+              document.getElementById("cards").style.display = "none";
+              renderEquilibrium(data);
+            } else if (data.event === "attuning") {
+              document.getElementById("attuningUsername").textContent = "@" + (data.username || "viewer");
+              document.getElementById("attuningSpread").textContent = data.spreadLabel || "Reading";
+              document.getElementById("attuningOverlay").classList.add("visible");
+              setTimeout(function () {
+                document.getElementById("attuningOverlay").classList.remove("visible");
+              }, 12000);
+            } else if (data.event === "notification") {
+              showNotification(data.message);
+            }
+          } catch (e) {
+            console.error("Invalid WS message", e);
+          }
+        };
+      }
+
+      document.getElementById("equilibriumBtn").addEventListener("click", async () => {
+        const q = document.getElementById("equilibriumQuestion").value.trim() || "General guidance";
+        try {
+          const res = await fetch("/api/equilibrium", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question: q, username: "Streamer" }),
+          });
+          if (!res.ok) throw new Error(await res.text());
+        } catch (e) {
+          console.error("Equilibrium trigger failed", e);
+        }
+      });
+
+      function showNotification(message) {
+        notificationEl.textContent = message;
+        notificationEl.classList.add("visible");
+        setTimeout(() => {
+          notificationEl.classList.remove("visible");
+        }, 4500);
+      }
+
+      function renderReading(payload) {
+        const { type, username, question, cards } = payload;
+
+        // Clear cards
+        cardsEl.innerHTML = "";
+
+        const positionsMap = {
+          yesno: ["Answer"],
+          two_card: ["What you're going through now", "What's going to help you get through this"],
+          three_card: ["Past (how it affects you)", "What you're going through now", "What to do in the future"],
+          five_card: [
+            "Present / General theme",
+            "Past influences",
+            "The future",
+            "Reason behind the question",
+            "Potential or outcome",
+          ],
+          celtic7: [
+            "The past",
+            "The present",
+            "The future",
+            "Obstacles or challenges",
+            "Attitudes of others",
+            "What you should do (advice)",
+            "The outcome",
+          ],
+        };
+
+        const labels = positionsMap[type] || [];
+
+        cards.forEach((card, idx) => {
+          const wrapper = document.createElement("div");
+          wrapper.className = "card" + (card.upright ? "" : " reversed");
+
+          if (card.file) {
+            const img = document.createElement("img");
+            img.src = "/cards/" + card.file;
+            img.alt = card.name;
+            wrapper.appendChild(img);
+          } else {
+            const placeholder = document.createElement("div");
+            placeholder.className = "card-placeholder card-name";
+            placeholder.textContent = card.name;
+            wrapper.appendChild(placeholder);
+          }
+
+          const label = document.createElement("div");
+          label.className = "card-label card-name";
+          label.textContent = card.name;
+
+          if (labels[idx]) {
+            const pos = document.createElement("div");
+            pos.className = "card-position card-name";
+            pos.textContent = labels[idx];
+            wrapper.appendChild(pos);
+          }
+
+          wrapper.appendChild(label);
+          cardsEl.appendChild(wrapper);
+        });
+
+        userEl.textContent = username ? "Reading for @" + username : "";
+        questionEl.textContent = question || "";
+        if (payload.aiText) {
+          aiTextEl.innerHTML = payload.aiText.replace(/\n/g, "<br>");
+        } else {
+          aiTextEl.textContent = "";
+        }
+
+        if (type === "yesno") {
+          hintEl.textContent =
+            "1,000 likes unlocks a yes/no card. Only the user who sent the likes may ask.";
+        } else if (type === "two_card") {
+          hintEl.textContent =
+            "Share the live to unlock a 2-card reading. Only the sharer may ask.";
+        } else if (type === "three_card") {
+          hintEl.textContent =
+            "3-card: Past, Present, Future. Gift ~199+ coins only.";
+        } else if (type === "five_card") {
+          hintEl.textContent =
+            "5-card: Situation, Obstacle, Past, Recent, Outcome. Gift ~500+ coins only.";
+        } else if (type === "celtic7") {
+          hintEl.textContent =
+            "7-card Celtic: gift ~1,000+ coins (Galaxy/Universe) or premium gift.";
+        } else {
+          hintEl.textContent =
+            "Likes, share, !equilibrium, or gifts (Sunglasses→3, Money Rain→5, Galaxy→7, Lion/Universe→Equilibrium).";
+        }
+      }
+
+      function renderEquilibrium(payload) {
+        const grid = document.getElementById("equilibriumGrid");
+        grid.classList.add("visible");
+        grid.innerHTML = "";
+        const order = ["D", "E", "F", "G", "H", "I", "A", "B", "C"];
+        const positions = payload.positions || {};
+        order.forEach((key) => {
+          const data = positions[key];
+          const cell = document.createElement("div");
+          cell.className = "pos-" + key.toLowerCase();
+          if (data && data.description) cell.title = data.description;
+          if (data && data.card) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "card" + (data.card.upright ? "" : " reversed");
+            if (data.card.file) {
+              const img = document.createElement("img");
+              img.src = "/cards/" + data.card.file;
+              img.alt = data.card.name;
+              wrapper.appendChild(img);
+            } else {
+              const ph = document.createElement("div");
+              ph.className = "card-placeholder card-name";
+              ph.textContent = data.card.name;
+              wrapper.appendChild(ph);
+            }
+            const label = document.createElement("div");
+            label.className = "card-label card-name";
+            label.textContent = data.label + ": " + data.card.name;
+            wrapper.appendChild(label);
+            cell.appendChild(wrapper);
+          }
+          grid.appendChild(cell);
+        });
+        userEl.textContent = payload.username ? "Reading for @" + payload.username : "";
+        questionEl.textContent = payload.question || "";
+        aiTextEl.textContent = (payload.adviceOfTheDead ? "Advice of the dead: " + payload.adviceOfTheDead + "\n\n" : "") + "Santa Muerte Equilibrium Spread — see grid.";
+        if (payload.adviceOfTheDead) console.log("[Advice of the dead]", payload.adviceOfTheDead);
+        hintEl.textContent = "Type !equilibrium in chat to request this spread, then ask your question.";
+      }
+
+      connectWebSocket();
+    </script>
+  </body>
+  </html>
+

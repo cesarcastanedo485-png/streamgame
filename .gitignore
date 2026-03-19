@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Environment and secrets (never commit)
+.env
+.env.*
+!.env.example
+
+# Local state
+active-deck.json
+wands_temp/
+
+# Build / output
+build/
+dist/
+*.log
+.DS_Store
+
+# IDE / tools
+.cursor/
+.vscode/
+*.swp
+*.swo
+
+# Optional: uncomment to avoid committing uploaded deck images
+# decks/

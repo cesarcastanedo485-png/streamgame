@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Deck Library — Upload & switch decks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --bg: #0f0e14;
+        --panel: #1a1822;
+        --border: rgba(245, 199, 106, 0.25);
+        --accent: #f5c76a;
+        --text: #e8e4f0;
+        --muted: #888;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 1rem;
+      }
+      h1 { font-size: 1.1rem; color: var(--accent); margin: 0 0 0.5rem 0; }
+      .subtitle { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+      .toolbar label { color: var(--muted); font-size: 0.9rem; }
+      .toolbar select {
+        background: #0d0c12;
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 0.4rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+      }
+      .toolbar button {
+        background: var(--accent);
+        color: #0f0e14;
+        border: none;
+        padding: 0.4rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+      .toolbar button:hover { opacity: 0.9; }
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.5rem;
+      }
+      .card-slot {
+        border: 2px dashed var(--border);
+        border-radius: 10px;
+        padding: 0.5rem;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.75rem;
+        color: var(--muted);
+        transition: border-color 0.2s, background 0.2s;
+      }
+      .card-slot.drag-over {
+        border-color: var(--accent);
+        background: rgba(245, 199, 106, 0.1);
+      }
+      .card-slot.has-image { border-style: solid; }
+      .card-slot .name { color: var(--text); font-weight: 600; margin-bottom: 0.25rem; word-break: break-word; }
+      .card-slot img {
+        max-width: 100%;
+        max-height: 80px;
+        object-fit: contain;
+        border-radius: 6px;
+        margin-bottom: 0.25rem;
+      }
+      .card-slot.upload-default { opacity: 0.7; }
+      a { color: var(--accent); font-size: 0.85rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Deck Library</h1>
+    <p class="subtitle">Drag JPEG/PNG images onto a card slot to upload. Switch decks for the day from the dropdown.</p>
+
+    <div class="toolbar">
+      <label for="deck-select">Active deck:</label>
+      <select id="deckSelect"></select>
+      <button type="button" id="newDeckBtn">New deck</button>
+      <a href="/control">Control panel</a>
+      <a href="/">Overlay</a>
+    </div>
+
+    <div class="cards-grid" id="cardsGrid"></div>
+
+    <script>
+      const deckSelect = document.getElementById("deckSelect");
+      const newDeckBtn = document.getElementById("newDeckBtn");
+      const cardsGrid = document.getElementById("cardsGrid");
+
+      async function loadDecks() {
+        const res = await fetch("/api/decks");
+        const decks = await res.json();
+        const activeRes = await fetch("/api/decks/active");
+        const { deckId } = await activeRes.json();
+        deckSelect.innerHTML = decks.map((d) =>
+          `<option value="${d.id}" ${d.id === deckId ? "selected" : ""}>${escapeHtml(d.name)}</option>`
+        ).join("");
+        return deckId;
+      }
+
+      async function loadCards(deckId) {
+        const res = await fetch("/api/decks/active/cards");
+        const cards = await res.json();
+        const canUpload = deckId !== "default";
+        cardsGrid.innerHTML = cards.map((c) => {
+          const cls = "card-slot" + (c.file ? " has-image" : "") + (canUpload ? "" : " upload-default");
+          return `<div class="${cls}" data-key="${escapeAttr(c.key)}">${c.file ? `<img src="${escapeAttr(c.file)}" alt="" />` : ""}<span class="name">${escapeHtml(c.name)}</span><span>Drop image here</span></div>`;
+        }).join("");
+      }
+
+      cardsGrid.addEventListener("dragover", (e) => {
+        const slot = e.target.closest(".card-slot");
+        if (slot && slot.classList.contains("upload-default") === false) e.preventDefault();
+      });
+      cardsGrid.addEventListener("dragenter", (e) => {
+        const slot = e.target.closest(".card-slot");
+        if (slot && !slot.classList.contains("upload-default")) slot.classList.add("drag-over");
+      });
+      cardsGrid.addEventListener("dragleave", (e) => {
+        const slot = e.target.closest(".card-slot");
+        if (slot) slot.classList.remove("drag-over");
+      });
+      cardsGrid.addEventListener("drop", async (e) => {
+        const slot = e.target.closest(".card-slot");
+        if (!slot || slot.classList.contains("upload-default")) return;
+        e.preventDefault();
+        slot.classList.remove("drag-over");
+        const file = e.dataTransfer.files[0];
+        if (!file || !/\.(jpe?g|png)$/i.test(file.name)) return;
+        const deckId = deckSelect.value;
+        const cardKey = slot.dataset.key;
+        await uploadCard(deckId, cardKey, file, slot);
+      });
+
+      function escapeHtml(s) {
+        const div = document.createElement("div");
+        div.textContent = s;
+        return div.innerHTML;
+      }
+      function escapeAttr(s) { return escapeHtml(s).replace(/"/g, "&quot;"); }
+
+      async function uploadCard(deckId, cardKey, file, slotEl) {
+        const form = new FormData();
+        form.append("file", file);
+        const res = await fetch(`/api/decks/${encodeURIComponent(deckId)}/cards/${encodeURIComponent(cardKey)}/upload`, {
+          method: "POST",
+          body: form,
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          alert(err.error || "Upload failed");
+          return;
+        }
+        const data = await res.json();
+        const img = slotEl.querySelector("img");
+        if (img) img.src = data.file;
+        else {
+          const n = slotEl.querySelector(".name");
+          const i = document.createElement("img");
+          i.src = data.file;
+          i.alt = "";
+          slotEl.insertBefore(i, n);
+        }
+        slotEl.classList.add("has-image");
+      }
+
+      deckSelect.addEventListener("change", async () => {
+        const deckId = deckSelect.value;
+        await fetch("/api/decks/active", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ deckId }),
+        });
+        await loadCards(deckId);
+      });
+
+      newDeckBtn.addEventListener("click", async () => {
+        const name = prompt("Deck name:");
+        if (!name) return;
+        const res = await fetch("/api/decks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: name.trim() }),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          alert(err.error || "Failed");
+          return;
+        }
+        const { id } = await res.json();
+        await loadDecks();
+        deckSelect.value = id;
+        await fetch("/api/decks/active", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ deckId: id }),
+        });
+        await loadCards(id);
+      });
+
+      (async function init() {
+        const deckId = await loadDecks();
+        await loadCards(deckId);
+      })();
+    </script>
+  </body>
+</html>

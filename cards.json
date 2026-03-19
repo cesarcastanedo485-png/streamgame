@@ -1,0 +1,551 @@
+{
+  "cards": [
+    {
+      "name": "0 - THE FOOL",
+      "upright": "Whether it be the beginning or the end of a new project or a journey, what the Fool brings with him is a great flood of energy, a feeling of lightness and novelty. The road on which he finds himself, whether going towards or moving away from something, can be seen as an escape or as a liberation. It is nevertheless always illuminated by intuition and perspicacity. If we are in the middle of a problem or a negative moment, this is because the card can bring with it as baggage things like chaos, impulsiveness, indecision, and can lead to irrational choices, incoherence, or the flightiness of a butterfly.",
+      "reversed": "The Fool reversed heralds a stumbling halt or misguided detour in your project or journey, burdened by stagnant energy, the weight of routine turned to tedium, and a sense of confinement. The path feels like a snare rather than freedom, shrouded in uncertainty and poor discernment. Amid apparent progress or joy, it cautions of hidden turmoil, reluctance, excessive caution, and decisions rooted in dread, fostering immobility, disarray, or the erratic drift of a wayward spirit. Our ancestors remind us that even in reversal, death's cycle promises renewal—pause to shed unnecessary loads before stepping forth.",
+      "advice": "Continue along your road, having focused on your objectives. Often, traveling lightly and freeing yourself of some baggage can help to channel your energies better.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "I - THE MAGICIAN",
+      "upright": "We are facing a beginning and we can begin with the choices in harmony with our deepest will, letting the primordial fire that illuminates the head of the Magician act as the spark. Potentials, such as his talent, his abilities to persuade or astuteness are at their maximum level in a creative and receptive equilibrium, catalyzed by his instruments such as the wand and the chalice. Where however the will is not clear but clouded, as if covered by a veil, it is then easy to act imprudently, to have prejudices, to hesitate or to remain in a stalled situation, a victim of indecision.",
+      "reversed": "The Magician reversed signals a clouded commencement, where choices clash with your inner will, the primordial fire dimmed to embers of confusion. Talents, persuasion, and cunning lie dormant or misused in imbalance, his tools wielded clumsily amid hesitation or blockage. When clarity fades, imprudence reigns, breeding bias, delay, or entrapment in inertia. Our forebears urge caution—reignite the spark wisely, lest veiled ambitions lead to folly.",
+      "advice": "Do not waste time: act. You can trust your own abilities without delay, but carefully evaluate where you aim your potential and the object of your choices.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "II - THE HIGH PRIESTESS",
+      "upright": "The High Priestess represents wisdom, such as the rigor and commitment to attain this through study, evaluation, management and also through the consultation and closeness of a female figure, maternal and mature. She suggests a period of waiting or perhaps isolation, during which it is possible to think deeply about what we need and to then grasp the key that will open what was previously accumulated. The risk of this process however is to remain too closed within oneself, to accumulate perhaps secrets, and to then be prey to pride, laziness or passivity, much like a bird that silently observes from above, from its point of view, without acting.",
+      "reversed": "The High Priestess reversed warns of obscured wisdom, where rigor and commitment falter amid superficial study, misjudgment, and detachment from maternal guidance. A period of forced isolation breeds shallow reflection, failing to unlock accumulated potentials. Excess closure fosters hidden secrets, swelling into arrogance, sloth, or inaction, like a bird perched aloof, missing the call to engage. Our ancestors whisper—break the silence, lest pride seals your fate in stagnation.",
+      "advice": "Proceed with study and meditate on the best road that will take you where you can realize your project, without forgetting to value what you are accumulating or keeping.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "III - THE EMPRESS",
+      "upright": "This card represents a first and important explosion of creativity, dynamism and intuition; a natural pulsation, passionate and spontaneous, capable of dominating, seducing and shining with happiness. The Empress brings with her development, abundance and progress, but an action that is too impulsive and undertaken with little experience could bring quick results that do not last - like a branch that has been prematurely removed before fully developing. A further risk is that of being caught in not taking action if presumption or malice has the upper hand.",
+      "reversed": "The Empress reversed stifles the burst of creativity, turning dynamism to lethargy and intuition to doubt; a stifled pulse, apathetic and contrived, failing to captivate or radiate joy. Development withers into scarcity and regression, impulsive acts yielding fleeting gains that crumble like unripe fruit plucked too soon. Inaction prevails when arrogance or spite dominates. Our lineage advises—nurture patience, lest malice halts your bloom.",
+      "advice": "Make the most of your experiences and act quickly, avoiding indecision or laziness. If necessary plan your actions more rationally in order to let what you desire blossom in your life.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "IV - THE EMPEROR",
+      "upright": "We are faced here with the domain of the material, stability, of an equilibrium attained through experience and rationality. The Emperor incarnates masculine and patriarchal power, capable of attaining concrete conquests in the world, including those in the economic field, as is demonstrated by the casket on which he leans. He also represents security and irremovability as the anchor at his feet demonstrates. An excess or abuse of power can bring about his degeneration, making him become a cold tyrant or an adversary instead of a paternal and comforting figure.",
+      "reversed": "The Emperor reversed disrupts material domain, instability reigning over shattered equilibrium from inexperience and irrationality. Masculine power twists into weakness, failing concrete conquests, the casket empty of wealth, anchor adrift in uncertainty. Abuse festers into tyranny or opposition, cold and unyielding. Our ancestors counsel—seek balance, lest degeneration turns protector to foe.",
+      "advice": "Do not be afraid of aiming high with your objectives and with those you are materially constructing, even accepting the help of a person who is important and protective.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "V - THE HIEROPHANT",
+      "upright": "The Hierophant in this case fully incarnates his role as a mediator, a bridge, capable of connecting what is above and what is below, what was with what will be. The wisdom that comes from our ancestors and from the collective consciousness they created, freely flows in this mature figure, capable of communicating, clarifying, helping and protecting, as well as bringing and attributing an ideal to our actions. He becomes particularly negative however whenever fanaticism takes the upper hand, transforming his figure into a false and intolerant guru.",
+      "reversed": "The Hierophant reversed fails as mediator, bridges crumbling between above and below, past and future severed. Ancestral wisdom stagnates in immaturity, unable to communicate, clarify, aid, or shield, ideals lost in void. Fanaticism dominates, morphing into deceitful intolerance. Our forebears warn—reject false guides, lest disconnection isolates your path.",
+      "advice": "Once you have analyzed the situation with foresight, your means and what you are able to communicate, proceed towards your objectives and your ideals.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "VI - THE LOVERS",
+      "upright": "The card of the Lovers forces us to choose, but not before we have gone through a period of learning, including doubts, crossroads and ambiguities. We are finally ready to do what we like and to love what we do. The key of the choice shines actively and our heart is ready to accept it, creating a new union, a new project or a new friendship. It is also a moment for meetings, of social life, altruism, but on the negative side it can bring doubts, arguments and even separations, deceptions or temptations.",
+      "reversed": "The Lovers reversed compels misguided choices amid unlearned lessons, doubts multiplying at crossroads of ambiguity. Unready hearts reject shining keys, fracturing unions, projects, friendships. Isolation supplants meetings, selfishness over altruism, breeding arguments, separations, deceptions, temptations. Our ancestors guide—resolve inner conflicts, lest love's bonds dissolve in discord.",
+      "advice": "Having chosen the direction, proceed without hesitation towards that road. It will probably be the harder road but it will reveal itself without doubt to be the best way to gain what you love.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "VII - THE CHARIOT",
+      "upright": "The road has been cleared and the Chariot is ready for action - to travel, conquer, to spread our influence to the world and inspire others in their own efforts. This is the dynamic arcana of control, triumph and conquest. A dynamic harmony that pushes us towards a new and engaging phase that will see our efforts repaid. However when a problem arises, this dynamic push is inverted and there is a risk of remaining static, of inconclusiveness, seeing obstacles at every crossroad. It could also degenerate into counter-productive and uncontrolled ambitions.",
+      "reversed": "The Chariot reversed stalls on obstructed paths, action thwarted in travel, conquest, influence. Dynamic harmony fractures into discontrol, defeat, retreat. Efforts unrewarded in stagnant phases, obstacles omnipresent, ambitions spiraling uncontrolled and counterproductive. Our ancestors advise—realign your drive, lest inconclusiveness halts your journey.",
+      "advice": "Act and take on with courage the road you have decided to face while conserving a certain prudence in not letting yourself be overwhelmed by your emotions.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "VIII - STRENGTH",
+      "upright": "A new creative beginning or a new injection of energy will be guaranteed to those who do not renounce the fight and the challenge, carried forward by their own will and embracing their own projects with conviction, courage, sincerity and ownership. There is no sense in suffocating the animal energy in us but rather sublimate it, control it with determination and channel it the right way. An excess of this could cause arrogance and possessiveness and in the worst cases, repression, hardheadedness and egoism or the contrary when it is absent: staticity, insecurity and weakness.",
+      "reversed": "Strength reversed yields to renounced fights, challenges abandoned, will faltering without conviction or courage. Animal energy suffocates unsublimated, uncontrolled, mischanneled. Excess breeds arrogance, possessiveness; absence fosters repression, stubbornness, egoism, or stasis, insecurity, weakness. Our forebears implore—embrace the beast within, lest weakness claims your spirit.",
+      "advice": "Act without hesitation, with strength and courage, completely trusting what you have built and learned in order to arrive here and to attain what you desire.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "IX - THE HERMIT",
+      "upright": "The Hermit represents a positive crisis to deal with and to relinquish to. A slow but profound evolution in a rather long period of silence and removal, where at times it is actually in the deepest darkness we rediscover our own light and acquire wisdom. This card also represents a paternal archetype, a wise figure, prudent, a master who functions for us as a guide and transitory figure, ready to illuminate our journey. An excess of isolation however can bring with it a certain slowness, an inability to be able to develop certain latent talents, or a period of stasis and abnegation.",
+      "reversed": "The Hermit reversed resists positive crises, evolution halted in prolonged silence, removal breeding endless darkness without rediscovered light or wisdom. Paternal archetype distorts to imprudent fool, no guide illuminating paths. Excess isolation slows to stagnation, undeveloped talents, abnegation perpetual. Our ancestors beckon—emerge from shadows, lest isolation devours your potential.",
+      "advice": "Take the time necessary for your actions, evaluating what you need to renounce or what you should remove from yourself in order to leave a situation that is placing you in difficulty.",
+      "yes_no": "No"
+    },
+    {
+      "name": "X - THE WHEEL OF FORTUNE",
+      "upright": "According to the position in which this card appears, it represents the beginning, the middle or the end of a cycle. It represents dynamism, mutation and the complementarity with which we move uninterrupted, changing direction and orientation. On the horizon can be seen unexpected but positive events, favorable circumstances and successes but ones not to linger upon in order to avoid risking stagnation. If we do not continue to move, to be fluid and changeable like the wheel itself, we will find ourselves blocked and laziness will make our situation even more precarious.",
+      "reversed": "The Wheel of Fortune reversed locks cycles in perpetual middles, dynamism frozen, mutation denied, complementarity fractured in interrupted motion. Horizons cloud with unexpected negatives, unfavorable circumstances, failures lingered in stagnation. Immobility prevails, fluidity lost, precariousness amplified by laziness. Our ancestors caution—embrace change, lest blockage perpetuates your plight.",
+      "advice": "Support new circumstances and face the changes in front of you in time, if they enable you to proceed until it is necessary to change once again.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "XI - JUSTICE",
+      "upright": "This card pushes towards balance and stability, perfection, the ability to measure things out and to evaluate, but above all to attain what we really merit. Justice, for this reason will be clement and generous with the good and severe with the bad. The outcome therefore implies that it will be the right one for the impartial and honest consultant. The negative meaning indicates it could come to incarnate a castrating maternal figure, or bring uncertainties, excesses, and the consultant could feel the consequences of his/her own erroneous actions.",
+      "reversed": "Justice reversed veers from balance, instability and imperfection prevailing, mismeasurement and poor evaluation denying merit. Clemency turns cruel, generosity stingy, severity unjust. Outcomes wrong for the biased, castrating figures dominate with uncertainties, excesses, erroneous consequences. Our ancestors decree—seek truth, lest imbalance reaps your due.",
+      "advice": "Deal with the situation methodically, in a balanced way and with an organizational spirit, without letting yourself become disrupted by desires or passions.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "XII - THE HANGED MAN",
+      "upright": "The Hanged Man indicates a moment of pause, distance, meditation and preparation in order to think deeper and more profoundly about our projects, even facing some sacrifice. This in-depth search could occur in a passive manner, by remaining receptive and willing to listen or to experiment. This card can also bring about a positive change of perspective, values or a new point of view and make us understand that perhaps this is not the right time to act or make a choice. In its degeneracy it can arrive at a situation of total block, of the inability to act in the face of negativity, doubts and secrets.",
+      "reversed": "The Hanged Man reversed rejects pause, distance turning to entanglement, meditation shallow, preparation absent amid avoided sacrifices. Receptivity closes, unwilling to listen or experiment, perspectives unchanged, values stagnant. Total block dominates, inaction amid negativity, doubts, secrets. Our forebears urge—shift views, lest degeneracy chains you in limbo.",
+      "advice": "This is the time to slow down and to understand from a new perspective what to think more about or what to sacrifice, with the aim of attaining profound changes.",
+      "yes_no": "No"
+    },
+    {
+      "name": "XIII - SANTA MUERTE",
+      "upright": "A profound transformation, a renewal, a true and proper revolution. If it is life that generates death then death generates life. We are connected to all that surrounds us, to the people who have come before us and to those who will come from the cradle to the tomb, from the coffin to the womb, in a continual exchange and a continual regeneration not of opposites but of complementary elements. Santa Muerte brings with it new projects, changes, cuts and the necessary abandonment of what we keep stationary and entangled, like the past or suffocating ties. These changes however are not always pain-free but can bring with them trauma, anger, violence and loss including an immobility when we refuse to take on these transmutations.",
+      "reversed": "Santa Muerte reversed resists profound transformation, renewal stalled, revolution suppressed. Life-death cycle breaks, connections severed from surroundings, ancestors, descendants. Exchanges cease, regeneration of complements halted in opposition. Stagnant projects, resisted changes, uncut ties entangle in past suffocation. Trauma, anger, violence, loss amplify in immobility. Our ancestors implore—embrace the revolution, lest refusal perpetuates pain.",
+      "advice": "Accept the changes that are offered in front of you, without fear of cutting ties and cutting yourself off from your old positions, old ideas or preconceptions. A mutation is imposing itself.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "XIV - TEMPERANCE",
+      "upright": "This card is protection, healing and circulation. It forces us to mitigate, to find the middle path and to add something valid that is capable of placating to avoid traumatic cuts. Temperance is an arcana of adaptation, reconciliation and harmony where it is cooperation that determines the birth of something new, ready to spread out into the world. Whenever problems are raised however, it will be disorder and coldness that take the upper hand, unsettle the balance, and close off any kind of circulation or communication.",
+      "reversed": "Temperance reversed abandons protection, healing halted, circulation blocked. Extremes dominate without mitigation, middle paths lost, additions invalid breeding traumatic cuts. Adaptation fails, reconciliation fractures, harmony lost in non-cooperation. Disorder, coldness unsettle, closing flows. Our ancestors heal—seek middle ground, lest unrest seals your isolation.",
+      "advice": "Evaluate your objectives well and with moderation try to reach a balance that will enable you to make the unstable stable, or move what is fixed.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "XV - THE DEVIL",
+      "upright": "Creativity and passion at its highest point. The Devil is the source from where we attain will, audacity and charisma unto the profound depths of the psyche and human subconsciousness. It pushes us to realize and liberate our true nature by encountering successes, contracts, and solid and lasting targets. When the situation however is in the negative, this could become a synonym of arrogance, possessiveness and dependency, creating suffocating and binding ties like the strings a puppeteer holds in his hands.",
+      "reversed": "The Devil reversed dims creativity and passion, source dried of will, audacity, charisma in psyche's shallows. True nature imprisoned, successes eluded, contracts broken, targets fragile. Arrogance, possessiveness, dependency suffocate unbound. Our ancestors liberate—release ties, lest dependency puppets your soul.",
+      "advice": "Free yourself from what you think you are tied to and become who you really are, following your instinct and your inner fire, without giving in to flattery and properly evaluating the dangers that surround you.",
+      "yes_no": "No"
+    },
+    {
+      "name": "XVI - THE TOWER",
+      "upright": "Something that you have been opposed to for probably a long time is about to emerge, explode and open itself to the world. The Tower therefore is a living construction, overcrowded and teeming, exposed due to a sudden change that will alter the balances, and whose orientations and directions therefore could seem to become confused or overturned. It could be difficult to go against the current and against common opinion but this is how illumination will arrive. Otherwise it will be a violent separation that will win, an expulsion that will bring with it a crisis, unbalance and in the worst cases, a true catastrophe.",
+      "reversed": "The Tower reversed suppresses emergence, explosion contained, world closed to revelations. Living constructions implode in isolation, changes resisted, balances unaltered in confusion. Conformity prevails, illumination denied in violent unions, crises averted but stagnation ensues. Our ancestors rebuild—embrace upheaval, lest catastrophe lingers unspoken.",
+      "advice": "Destroy old structures and superficial structures without fear, and those that have become over time a prison and liberate the energies that were enclosed within them.",
+      "yes_no": "No"
+    },
+    {
+      "name": "XVII - THE STAR",
+      "upright": "An active, luminous arcana, full of hope and immersed in its own environment. The Star brings with it receptiveness, altruism, fertility. It is like a powerful action of irrigating the world where finally we find our place, able to reposition our own energies towards positive perspectives for the future. It also pushes us at times to not choose between the two options we find in our hands and that seem incompatible, but to reconcile them. If this flow however is aimed badly there will be inevitable losses and waste, such as feelings of uncertainty, nostalgia and at times obstinacy.",
+      "reversed": "The Star reversed darkens luminosity, hope faded in detached environments. Receptiveness closes, altruism barren, fertility dried. Irrigation floods destructively, places lost, energies mispositioned to negative futures. Incompatible options forced, unreconciled. Losses, waste amplify uncertainty, nostalgia, obstinacy. Our ancestors illuminate—redirect flow, lest waste drowns your path.",
+      "advice": "You are traveling the right path therefore do not give up hope. Continue, once you have completely focused on your objective, to channel your energies towards this, remembering that the more you give the more you will receive in exchange.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "XVIII - THE MOON",
+      "upright": "The female and maternal archetype par excellence. The Moon brings with it receptiveness, intuition, the power of the imagination, ideals, but also mysteries and secrets. It is the card of the subconscious and of dreams, capable of revealing and overcoming the illusion of existence. The Moon’s reflection is captured in water, from the tranquility of a lake to the sacred enclosure of a chalice, its essence whole and true. The reverse of this can however bring prejudices, isolation, or the keeping of secrets that are too heavy, leading to confusion and madness.",
+      "reversed": "The Moon reversed distorts maternal archetype, receptiveness blocked, intuition silenced, imagination powerless amid exposed illusions. Subconscious dreams conceal rather than reveal, mysteries burdensome, secrets overwhelming. Reflections shatter in turbulent waters, essence fragmented. Prejudices, isolation, heavy secrets breed confusion, madness. In La Santa Muerte's lunar phase for Dia de los Muertos, ancestors unveil—trust revelations, lest illusions ensnare your mind.",
+      "advice": "Trust your intuition but continue to listen and to observe what surrounds you to discern its true nature.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "XIX - THE SUN",
+      "upright": "The Sun represents the male and paternal archetype, rationality, the conscience, like the beginning of a new construction and the arrival of a great success.This card, more than any other, brings with it abundance, brotherhood and an unconditional love and illuminates and warms our way. An arcana of power, command and a guide through circumstances but also people. For this reason the reverse could be the transformation into a tyrant, encouraging rivalry, vanity or arrogance. We must never forget that an excess of sun can burn and provoke drought.",
+      "reversed": "The Sun reversed shadows paternal archetype, irrationality clouding conscience, constructions crumbling without success. Abundance scarce, brotherhood fractured, love conditional in darkness. Power corrupts to tyranny, rivalry, vanity, arrogance burning unchecked. Drought parches paths. As La Santa Muerte warms the Dia de los Muertos fires, kin enlighten—temper light, lest excess scorches your bonds.",
+      "advice": "Move ahead on your projects with serenity as they can now derive energy from a new luminous and benevolent source. Leave all of your worries that darken your life behind you.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "XX - JUDGEMENT",
+      "upright": "The master of the four elements, Judgement calls from above in a loud voice a powerful and important renewal, the birth of a new conscience, a new family, a reawakening and the liberation of something that we kept closed and isolated. This card represents a call to express our vocation but also to discover, to evaluate or to be evaluated and judged. When the negative side prevails, it will bring about consequences such as the fear of failure, infantile behavior, crisis and insecurities that will tempt us to remain closed within the coffin which we are called upon to leave.",
+      "reversed": "Judgement reversed mutes the master's call, renewal whispered weakly, conscience unborn, family fractured in slumber, isolation perpetuated. Vocation ignored, discoveries unevaluated, judgments evaded. Fear of failure, infantile acts, crises, insecurities seal the coffin. In La Santa Muerte's resounding trumpet for Dia de los Muertos, ancestors summon—heed the awakening, lest closure buries your potential.",
+      "advice": "Having judged and pondered the situation, act rapidly and indulge the desire that is awakening in you.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "XXI - THE WORLD",
+      "upright": "The card of total realization, of expansion and achievement. The World brings with it a slow but constant and determined evolution towards success, fullness, towards one’s real personal and professional objectives, as if towards the transformation and discovery of a new balance at the peak of a cycle. If this card presents itself at the beginning of a reading, it could bring up a problem connected to a difficult beginning of something, where a premature realization is necessary before the action, a contraction of time with the risk of not being able to conclude when necessary, or else the emergence of egocentric or dispersive characteristics.",
+      "reversed": "The World reversed denies total realization, expansion contracted, achievement thwarted. Evolution slows to halt, success elusive, fullness empty, objectives unrealized in imbalanced cycles. Difficult beginnings premature, time contracted without conclusion, egocentrism dispersive. As La Santa Muerte encompasses the Dia de los Muertos cosmos, kin expand—pursue balance, lest contraction isolates your triumphs.",
+      "advice": "Do not give up and do not be afraid. The road you have taken is the right one and whatever difficulty you find will be brief and you will achieve the results you desire.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Ace of Chalices",
+      "upright": "The Ace of Chalices represents the source of emotional life, of receptiveness, of abundance, of the home as both a property and as a family. This is the arcana of fertility, of metamorphosis and of fulfilled affections. It can however bring with it inconsistency, coldness, a sense of dissatisfaction and a loss of faith.",
+      "reversed": "The Ace of Chalices reversed dries the emotional source, receptiveness closed, abundance barren, home fractured in property and family. Fertility sterile, metamorphosis stalled, affections unfulfilled. Inconsistency, coldness, dissatisfaction, faith lost dominate. In La Santa Muerte's flowing chalice for Dia de los Muertos, ancestors replenish—seek fulfillment, lest emptiness quenches your heart.",
+      "advice": "Having thought properly about your choices you will be ready to take on a new phase of creativity and change that will bring something new to light.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "2 of Chalices",
+      "upright": "Love is the imperative of this card; passion, a strong connection of reciprocal exchange and attraction, affection, complementarity and comprehension. It can signify a gestation after an accumulation, but reversed it can also symbolize the birth of jealousy, frustration, a betrayal and a resulting separation.",
+      "reversed": "The 2 of Chalices reversed inverts love's imperative, passion cooled, connections broken in one-sided exchanges, repulsion over attraction. Affection wanes, complementarity clashing, comprehension lost. Gestation aborted post-accumulation, jealousy, frustration, betrayal, separation birthed. As La Santa Muerte unites souls on Dia de los Muertos, kin bond—mend reciprocities, lest fractures sever your ties.",
+      "advice": "Gain wellbeing and happiness when you have rightly accumulated it but also when you have received and prepared for the next steps to take.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "3 of Chalices",
+      "upright": "The dynamic nature of the number three brings to this suit the feelings and emotions of a triumph, a healing, a resolution and the consequent celebration for what has occurred. If it degenerates it can bring with it ambiguity, abuses or unpredictable circumstances capable of generating confusion and displeasure.",
+      "reversed": "The 3 of Chalices reversed stills dynamic triumph, emotions of defeat, wounding, unresolved conflicts without celebration. Degeneration amplifies ambiguity, abuses, unpredictable chaos breeding confusion, displeasure. In La Santa Muerte's celebratory feast for Dia de los Muertos, ancestors heal—resolve ambiguities, lest displeasure sours your joy.",
+      "advice": "Any difficulty whatsoever can be overcome without a problem. Therefore do not allow fear to obscure your point of view.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "4 of Chalices",
+      "upright": "The number of stability united with this suit of the emotions brings an excess of security, a monotonous rigidity and what is stagnant ends up rotting or tiring. Therefore it is good to find the right balance that transforms the stagnation, the apathy and the boredom into harmony and a healthy restlessness.",
+      "reversed": "The 4 of Chalices reversed destabilizes emotional security, rigidity crumbling to chaos, stagnation rotting unchecked in fatigue. Balance lost, transforming harmony to apathy, boredom unrelieved. As La Santa Muerte stirs the stagnant on Dia de los Muertos, kin agitate—embrace restlessness, lest rot consumes your equilibrium.",
+      "advice": "The moment has come to make a decision before what you have obtained ends up boring you and stagnating.",
+      "yes_no": "No"
+    },
+    {
+      "name": "5 of Chalices",
+      "upright": "The five of Chalices brings a period of introspection into the labyrinth of our emotions, our sentiments; a period of reflection and solitude that could bring us to a reconciliation or a retreat. The initial resistance, disappointment or prudence can be transformed successively into something else.",
+      "reversed": "The 5 of Chalices reversed escapes introspection's labyrinth, emotions unreflected in crowded isolation, reconciliation denied, retreat prolonged. Resistance, disappointment, prudence persist untransformed. In La Santa Muerte's emotional depths for Dia de los Muertos, ancestors reconcile—face sentiments, lest solitude traps your transformation.",
+      "advice": "Stay with your emotions and let them overwhelm you. Let them flow and follow their course, as only in this way will you arrive at a new harmony and alliance.",
+      "yes_no": "No"
+    },
+    {
+      "name": "6 of Chalices",
+      "upright": "The balance is precarious and the tendency to live in the past accumulating memories and nostalgia could bring us to accumulate uncertainties, to hide from the present and an inevitable solitude. Only through renewal and a new acquisition of trust regarding the future can the situation be reversed.",
+      "reversed": "The 6 of Chalices reversed tips precarious balance, past discarded without memories, nostalgia absent breeding certainties exposed to present, solitude avoided. Renewal stalled, trust in future lost. As La Santa Muerte renews bonds on Dia de los Muertos, kin trust—embrace future, lest reversal isolates your renewal.",
+      "advice": "Carefully analyze the reasons for your current situation and use the energy at your disposal to organize your future rather than letting it shrivel and stagnate.",
+      "yes_no": "No"
+    },
+    {
+      "name": "7 of Chalices",
+      "upright": "The seven of Chalices, as the level implies, reveals itself to be particularly active. This is a card of hope, energy, and new creative and artistic projects. Only in certain circumstances can its significance be corrupted, bringing instead sterile fantasies without an outlet, errors of judgement or ingenuity.",
+      "reversed": "The 7 of Chalices reversed dulls activity, hope drained, energy depleted, projects creative and artistic abandoned. Corruption amplifies sterile fantasies, judgmental errors, ingenuity misguided. In La Santa Muerte's active visions for Dia de los Muertos, ancestors energize—channel hopes, lest corruption sterilizes your dreams.",
+      "advice": "Persevere in your projects and in your desires having first thought them through and keeping your feet on the ground.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "8 of Chalices",
+      "upright": "A new moment of balance that, although connected to emotions and feelings, leaves some doubt as to its duration. This is probably a precarious stability. If not faced in a serene and satisfying manner it may mutate into a difficult situation, through laziness, self-isolation, or fear of possible delusions.",
+      "reversed": "The 8 of Chalices reversed unbalances emotions, precarious stability prolonged doubtfully. Serene facing mutates to difficulty, laziness, self-isolation, delusions feared. As La Santa Muerte balances feelings on Dia de los Muertos, kin satisfy—confront serenely, lest mutation isolates your peace.",
+      "advice": "Accept your actual situation and the possible failures, and try to be receptive and disposed towards a change of equilibrium destined in any case to mutate.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "9 of Chalices",
+      "upright": "The nine of Chalices takes us far way through a slow and wave-like movement, similar to that of the sea; to maternity or to gaining emotional happiness or an ideal. Only by throwing an anchor and stopping this movement can the propositional push of this arcana be altered and cause secrets, arguments or difficulties to emerge.",
+      "reversed": "The 9 of Chalices reversed anchors wave-like movement, sea stilled from maternity, emotional happiness, ideals unattained. Push altered, secrets, arguments, difficulties emerging unchecked. In La Santa Muerte's oceanic flow for Dia de los Muertos, ancestors navigate—ride waves, lest anchoring surfaces your woes.",
+      "advice": "Follow with full sails and without fear. You have reached victory but it is not yet the moment to stop and to dock.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "10 of Chalices",
+      "upright": "The transformation is complete, the butterfly has reached the end of its development. This card represents the coronation of an undertaking, a love, a project that we have poured all of our passion into. It is also connected to the home and the family that lives there. Only complications, divergent opinions or losses can bring about negative emotions such as anger or bullying.",
+      "reversed": "The 10 of Chalices reversed incompletes transformation, butterfly undeveloped, undertakings uncrowned, loves, projects passionless. Home, family fractured. Complications, divergences, losses amplify anger, bullying. As La Santa Muerte completes cycles on Dia de los Muertos, kin coronate—pour passion, lest negatives shatter your hearth.",
+      "advice": "Welcome without indulgence what you have gained and realized, without fear of taking advantage of what you can gain, as this is yours and no one can take it away from you.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Page of Chalices",
+      "upright": "A curious and reflective figure, not yet mature and prepared, but an attentive observer waiting to acquire his own critical judgement and decision-making capacity. The Page represents a timid beginning but destined to evolve positively if inexperience, or some initial jealousy, does not dampen his interest or love.",
+      "reversed": "The Page of Chalices reversed loses curiosity, reflection immature, observation inattentive without judgment or decision. Timid beginnings devolve negatively, inexperience, jealousy dampening interest, love. In La Santa Muerte's youthful gaze for Dia de los Muertos, ancestors prepare—nurture growth, lest dampness extinguishes your spark.",
+      "advice": "Continue to study and to dedicate yourself to what you are doing and good results will not take long to arrive, but do not let yourself be distracted by facile illusions.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "Knight of Chalices",
+      "upright": "We have reached a goal and the end of an experience that will leave us richer and independent. The Knight of Chalices therefore represents a conquest, but he is also an intermediary, the messenger of good news or an invitation to challenges and initiatives to be taken on with strength and will. If upside down he could be transformed into a liar or an enchanter, whose arrival presupposes obstacles and unpleasant events.",
+      "reversed": "The Knight of Chalices reversed misses goals, experiences ending impoverished, dependent. Conquest lost, intermediary deceptive, messenger of bad news, invitations to unstrengthened challenges. Liar, enchanter brings obstacles, unpleasantness. As La Santa Muerte messengers on Dia de los Muertos, kin conquer—seek truth, lest deception derails your independence.",
+      "advice": "Abound totally in your emotions and feelings as you are about to reach an important target and no negative sentiment should disturb you.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Queen of Chalices",
+      "upright": "The Queen of Chalices fully represents the favorable energy of which this suit is a part, generous in feelings, capable of spreading affection and spontaneity. She is a maternal and intuitive person and only in certain situations will she transform into an attractive dangerous woman, dishonest and capable of creating misunderstandings and scandals.",
+      "reversed": "The Queen of Chalices reversed corrupts favorable energy, stingy in feelings, spreading disdain over affection, calculation over spontaneity. Maternal intuition twists to dangerous allure, dishonesty breeding misunderstandings, scandals. In La Santa Muerte's maternal form for Dia de los Muertos, ancestors spread—embrace generosity, lest scandals taint your intuition.",
+      "advice": "You can completely trust your intuition or that of a female figure who is near to you and whom you believe to be reputable.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "King of Chalices",
+      "upright": "The King of Chalices represents steadiness, calm and benevolence, He is a mature figure, full of inventiveness, artistic abilities and capable of comforting, such that his presence is a strong signal of success and expansion. Reversed however, he could represent the eruption of a fraud, egoism or even corruption.",
+      "reversed": "The King of Chalices reversed unsteadies calm, benevolence erupting to fraud, egoism, corruption. Maturity lacking inventiveness, artistic comforts denied, presence signaling failure, contraction. As La Santa Muerte's benevolent king on Dia de los Muertos, kin comfort—seek maturity, lest corruption contracts your success.",
+      "advice": "Rely on your emotions or trust the inventiveness of a male figure who is near to you and who will help you in your enterprise.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Ace of Pentacles",
+      "upright": "The Ace of Pentacles, more than any other reality, represents all that is tangible on a material plane from our body to economic resources, announcing success, profit and health. This card is an active principle that operates on all of the tangible aspects of our existence, bringing happiness and triumph. However it is also capable of degenerating into avidness, the inability for moderation and abuse of power if taken to the extreme.",
+      "reversed": "The Ace of Pentacles reversed intangible material planes, body frail, resources depleted without success, profit, health. Active principle degenerates to avidity, immoderation, power abused. In La Santa Muerte's earthly bounty for Dia de los Muertos, ancestors prosper—temper pursuits, lest degeneration strips your triumphs.",
+      "advice": "Totally enjoy what you have earned and deserve. Everything proceeds well but don’t forget to look at things beyond material concerns.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "2 of Pentacles",
+      "upright": "We are in front of two aspects of the same thing that once united will be ready to fly but not until a great transformation has occurred. The transfer however will be precarious and full of obstacles and worries. The desire to conclude a situation that is currently on hold, such as a contract or a financial project, could result in arguments or problems.",
+      "reversed": "The 2 of Pentacles reversed divides aspects ununited, transformation incomplete, flight grounded. Transfers stable without obstacles, worries absent. Desires unresolved in held situations, arguments avoided. As La Santa Muerte transforms on Dia de los Muertos, kin unite—embrace change, lest precariousness grounds your desires.",
+      "advice": "Moderate spending and acquisitions for the moment and await a more favorable and clear moment to act.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "3 of Pentacles",
+      "upright": "The first benefits or fruits of what we have invested or sown the seeds for have begun to arrive. Three, a particularly active number, combined with Pentacles, brings a powerful expansion and a positive outcome where perseverance is completely repaid. Only haste or a certain immaturity in management could bring about problems, weakening, incapability or disagreement.",
+      "reversed": "The 3 of Pentacles reversed delays benefits, fruits unharvested from investments, seeds barren. Active expansion contracts, outcomes negative, perseverance unrepaid. Haste, immaturity breed problems, weakening, incapability, disagreement. In La Santa Muerte's harvest for Dia de los Muertos, ancestors repay—persevere maturely, lest weakening disputes your yield.",
+      "advice": "Persevere without hesitation towards that in which you are placing all your physical and economic reserves, without letting anyone trample on your harvest.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "4 of Pentacles",
+      "upright": "The stability of four gives this card a positive balance and we can talk about savings as well as generosity, gifts, earnings, something received as an inheritance or the nearing of a favorable moment that is slowly maturing. Only a certain passivity due to stagnation could leave us prey to superior external forces.",
+      "reversed": "The 4 of Pentacles reversed unstables balance, savings squandered, generosity withheld, gifts absent, earnings lost, inheritances disputed, favorable moments delayed. Passivity stagnates to prey of external forces. As La Santa Muerte balances ledgers on Dia de los Muertos, kin save—activate, lest stagnation preys upon your fortune.",
+      "advice": "Continue to concentrate on your present situation, working and resisting any eventual obstacles or barriers.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "5 of Pentacles",
+      "upright": "The five of Pentacles is an active, dynamic card that announces, step by step, the positive evolution towards the future and the discovery of new interests or new solutions. An excess of dynamism and velocity in moving about could however make the situation too fluid and unstable, causing inevitable worries and disorder to appear and obliging us to go back to where we were.",
+      "reversed": "The 5 of Pentacles reversed stills dynamics, evolution regressive, interests old, solutions undiscovered. Excess fluidity unstable, worries, disorder inevitable, return forced. In La Santa Muerte's dynamic earth for Dia de los Muertos, ancestors evolve—moderate pace, lest disorder regresses your discoveries.",
+      "advice": "With calm and through concrete and objective evaluation, you can go ahead, overcoming any crisis that you meet along your way.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "6 of Pentacles",
+      "upright": "We are in the present but in front of a precarious equilibrium, an alternation that swings like a pendulum between positive and negative. It could make our physical and economic situation unstable, while waiting for a solution and an ulterior evolution. It will be time, fluid and unilateral, never stopping, that will make the situation evolve and enable us to overcome eventual obstacles.",
+      "reversed": "The 6 of Pentacles reversed stabilizes precariousness, alternations ceased, pendulum stuck negative. Physical, economic instability resolved in evolution awaited. Time stops, obstacles unovercome. As La Santa Muerte swings pendulums on Dia de los Muertos, kin evolve—embrace fluidity, lest stoppage obstructs your path.",
+      "advice": "Proceed with audacity and without haste, working hard and keeping yourself focused on the present. What you desire will arrive when the time is ripe.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "7 of Pentacles",
+      "upright": "Our ideas have entered the world successfully and we can concretely evaluate and count what we have earned, won or generated. The seven of Pentacles brings progress and success with further prospectives of growth. Only the fear of losing what we have attained could obscure our mind and cause us to make mistakes in some investment, generating restlessness or impatience.",
+      "reversed": "The 7 of Pentacles reversed fails ideas' entry, evaluations abstract, earnings uncounted, generated lost. Progress regresses, success failure, growth prospects diminished. Fear obscures, mistakes in investments, restlessness, impatience amplified. In La Santa Muerte's prosperous fields for Dia de los Muertos, ancestors count—overcome fear, lest restlessness diminishes your growth.",
+      "advice": "Stay calm and reflect before acting. With careful movements your wellbeing and your earnings will continue without problems.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "8 of Pentacles",
+      "upright": "The eight of Pentacles brings us an ideal situation of balance, of accumulation and prosperity, a luxuriant garden where energies flow harmoniously. However this too-perfect situation that you have in your hands could change and unbalance itself, even rotting and blocking itself because of greed, bad advice or meanness.",
+      "reversed": "The 8 of Pentacles reversed unbalances ideal, accumulation depleted, prosperity barren, garden withered in disharmonious flows. Perfection changes to rot, blockage from greed, bad advice, meanness. As La Santa Muerte tends gardens on Dia de los Muertos, kin prosper—heed advice, lest meanness blocks your harmony.",
+      "advice": "There can never be enough prudence, therefore face the situation with careful choices and evaluations, also accepting advice from people you trust.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "9 of Pentacles",
+      "upright": "With the nine of Pentacles we reach the maximum expansion thanks to longsightedness and through continual and regular movement towards development, success and attaining new conquests. Nevertheless we cannot continue to expand endlessly or we will risk being suffocated by ourselves and what we have attained.",
+      "reversed": "The 9 of Pentacles reversed contracts maximum expansion, shortsightedness halting movement, development regressed, success unattained, conquests lost. Endless expansion suffocates in self-attainment. In La Santa Muerte's expansive realms for Dia de los Muertos, kin conquer—limit growth, lest suffocation claims your attainments.",
+      "advice": "Properly evaluate the limits within which you can expand and you will manage to realize and consolidate even beyond what you can see and touch.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "10 of Pentacles",
+      "upright": "The chrysalis has closed into itself and a change is now vitally necessary in order to continue and progress. The ten of Pentacles pushes us to go even beyond the material world and to fly in different places in order to bring abundance and fortune to other territories. Only fear of letting go of a life and a stable but past situation could create problems, uncertainties and disagreements.",
+      "reversed": "The 10 of Pentacles reversed opens chrysalis prematurely, change unnecessary, progress halted. Beyond material confined, flight grounded, abundance, fortune withheld. Fear releases past stability, problems, uncertainties, disagreements avoided. As La Santa Muerte flies beyond on Dia de los Muertos, kin abound—let go, lest confinement withholds your fortune.",
+      "advice": "Aim what you have gained or earned in other directions also, but evaluate every decision properly.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Page of Pentacles",
+      "upright": "The Page of Pentacles, even though in a phase of maturation, brings an impetus towards a positive affirming search and with this initiative, good news and the first, if moderate, earnings. The only risk is that of an excessive lightness, superficiality and vanity that could bring premature waste and superficial investment.",
+      "reversed": "The Page of Pentacles reversed matures negatively, impetus negated, search unaffirming without initiative, news bad, earnings absent. Excess lightness, superficiality, vanity waste prematurely, investments superficial. In La Santa Muerte's maturing earth for Dia de los Muertos, ancestors affirm—deepen search, lest vanity wastes your beginnings.",
+      "advice": "Carefully evaluate the right moment for acting and invest your resources with the aim of avoiding any type of waste.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "Knight of Pentacles",
+      "upright": "The Knight of Pentacles brings with him a rapid and dynamic gain, such as an assured booty. He is a resistant and persevering worker, very practical and taking initiative. He can also easily be egocentric and unconcerned about his own or other people’s feelings as long as he can achieve his own interests. He can also be caught between laziness and indifference.",
+      "reversed": "The Knight of Pentacles reversed slows gains, booty uncertain. Resistance falters, perseverance lazy, impractical without initiative. Egocentrism uncaring, feelings disregarded in failed interests. Laziness, indifference trap. As La Santa Muerte perseveres on Dia de los Muertos, kin gain—initiate practically, lest indifference loses your booty.",
+      "advice": "Do not let a good occasion escape when it is in front of you. Take a risk even if it is your heart that is pushing you in that direction.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Queen of Pentacles",
+      "upright": "The Queen of Pentacles is an able and influential figure, secure in herself and able to cope in the material world without problems and from which she is abundantly rewarded. She is an ambitious woman who desires to always go higher but, for fear of falling and failing, risks remaining a victim to uncertainties, hesitation, or showing avid and capricious behavior.",
+      "reversed": "The Queen of Pentacles reversed unable, uninfluential, insecure coping poorly in material world unrewarded. Ambition low, desires grounded in fear of failure, uncertainties, hesitation, avidity, caprice victimizing. In La Santa Muerte's abundant realm for Dia de los Muertos, kin reward—rise ambitiously, lest fear grounds your security.",
+      "advice": "Do not remain too attached to what you have obtained or earned, but continue climbing without worrying about how much you are risking.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "King of Pentacles",
+      "upright": "A rational person, mature, wise. Through his intelligence he has managed to prosper and to accumulate a lot of material goods. The King of Pentacles therefore brings with him good earnings, rationality and certainty. His defect is the risk of materialism poisoning his moral and spiritual characteristics.",
+      "reversed": "The King of Pentacles reversed irrational, immature, unwise. Intelligence fails prosperity, accumulation depleted. Earnings poor, irrationality uncertain. Materialism poisons morals, spirits. As La Santa Muerte accumulates wisdom on Dia de los Muertos, kin prosper—balance material, lest poison taints your certainty.",
+      "advice": "Help someone who needs it and who asks for support, as you can. Your reward will arrive in another form but it will enrich you all the same.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Ace of Wands",
+      "upright": "The creative stimulus of the Ace united with the suit of Wands brings a powerful and energetic contribution at all levels and in all areas. This card represents a new beginning, fertility, a birth, vitality and aptitude towards leadership. This is a favorable time to start something new, above all in the professional field. However if errors have been made or incorrect evaluations or abuses of power, then we will be obliged to pay the consequences, even particularly severe ones.",
+      "reversed": "The Ace of Wands reversed weakens creative stimulus, energetic contributions diminished across levels. New beginnings barren, fertility denied, birth stalled, vitality lacking leadership. Unfavorable times halt starts, errors, mis evaluations, power abuses consequential severely. In La Santa Muerte's fiery birth for Dia de los Muertos, ancestors stimulate—correct courses, lest consequences sever your vitality.",
+      "advice": "Having evaluated a potentially favorable situation, concentrate all your energies towards a new and important undertaking.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "2 of Wands",
+      "upright": "The two of Wands presents as a complicated arcana, where an accumulation of desires could cause rivalry and cause two opposing forces to arise, such as rebelling against limitations imposed by a third party. This card can bring not only regrets with it but also radical changes, surprises and positive unexpected events.",
+      "reversed": "The 2 of Wands reversed simplifies complexities, desires unaccumulated, rivalry avoided, opposing forces united without rebellion. Regrets absent, changes incremental, surprises negative expected. As La Santa Muerte opposes limitations on Dia de los Muertos, kin surprise—accumulate wisely, lest positives evade your changes.",
+      "advice": "Evaluate what is the best way in which to act and terminate a situation of conflict and rivalry that makes you restless and unhappy.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "3 of Wands",
+      "upright": "A dynamic arcana, active and positive, that encourages improvement and virtue through an explosion of vital energy. The three of Wands guides us towards new undertakings, the beginning of new occasions and also new relationships that could lead to further business or affections. If reversed however this push could be obscured and interrupted, bringing with it negligence and a static situation.",
+      "reversed": "The 3 of Wands reversed dulls dynamics, passive negative discouraging decline over improvement. Vital explosion implodes, undertakings old, occasions ended, relationships severed from business, affections. Push obscured, negligence static. In La Santa Muerte's vital explosion for Dia de los Muertos, ancestors guide—ignite push, lest static negligence interrupts your virtues.",
+      "advice": "In this moment you do not require the help of anyone. Proceed with energy towards your new creation.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "4 of Wands",
+      "upright": "A particularly creative card, balanced and prosperous. The four of Wands makes any desire become reality, bringing it complete into the world and also reinforcing connections, social life or any new construction. The only risk is becoming too attached to material concerns or allowing complacency to slow your progress.",
+      "reversed": "The 4 of Wands reversed uncreates balance, prosperity barren. Desires unrealized, incomplete in world, connections weakened, social life decayed, constructions old. Attachment to material, complacency slows. As La Santa Muerte constructs on Dia de los Muertos, kin reinforce—detach complacency, lest decay slows your desires.",
+      "advice": "Make the most of this moment of stability to fully enjoy and benefit what you have gained.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "5 of Wands",
+      "upright": "The spark of a new desire prepares to blaze into a new adventure, a new activity, just as something unexpected and positive on which to focus will bring about new projects and successes. If reversed the situation will become difficult and controversies, doubts, losses and aggressive competition could present themselves.",
+      "reversed": "The 5 of Wands reversed extinguishes desire's spark, adventures old, activities routine without focus. Unexpected negative, projects failed, successes lost. Difficulties amplify controversies, doubts, losses, competition aggressive. In La Santa Muerte's blazing spark for Dia de los Muertos, ancestors focus—rekindle, lest losses compete your adventures.",
+      "advice": "Be clear about the actual situation in order to choose the most honest way in which to face a new and brilliant project.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "6 of Wands",
+      "upright": "The dynamism, energy and creativity of this suit finds expression in this card of victory, openness and public celebration. It is possible to advance in your career, to realize profits and interests long desired. It can however also bring with it negative aspects of delays, deceleration, or abandonment of previously programmed projects.",
+      "reversed": "The 6 of Wands reversed stifles dynamism, energy, creativity in defeat, closure, private lament. Career stalled, profits unrealized, interests abandoned. Delays, deceleration, project abandonment negative. As La Santa Muerte celebrates victories on Dia de los Muertos, kin advance—realize desires, lest abandonment decelerates your openness.",
+      "advice": "Commit with boldness and with complete awareness of your gifts and your energy, but control your desires and your expectations that could cause you to make silly mistakes.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "7 of Wands",
+      "upright": "A moment of a great rush of energy, openness and growth towards the heights. The seven of Wands brings with it collaboration, actions, structures that are already complete and formed, but precisely for this reason, if the tendency is towards excessive conservatism, it could cause discussions, indecisions and friction.",
+      "reversed": "The 7 of Wands reversed drains energy rush, closure and stunted growth. Collaboration fractured, actions incomplete, structures unformed. Excessive conservatism causes discussions, indecisions, friction. In La Santa Muerte's energetic rush for Dia de los Muertos, kin collaborate—open growth, lest friction indecides your structures.",
+      "advice": "Make a decision quickly, even consulting people around you, in order to proceed and go ahead, as this is not yet the time to put down roots.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "8 of Wands",
+      "upright": "The eight of Wands is probably the fastest and most dynamic card of this suit, its energy brings with it great transformations, hope and changes projected towards the future, but also unexpected or risky transfers. Only a change in direction could slow this down, causing some regret, uncertainty or a moderately adverse period.",
+      "reversed": "The 8 of Wands reversed slows fastest dynamics, energy stagnant without transformations, hope dashed, changes past-oriented, transfers safe but unadventurous. Direction unchanged regrets, uncertainties, adverse periods moderate. As La Santa Muerte transforms swiftly on Dia de los Muertos, kin hope—project forward, lest stagnation regrets your changes.",
+      "advice": "This is an absolutely favorable moment for a new creation or a new project, therefore proceed quickly and make what you want to happen become real.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "9 of Wands",
+      "upright": "Your strength to withstand adversity, and your ability to truncate what is clearly useless and stale, bring you to success and the achievement of your project. Even if a period of cleansing, complications, protracted evaluations or adversity may slow down the process of expansion, you will manage to harvest the fruits of what you have sown.",
+      "reversed": "The 9 of Wands reversed weakens against adversity, inability to truncate useless, stale persisting. Success eluded, project unachieved. Cleansing complicated, evaluations protracted, adversity slows expansion unharvested. In La Santa Muerte's strength for Dia de los Muertos, kin harvest—truncate stale, lest adversity slows your fruits.",
+      "advice": "Take the situation in hand and with patience, fight for what you wish to attain while waiting for a more favorable moment.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "10 of Wands",
+      "upright": "The transformation is now complete and the new being that has been created is ready to fly outside, to the world, bringing with it success and creative and professional realizations. The ten of Wands brings with it completion, attraction, new experiences and only in the case of indecision or doubts can it be transformed instead into oppression, obstacles and betrayal.",
+      "reversed": "The 10 of Wands reversed incompletes transformation, new being grounded, world denied success, realizations uncreative, unprofessional. Completion absent, attraction repelled, experiences old. Indecision, doubts oppress with obstacles, betrayal. As La Santa Muerte completes on Dia de los Muertos, kin attract—resolve doubts, lest oppression grounds your flight.",
+      "advice": "Do not leave too many situations suspended or they will get the better of you in terms of achieving what you desire.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Page of Wands",
+      "upright": "An arcana in continual movement, a messenger, a stranger with good news and contacts who come from afar. The Page of Wands brings with him small displacements, reliable new things and subordinate situations that could however be transformed into uncertainty in acting, inconclusiveness or excessive delays.",
+      "reversed": "The Page of Wands reversed stills movement, messenger lost, stranger with bad news, contacts distant. Displacements large unreliable, situations superior transformed to certainty acting, conclusiveness, timely. In La Santa Muerte's moving messages for Dia de los Muertos, kin contact—embrace news, lest delays inconclude your reliability.",
+      "advice": "This is the moment to become more independent and to manage your own affairs by yourself given that you are more than able. Delaying this will only bring about problems.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Knight of Wands",
+      "upright": "We are ready to depart with strength and determination on a trip that will allow us to attain what we desire and what we have planned. The Knight of Wands represents an adventurer, capable of channelling or efficiently moving his energies or his instincts. In a negative version he could become a symptom of indecision, rupture, and even delays regarding transfers or movements.",
+      "reversed": "The Knight of Wands reversed unprepared to depart, weakness undetermined, trips unattaining desires unplanned. Adventurer incapable, energies unchannled, instincts inefficient. Indecision, rupture, delays in transfers, movements. As La Santa Muerte adventures on Dia de los Muertos, kin attain—channel instincts, lest rupture delays your strength.",
+      "advice": "This is not the moment to have regrets. Take your will in hand with strength and begin to follow the road that will take you to the realization of your works.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Queen of Wands",
+      "upright": "The Queen of Wands represents a person who is very dynamic and energetic, projected towards success and capable of optimal and generous advice. Her experience will also bring protection, self-assurance, and professional objectives. Only an excess of authoritarianism or obstinacy could cause instability, caprice, possessiveness or the inability to communicate one’s own ideas.",
+      "reversed": "The Queen of Wands reversed static, energy depleted, projected to failure incapable of advice optimal or generous. Experience denies protection, assurance, objectives professional. Authoritarianism excess, obstinacy causes instability, caprice, possessiveness, communication inability. In La Santa Muerte's dynamic queens for Dia de los Muertos, kin protect—communicate ideas, lest caprice destabilizes your experience.",
+      "advice": "Concentrate your energies on the fundamental things in order to realize your projects, economizing and cutting off anything superfluous.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "King of Wands",
+      "upright": "Even with an authoritarian and dominating presence, the King of Wands incarnates rectitude, wisdom, ambitions but also honesty and faithfulness. This arcana pushes us to aim high towards our ambitions, diffusing complete success to our projects and desires. If reversed the outcome could be completely inverted and the King becomes an untrustworthy figure, intolerant and without scruples.",
+      "reversed": "The King of Wands reversed subverts authoritarian dominance to weakness, rectitude crooked, wisdom foolish, ambitions low without honesty, faithfulness. Aims low, success incomplete to projects, desires. Untrustworthy, intolerant, unscrupulous. As La Santa Muerte kings with rectitude on Dia de los Muertos, kin aim—embrace honesty, lest inversion untrusts your ambitions.",
+      "advice": "Follow the advice of a strong person in whom you trust without fear and this will be particularly remunerative and rewarding.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Ace of Swords",
+      "upright": "The Ace of Swords represents a strong conquest, force, a genuine intelligence that is penetrating and aggressive. A very dynamic card that is aligned with high ideals but for this reason could easily become sinister, bringing on excesses, violence and extreme behavior.",
+      "reversed": "The Ace of Swords reversed weakens conquest, force yielded, intelligence superficial passive. Dynamics aligned low, ideals sinister in excesses, violence, extremes. In La Santa Muerte's penetrating blade for Dia de los Muertos, ancestors conquer—temper aggression, lest extremes become your sinister.",
+      "advice": "Evaluate and choose with care the direction in which you wish to channel your rich mental and subconscious energy.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "2 of Swords",
+      "upright": "The moment seems particularly difficult; something does not function—as if the two blades were working against each other instead of together. The Two of Swords therefore urges a confrontation so that an alliance may be reached, one that finds a balance in the end, clearly separating opposites and differences and turning them into strengths and cooperation.",
+      "reversed": "The 2 of Swords reversed eases difficulties, functions harmoniously as blades unite rather than oppose. Confrontation avoided, alliance fractured, equilibrium lost in blended opposites, weaknesses over strengths, cooperation dissolved. As La Santa Muerte unites blades on Dia de los Muertos, kin confront—seek alliance, lest dissolution weakens your equilibrium.",
+      "advice": "Trust others only after, work now to clarify things and find a common denominator between the two conflict points.",
+      "yes_no": "No"
+    },
+    {
+      "name": "3 of Swords",
+      "upright": "New ideas and strategies may largely work against us, stabbing us in the back and causing losses, conflicts, regret, or distance. Only a careful analysis of the various contradictory situations, with the right choices and elimination of what no longer serves, can turn the fate of this card.",
+      "reversed": "The 3 of Swords reversed old ideas, strategies aligning without backstabbing, gains over losses, harmony over conflicts, relief over regret, closeness. Careless analysis blends contradictions without selection, elimination. In La Santa Muerte's strategic heart for Dia de los Muertos, ancestors analyze—select carefully, lest blending wends your fate adversely.",
+      "advice": "Use all your rational abilities for evaluation and analysis, as this is the moment to be cautious and circumspect in decisions and new activities.",
+      "yes_no": "No"
+    },
+    {
+      "name": "4 of Swords",
+      "upright": "The number four, stable and balanced, joined with the Swords, brings us to a time-out, to solitude, isolation, a barrier, a fence, a hermetically sealed vessel around us that can delay or prevent our progress toward reaching or realizing our ideals. If we use this isolation as a phase of rest and intense search, the situation can change and be reborn.",
+      "reversed": "The 4 of Swords reversed disrupts stable isolation, solitude crowded, barriers broken, vessel open accelerating advance, ideals realized. Phase of rest intense search denied, situation unchanging unborn. As La Santa Muerte breaks barriers on Dia de los Muertos, kin search—use isolation, lest openness prevents your rebirth.",
+      "advice": "Remain calm, wait and use this moment of stagnation to think deeply and study everything you need for the near future.",
+      "yes_no": "No"
+    },
+    {
+      "name": "5 of Swords",
+      "upright": "A great inner conflict torments us and leaves us feeling diminished. Fleeing or fighting seem the only ways to deal with the situation. Yet only by gaining a new perspective and following the flow of the confrontation will we manage to undermine this negative fate, to improve ourselves, and to emerge from the crisis strengthened and enriched.",
+      "reversed": "The 5 of Swords reversed resolves inner conflict, elevating feelings. Neither flee nor fight, situations handled harmoniously. New viewpoints unacquired, flow opposed, negative fate upheld, unimproved weakened from crisis. In La Santa Muerte's conflict flow for Dia de los Muertos, ancestors strengthen—follow flow, lest opposition weakens your emergence.",
+      "advice": "This is not the moment to oppose what seems adverse, but to follow its movements and flow and use them to your advantage.",
+      "yes_no": "No"
+    },
+    {
+      "name": "6 of Swords",
+      "upright": "The moment has come to distance ourselves, to embrace change, and to turn toward new ideas and solutions. The Six of Swords compels us even to change direction, to find new paths and solutions, and to avoid simple or predictable ones that would bring dissatisfaction, stagnation, or instability.",
+      "reversed": "The 6 of Swords reversed clings to proximity, change rejected, old ideas solutions clung. Direction unchanged, paths old, simple predictable embraced breeding dissatisfaction, stagnation, instability. As La Santa Muerte changes directions on Dia de los Muertos, kin find—embrace new, lest avoidance instabilizes your satisfaction.",
+      "advice": "Continue your journey undeterred and take the burden of all your mistakes with you, as they have enriched and matured you.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "7 of Swords",
+      "upright": "We are still in a crisis phase, yet after you have reflected and considered, you were able to open the barrier that kept you isolated, and new hope is sprouting. The Seven of Swords opens new paths, new projects, and a renewed trust with which you can overcome debates, gossip, or problems that are directly linked to fear.",
+      "reversed": "The 7 of Swords reversed prolongs crisis, reflection unthought, barriers closed isolating, hope wilted. Paths old, projects abandoned, trust eroded unable to overcome debates, gossip, fear-linked problems. In La Santa Muerte's hopeful openings for Dia de los Muertos, ancestors open—reflect, lest erosion overcomes your trust.",
+      "advice": "Look around and realize that nothing can block your way anymore. Therefore persevere and concentrate all your energy, without sparing yourself.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "8 of Swords",
+      "upright": "The calm before the storm; a balance of opposites that is only short-lived and will explode with force and thunder. The Eight of Swords brings stability but also carries the danger of frustration, because it postpones a conflict that must finally be brought outward. It is therefore important to find a way to bring this to the surface rationally, without fearing the necessary changes.",
+      "reversed": "The 8 of Swords reversed storms calm, opposites unbalanced enduring without violence, thunder silent. Stability frustrated in delayed conflict externalized. Rational surfaces feared changes unnecessary. As La Santa Muerte storms on Dia de los Muertos, kin stabilize—fear changes, lest prolongation frustrates your stability.",
+      "advice": "Do not fear, even if it is necessary to rethink your ideas, commitments made or decisions taken, if they are causing a prolonged internal storm.",
+      "yes_no": "No"
+    },
+    {
+      "name": "9 of Swords",
+      "upright": "With the Nine of Swords we have the conditions for a possible crisis through a phase of seclusion and isolation. If this time is used well, however, it opens new wisdom, new light, and new nourishment that allow the rebirth of our consciousness and strengthen our will—while also limiting injuries, waste, uncertainties, and doubt.",
+      "reversed": "The 9 of Swords reversed averts crisis phases, seclusion social, isolation connected. Time misused closes wisdom, light, nourishment, rebirth denied, will weakened amplifying injuries, waste, unclear doubts. In La Santa Muerte's wise seclusion for Dia de los Muertos, ancestors rebirth—utilize time, lest amplification injures your will.",
+      "advice": "Act with strength and circumspection, making sure your ideas are clearly focused, and channel all your energy towards them.",
+      "yes_no": "No"
+    },
+    {
+      "name": "10 of Swords",
+      "upright": "The transformation is now complete and the new being that has been created is ready to fly outside, to the world, bringing with it success and creative and professional realizations. The ten of Wands brings with it completion, attraction, new experiences and only in the case of indecision or doubts can it be transformed instead into oppression, obstacles and betrayal.",
+      "reversed": "The 10 of Swords reversed incompletes transformation, new being pinned, world denied in ruin, realizations bottomed. Pinned back up, recovery from lows, dawn after darkest. As La Santa Muerte rises from ruins on Dia de los Muertos, kin realize—rise renewed, lest bottom oppresses your experiences.",
+      "advice": "Sublimate all past negative events and take advantage as soon as possible of all the possibilities that are manifesting around you.",
+      "yes_no": "No"
+    },
+    {
+      "name": "Page of Swords",
+      "upright": "The pupation is complete, and the butterfly is now whole, developed, and able to hang from a height to gain a broad and impartial overview. The pain, the problems we have faced, and the tears we have shed have reached their peak and are transformed, ready to overcome the situation by seizing the chances that now offer themselves and that we can handle.",
+      "reversed": "The Page of Swords reversed pupates unending, falter incomplete, viewpoint biased low without overview. Pain, problems, tears unpeaked untransformed, situation unovercome, chances missed. In La Santa Muerte's overview for Dia de los Muertos, ancestors transform—seize chances, lest bias misses your overview.",
+      "advice": "Make all negative events that are past null and void and use all the possibilities that are manifesting around you as soon as possible.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "Knight of Swords",
+      "upright": "The Knight of Swords is an active card, authoritarian and fully self-controlled. He is able to overcome both physical and mental boundaries, ready to fight and to take on any challenge or discussion. In action he also shows his limits, which are tied to excessive impatience. Reversed, this can show as inertia, anger, or destructive rebellion.",
+      "reversed": "The Knight of Swords reversed passive, unauthorized uncontrolled. Unable to overcome physical, mental boundaries, unwilling to fight challenges, discussions. Actions limited by excessive patience, reversed to activity, calm, constructive compliance. As La Santa Muerte knights on Dia de los Muertos, kin overcome—balance impatience, lest rebellion destroys your actions.",
+      "advice": "Be rational and learn to communicate your ideas clearly and honestly. Start your projects in such a way that they also bring vitality and strength to others.",
+      "yes_no": "Yes"
+    },
+    {
+      "name": "Queen of Swords",
+      "upright": "Strict and sober, the Queen of Swords embodies an ideal of wisdom, intelligence, and brilliance that has matured from illusions, deprivations, or overcome problems. On her shoulders rests the heavy weight of these experiences, which however served as enrichment and not as grounds for revenge or malice.",
+      "reversed": "The Queen of Swords reversed lenient, intoxicated distorts wisdom ideal, intelligence dull, brilliance faded from illusions, deprivations, problems unovercome. Shoulders lightened experiences unenriching, grounds for revenge, malice. In La Santa Muerte's strict brilliance for Dia de los Muertos, ancestors enrich—overcome problems, lest malice lightens your wisdom.",
+      "advice": "Your experience will enable you to deal better with everything that happens and to channel it in a positive and constructive way.",
+      "yes_no": "Maybe"
+    },
+    {
+      "name": "King of Swords",
+      "upright": "Rule, security, and justice make the King of Swords an imposing figure—shrewd and intelligent. Yet with excessive rationality and method he risks becoming too cold and strict. You should therefore keep your heart open, to preserve understanding and empathy for others and not to forget feelings.",
+      "reversed": "The King of Swords reversed abdicates rule, insecurity injustice unimposing dull unintelligent. Excessive irrationality, chaos risks warmth over cold strictness. Heart closed loses understanding, empathy, forgetting feelings. As La Santa Muerte rules justly on Dia de los Muertos, kin understand—open heart, lest chaos forgets your security.",
+      "advice": "You do not have to get directly involved in a dispute that you know you can win, but channel your strength towards more rewarding emotional objectives.",
+      "yes_no": "Yes"
+    }
+  ],
+  "back": "Back.png"
+}

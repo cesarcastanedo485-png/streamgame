@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Streamer Control — Hidden from stream</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --bg: #0f0e14;
+        --panel: #1a1822;
+        --border: rgba(245, 199, 106, 0.25);
+        --accent: #f5c76a;
+        --text: #e8e4f0;
+        --muted: #888;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 1.1rem;
+        color: var(--accent);
+        margin: 0 0 0.5rem 0;
+      }
+      .subtitle {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-bottom: 1rem;
+      }
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1rem;
+        max-width: 720px;
+      }
+      .panel h2 {
+        font-size: 0.9rem;
+        margin: 0 0 0.5rem 0;
+        color: var(--accent);
+      }
+      textarea {
+        width: 100%;
+        min-height: 140px;
+        background: #0d0c12;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        resize: vertical;
+      }
+      textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .spread-list {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      .spread-list strong { color: var(--text); }
+      .spread-list ul { margin: 0.25rem 0 0 1rem; padding: 0; }
+      a {
+        color: var(--accent);
+        font-size: 0.85rem;
+      }
+      .method-doc {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--text);
+        max-height: 50vh;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+      }
+      .method-doc summary {
+        cursor: pointer;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+      .method-doc h3 { font-size: 0.9rem; margin: 1rem 0 0.35rem 0; color: var(--accent); }
+      .method-doc h3:first-of-type { margin-top: 0; }
+      .method-doc p, .method-doc ul { margin: 0 0 0.5rem 0; }
+    </style>
+  </head>
+  <body>
+    <h1>Streamer control</h1>
+    <p class="subtitle">Do not add this tab to OBS — for your eyes only. Notes are saved in this browser.</p>
+
+    <div class="panel">
+      <h2>Quick bulletin / notes</h2>
+      <textarea id="bulletin" placeholder="Talking points, reminders, or notes for during the stream…"></textarea>
+    </div>
+
+    <div class="panel">
+      <h2>Spread reference</h2>
+      <div class="spread-list">
+        <strong>Yes/No (1 card)</strong> — 1,000 likes. Only the user who sent the likes may ask. One card; upright = lean yes, reversed = lean no. <em>Always includes Advice from the dead.</em><br>
+        <strong>Two-card</strong> — Share the live. Only the sharer may ask. 1: What you're going through now. 2: What's going to help you get through this.<br>
+        <strong>Three-card</strong> — Gift ~199+ coins (e.g. Sunglasses) only. Left: past. Middle: now. Right: future.<br>
+        <strong>Five-card</strong> — Gift ~500+ coins (e.g. Money Rain) only. 1: Present/theme. 2: Past influences. 3: Future. 4: Reason behind question. 5: Outcome.<br>
+        <strong>Seven-card (Horseshoe)</strong> — 1: Past. 2: Present. 3: Future. 4: Obstacles. 5: Attitudes of others. 6: What you should do (advice). 7: Outcome.<br>
+        <strong>Santa Muerte Equilibrium (9 cards)</strong> — Gift 25k+ coins or <code>!equilibrium</code>. Only the gift sender may ask the question. Advice of the dead for B.
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Santa Muerte Equilibrium — full method</h2>
+      <details class="method-doc">
+        <summary>Show full method (decks, positions A–I, closure)</summary>
+        <h3>The five decks</h3>
+        <p>Divide the standard tarot into five parts: (1) 22 Major Arcana, (2) 14 Chalices, (3) 14 Pentacles, (4) 14 Swords, (5) 14 Wands. Keep each deck separate and shuffle each separately.</p>
+        <h3>Question</h3>
+        <p>Formulate and visualize the question relating to the reading before drawing.</p>
+        <h3>Draw and placement</h3>
+        <p>From deck one (Majors): mix and extract five cards. Place as in the grid — Row 3: A (left), B (center), C (right); Row 1: D (left), E (right). From the four Minor decks: mix each separately, extract one from each. Row 2: F (above A), G and H side by side above B, I (above C).</p>
+        <h3>Position meanings (A–I)</h3>
+        <p><strong>A</strong> — Past, beginning of the situation, or inertia: what is keeping the situation blocked and stagnant.</p>
+        <p><strong>B</strong> — Present: development of conditions about which clarification is requested; how to observe the current movement.</p>
+        <p><strong>C</strong> — Future: the conclusion of the entire situation or the balance that will be achieved.</p>
+        <p><strong>D</strong> — Advantages: strong points to use and preserve, what comes to our aid, active influences.</p>
+        <p><strong>E</strong> — Disadvantages: weak points to be careful of, what to remove ourselves from, risks, receptive influences for a new point of view.</p>
+        <p><strong>F</strong> (Chalices) — Emotional center: feelings, influence of memories.</p>
+        <p><strong>G</strong> (Pentacles) — Material center: economic situation, appearance, physical health.</p>
+        <p><strong>H</strong> (Swords) — Mental center: thoughts, ideas, communication with the external world.</p>
+        <p><strong>I</strong> (Wands) — Creative center: desires, sexual satisfaction, expression and creativity.</p>
+        <h3>Closure</h3>
+        <p>At the close of the reading, consult the advice of the dead relating to card B (present) for a suggestion on how to act and project toward a better future.</p>
+      </details>
+    </div>
+
+    <p><a href="/" target="_blank">Open overlay in new tab</a> (add that tab to OBS, not this one). <a href="/library">Deck library</a> — upload card images and switch decks.</p>
+
+    <script>
+      const KEY = "tarot_control_bulletin";
+      const el = document.getElementById("bulletin");
+      const saved = localStorage.getItem(KEY);
+      if (saved) el.value = saved;
+      el.addEventListener("input", () => localStorage.setItem(KEY, el.value));
+    </script>
+  </body>
+</html>

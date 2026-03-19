@@ -1,0 +1,112 @@
+[
+  {
+    "name": "The Fool",
+    "upright": "New beginnings, innocence, spontaneity, and a leap of faith. The Fool invites you to trust the journey and embrace the unknown. This is a time for fresh starts, curiosity, and taking a risk without overthinking. The universe supports your willingness to begin.",
+    "reversed": "Recklessness, hesitation, or ignoring warning signs. You may be holding back when you should leap, or rushing in without looking. Reversed, the Fool asks you to balance spontaneity with a little wisdom—neither freeze in fear nor throw all caution away."
+  },
+  {
+    "name": "The Magician",
+    "upright": "Manifestation, power, and using your full potential. The Magician has all the tools: will, skill, and connection to the unseen. This card says you have what it takes to make things happen. Focus your intention, take action, and create the outcome you want.",
+    "reversed": "Untapped potential, trickery, or scattered energy. You might be doubting your abilities or using them in a manipulative way. Reversed, the Magician asks for honest self-assessment: are you acting from integrity, or hiding behind illusion?"
+  },
+  {
+    "name": "The High Priestess",
+    "upright": "Intuition, mystery, and the unconscious. The High Priestess guards inner knowledge and invites you to look beyond the surface. Pay attention to dreams, signs, and gut feelings. Not everything needs to be said aloud—some answers come in silence and reflection.",
+    "reversed": "Ignoring intuition, secrets surfacing, or confusion. You may be overriding your inner voice or feeling disconnected from it. Reversed, she asks you to slow down, listen within, and trust what you already sense but haven’t yet acknowledged."
+  },
+  {
+    "name": "The Empress",
+    "upright": "Abundance, nurturing, creativity, and nature. The Empress is fertility in every form—ideas, relationships, projects. This is a time of growth, comfort, and giving or receiving care. Embrace beauty, sensuality, and the flow of life.",
+    "reversed": "Creative block, dependence, or neglect of self or others. Abundance may feel out of reach, or you may be overgiving. Reversed, the Empress asks you to restore balance: nurture yourself as much as you nurture others, and reconnect with what makes you feel alive."
+  },
+  {
+    "name": "The Emperor",
+    "upright": "Authority, structure, and leadership. The Emperor brings order, boundaries, and stability. This is a time to take charge, set clear rules, and build something lasting. Your experience and discipline are your strengths.",
+    "reversed": "Rigidity, tyranny, or lack of control. You may be too strict or too loose—either dominating others or unable to lead. Reversed, the Emperor asks for balanced authority: firm but fair, structured but flexible."
+  },
+  {
+    "name": "The Hierophant",
+    "upright": "Tradition, teaching, and spiritual guidance. The Hierophant represents established wisdom, mentors, and shared beliefs. This is a time to learn from tradition, follow a path others have walked, or offer guidance to someone else.",
+    "reversed": "Questioning tradition, rebellion, or going your own way. You may be breaking from convention or feeling stifled by it. Reversed, the Hierophant invites you to honor what still serves you while daring to find your own truth."
+  },
+  {
+    "name": "The Lovers",
+    "upright": "Love, choice, alignment, and union. The Lovers speak to connection—romantic, creative, or spiritual. A significant choice may be before you; choose from the heart and in alignment with your values. Partnership and harmony are favored.",
+    "reversed": "Misalignment, indecision, or imbalance in relationship. You may be avoiding a choice or feeling torn. Reversed, the Lovers ask for clarity: what do you truly value, and are your choices reflecting that?"
+  },
+  {
+    "name": "The Chariot",
+    "upright": "Willpower, victory, and moving forward despite opposition. The Chariot is determination in motion. You have the drive to overcome obstacles and reach your goal. Stay focused, stay disciplined, and keep going.",
+    "reversed": "Lack of direction, aggression, or self-sabotage. You may be forcing things or losing control. Reversed, the Chariot asks you to channel your energy with clarity—direct it, don’t let it run you."
+  },
+  {
+    "name": "Strength",
+    "upright": "Courage, compassion, and inner strength. Strength is not brute force but patience, kindness, and taming the beast within. You have the power to overcome fear and doubt by staying calm and gentle with yourself and others.",
+    "reversed": "Self-doubt, insecurity, or misuse of power. You may be underplaying your strength or pushing too hard. Reversed, Strength asks you to believe in yourself and to lead with heart, not ego."
+  },
+  {
+    "name": "The Hermit",
+    "upright": "Soul-searching, solitude, and inner wisdom. The Hermit carries the light within. This is a time for retreat, reflection, and listening to your own truth. Answers come when you step back from the noise and look inward.",
+    "reversed": "Isolation, loneliness, or refusing to seek help. You may be hiding when you need connection, or ignoring the wisdom you already have. Reversed, the Hermit asks: are you alone by choice for growth, or by fear?"
+  },
+  {
+    "name": "Wheel of Fortune",
+    "upright": "Change, cycles, and destiny. The Wheel turns—what goes down can come up. This is a time of shift; embrace the turn rather than resisting it. Luck and opportunity are in motion. Stay open.",
+    "reversed": "Resistance to change, bad timing, or feeling stuck. The wheel may feel like it’s working against you. Reversed, it asks you to accept that cycles are part of life and to look for the lesson in the spin."
+  },
+  {
+    "name": "Justice",
+    "upright": "Fairness, truth, and cause and effect. Justice weighs the scales. Actions have consequences; truth and balance matter. This is a time for honest decisions, accountability, and receiving what you’ve earned.",
+    "reversed": "Unfairness, dishonesty, or avoiding accountability. You may be on the wrong side of the scale or refusing to see it. Reversed, Justice asks for integrity—own your part and seek what’s truly fair."
+  },
+  {
+    "name": "The Hanged Man",
+    "upright": "Pause, surrender, and new perspective. The Hanged Man hangs in limbo by choice. Sometimes the best action is to wait, let go, and see things differently. A shift in viewpoint can change everything.",
+    "reversed": "Stalling, martyrdom, or refusing to let go. You may be stuck in delay or playing the victim. Reversed, the Hanged Man asks: is this pause serving you, or is it time to cut the rope and move on?"
+  },
+  {
+    "name": "Death",
+    "upright": "Endings, transformation, and rebirth. Death is not literal death but the end of a chapter. Something must go so something new can begin. Embrace release and renewal; the old is making way for the new.",
+    "reversed": "Resistance to change, clinging to the past, or incomplete transition. You may be holding on when it’s time to release. Reversed, Death asks you to accept an ending so transformation can complete."
+  },
+  {
+    "name": "Temperance",
+    "upright": "Balance, patience, and moderation. Temperance blends opposites with care. This is a time for middle ground, healing, and not forcing. Mix your ingredients—work and rest, give and receive—with patience.",
+    "reversed": "Imbalance, impatience, or excess. You may be overdoing one thing or rushing the process. Reversed, Temperance asks you to find the middle path and trust that slow and steady wins."
+  },
+  {
+    "name": "The Devil",
+    "upright": "Bondage, temptation, and shadow. The Devil points to chains we choose—addiction, fear, or toxic patterns. Recognize what holds you back; the chains are often looser than they look. Face the shadow to reclaim your power.",
+    "reversed": "Releasing bondage, facing shadow, and breaking free. You are waking up to what has bound you and choosing to loosen the chains. Reversed, the Devil supports liberation once you stop denying the problem."
+  },
+  {
+    "name": "The Tower",
+    "upright": "Sudden change, upheaval, and revelation. The Tower falls so truth can stand. A structure—belief, situation, or plan—is being dismantled. It’s disruptive but clears the way for something more honest.",
+    "reversed": "Avoiding disaster, delayed collapse, or fear of change. You may be dodging a necessary shake-up. Reversed, the Tower suggests that a smaller, voluntary release now can prevent a bigger crash later."
+  },
+  {
+    "name": "The Star",
+    "upright": "Hope, healing, and inspiration. The Star shines after the storm. This is a time of peace, renewal, and faith in the future. Trust the process; help and clarity are available. You are not alone.",
+    "reversed": "Hopelessness, disconnection, or dashed expectations. You may have lost sight of the light. Reversed, the Star asks you to reach for hope again—even a small spark can guide you back."
+  },
+  {
+    "name": "The Moon",
+    "upright": "Illusion, intuition, and the unconscious. The Moon lights the path through the unknown. Not everything is as it seems; dreams and fears mix with truth. Trust your intuition but question what you assume.",
+    "reversed": "Revealing illusion, clarity emerging, or confusion lifting. What was hidden is coming into view. Reversed, the Moon invites you to face what you’ve been avoiding and let the fog clear."
+  },
+  {
+    "name": "The Sun",
+    "upright": "Joy, success, and vitality. The Sun brings clarity, warmth, and positive outcomes. This is a time of happiness, achievement, and feeling alive. Let your light shine; good things are coming or already here.",
+    "reversed": "Temporary cloudiness, overconfidence, or delayed joy. The sun is still there but briefly hidden. Reversed, the Sun asks you to hold on to optimism—the clouds will pass and success is still in reach."
+  },
+  {
+    "name": "Judgement",
+    "upright": "Awakening, reckoning, and a call to rise. Judgement is the wake-up call. It’s time to answer a higher calling, forgive the past, and step into a new phase. You are being summoned to your next level.",
+    "reversed": "Self-doubt, avoiding the call, or refusing to change. You may be ignoring an inner summons or judging yourself too harshly. Reversed, Judgement asks you to listen to the call and believe in your own renewal."
+  },
+  {
+    "name": "The World",
+    "upright": "Completion, wholeness, and success. The World is the final card of the cycle—you’ve arrived. A chapter is complete; celebrate and integrate what you’ve learned. You have what it takes to begin the next cycle with wisdom.",
+    "reversed": "Almost there, or needing to close the loop. Something is not quite finished. Reversed, the World asks you to tie up loose ends and honor the completion before rushing to the next thing."
+  }
+]
