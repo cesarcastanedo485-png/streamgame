@@ -30,7 +30,7 @@
 
 1. **Manual (no TikTok)**
    - On **http://localhost:3000**, type a question in the “Question for Equilibrium Spread” field and click **Equilibrium Spread**.
-   - The overlay should switch to the 9-card grid (positions A–I), show card names (and Major images where present), and in the text area show “Advice of the dead” (from **cards.json** `advice` for position B, or from Grok if `GROK_API_KEY` is set).
+   - The overlay should switch to the 9-card grid (positions A–I), show card names (and Major images where present), and in the text area show “Advice of the dead” from **cards.json** `advice` for position B.
    - In the browser console you should see `[Advice of the dead] …` for the B position.
 
 2. **Via TikTok chat**
@@ -44,11 +44,6 @@
    - Row 2: F (Emotional), G (Material), H (Mental), I (Creative).
    - Row 3 (bottom): A (Past), B (Present), C (Future).
    - Card B’s “advice of the dead” is in the main text area and in the server console.
-
-## Grok (optional)
-
-- If **GROK_API_KEY** is set in `.env`, the “advice of the dead” for position B uses the Grok API (Santa Muerte–style prompt).
-- If not set, the app uses the B card’s **advice** field from **cards.json** (no API, no cost).
 
 ## Verify one- and multi-card readings
 

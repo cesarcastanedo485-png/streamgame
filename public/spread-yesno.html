@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Yes/No — Live Tarot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" />
+    <style>
+      :root { --bg: #0f0e14; --panel: #1a1822; --border: rgba(245, 199, 106, 0.25); --accent: #f5c76a; --text: #e8e4f0; --muted: #888; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: "Jolly Lodger", cursive; background: var(--bg); color: var(--text); min-height: 100vh; padding: 1rem; }
+      h1 { font-size: 1.4rem; color: var(--accent); margin: 0 0 0.5rem 0; }
+      .subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+      .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; max-width: 720px; }
+      .panel h2 { font-size: 1rem; margin: 0 0 0.5rem 0; color: var(--accent); }
+      .panel p, .panel ul { line-height: 1.7; color: var(--muted); margin: 0.25rem 0 0 0; }
+      .panel ul { margin-left: 1rem; padding: 0; }
+      .unlock { font-size: 0.95rem; color: var(--accent); margin-top: 1rem; }
+      a { color: var(--accent); font-size: 0.9rem; }
+      .links { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+      .app-tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+      .app-tabs a { font-size: 0.9rem; color: var(--muted); text-decoration: none; padding: 0.35rem 0.6rem; border-radius: 8px; border: 1px solid transparent; }
+      .app-tabs a:hover { color: var(--accent); background: rgba(245, 199, 106, 0.12); }
+      .app-tabs a.active { color: var(--accent); background: rgba(245, 199, 106, 0.18); }
+      .tab-sep { width: 1px; height: 1rem; background: var(--border); margin: 0 0.15rem; }
+    </style>
+  </head>
+  <body>
+    <nav class="app-tabs" aria-label="Main navigation">
+      <a href="/">Live</a><span class="tab-sep" aria-hidden="true"></span>
+      <a href="/library">Library</a><a href="/library">Decks</a><a href="/control">Control</a><span class="tab-sep" aria-hidden="true"></span>
+      <a href="/spread/yesno" class="active">Yes/No</a><a href="/spread/two-card">Two</a><a href="/spread/past-present-future">3-card</a><a href="/spread/path-of-five">5-card</a><a href="/spread/celtic-seven">7-card</a><a href="/spread/equilibrium">Equilibrium</a>
+    </nav>
+    <h1>Yes/No</h1>
+    <p class="subtitle">One-card yes/no reading — unlock with 1,000 likes.</p>
+    <div class="panel">
+      <h2>How it works</h2>
+      <p>One card is drawn. Upright = the cards lean toward yes; reversed = lean toward no. Includes Advice from the dead.</p>
+      <p class="unlock">Unlock when a viewer sends 1,000 likes. Only that viewer may ask the yes/no question in chat.</p>
+    </div>
+    <div class="links">
+      <a href="/">Overlay</a>
+      <a href="/control">Control panel</a>
+      <a href="/library">Deck library</a>
+      <a href="/#spreads">How to get all spreads</a>
+    </div>
+  </body>
+</html>

@@ -13,6 +13,8 @@ wands_temp/
 # Build / output
 build/
 dist/
+bubblewrap-src/
+twa-build/
 .dart_tool/
 __pycache__/
 *.pyc

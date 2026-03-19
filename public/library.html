@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <title>Deck Library — Upload & switch decks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="manifest" href="/manifest.json" />
+    <script>
+      if (typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.register('/sw.js').catch(function() {});
+      }
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" />
     <style>
       :root {
         --bg: #0f0e14;
@@ -16,7 +25,7 @@
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: system-ui, sans-serif;
+        font-family: "Jolly Lodger", cursive;
         background: var(--bg);
         color: var(--text);
         min-height: 100vh;
@@ -83,12 +92,48 @@
         margin-bottom: 0.25rem;
       }
       .card-slot.upload-default { opacity: 0.7; }
+      .card-slot:not(.upload-default) { cursor: pointer; }
       a { color: var(--accent); font-size: 0.85rem; }
+      .app-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        padding-bottom: 0.75rem;
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .app-tabs a {
+        font-size: 0.9rem;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 0.35rem 0.6rem;
+        border-radius: 8px;
+        border: 1px solid transparent;
+      }
+      .app-tabs a:hover { color: var(--accent); background: rgba(245, 199, 106, 0.12); }
+      .app-tabs a.active { color: var(--accent); background: rgba(245, 199, 106, 0.18); }
+      .tab-sep { width: 1px; height: 1rem; background: var(--border); margin: 0 0.15rem; }
     </style>
   </head>
   <body>
+    <nav class="app-tabs" aria-label="Main navigation">
+      <a href="/">Live</a>
+      <span class="tab-sep" aria-hidden="true"></span>
+      <a href="/library" class="active">Library</a>
+      <a href="/library">Decks</a>
+      <a href="/control">Control</a>
+      <span class="tab-sep" aria-hidden="true"></span>
+      <a href="/spread/yesno">Yes/No</a>
+      <a href="/spread/two-card">Two</a>
+      <a href="/spread/past-present-future">3-card</a>
+      <a href="/spread/path-of-five">5-card</a>
+      <a href="/spread/celtic-seven">7-card</a>
+      <a href="/spread/equilibrium">Equilibrium</a>
+    </nav>
     <h1>Deck Library</h1>
-    <p class="subtitle">Drag JPEG/PNG images onto a card slot to upload. Switch decks for the day from the dropdown.</p>
+    <p class="subtitle">Tap a card slot to pick an image (camera, gallery, or Google Lens), or drag an image onto a slot. Switch decks from the dropdown. <strong>Google Lens:</strong> Scan a card with Lens, save or share the photo to your device, then tap a slot and choose that photo.</p>
+
+    <input type="file" id="cardFileInput" accept="image/*" style="display: none" />
 
     <div class="toolbar">
       <label for="deck-select">Active deck:</label>
@@ -122,15 +167,46 @@
         const canUpload = deckId !== "default";
         cardsGrid.innerHTML = cards.map((c) => {
           const cls = "card-slot" + (c.file ? " has-image" : "") + (canUpload ? "" : " upload-default");
-          return `<div class="${cls}" data-key="${escapeAttr(c.key)}">${c.file ? `<img src="${escapeAttr(c.file)}" alt="" />` : ""}<span class="name">${escapeHtml(c.name)}</span><span>Drop image here</span></div>`;
+          return `<div class="${cls}" data-key="${escapeAttr(c.key)}">${c.file ? `<img src="${escapeAttr(c.file)}" alt="" />` : ""}<span class="name">${escapeHtml(c.name)}</span><span>Tap or drop image</span></div>`;
         }).join("");
       }
 
-      cardsGrid.addEventListener("dragover", (e) => {
+      const fileInput = document.getElementById("cardFileInput");
+      let pendingSlot = null;
+      function isImageFile(file) {
+        if (!file) return false;
+        const name = (file.name || "").toLowerCase();
+        const okExt = /\.(jpe?g|png|webp|gif)$/i.test(name);
+        const okType = file.type && file.type.startsWith("image/");
+        return okExt || okType;
+      }
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        e.target.value = "";
+        const slot = pendingSlot;
+        pendingSlot = null;
+        if (!file || !isImageFile(file)) return;
+        if (!slot || !slot.dataset.key) return;
+        const deckId = deckSelect.value;
+        const cardKey = slot.dataset.key;
+        await uploadCard(deckId, cardKey, file, slot);
+      });
+
+      cardsGrid.addEventListener("click", (e) => {
         const slot = e.target.closest(".card-slot");
-        if (slot && slot.classList.contains("upload-default") === false) e.preventDefault();
+        if (!slot || slot.classList.contains("upload-default")) return;
+        pendingSlot = slot;
+        fileInput.click();
+      });
+
+      cardsGrid.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "copy";
+        const slot = e.target.closest(".card-slot");
+        if (slot && !slot.classList.contains("upload-default")) slot.classList.add("drag-over");
       });
       cardsGrid.addEventListener("dragenter", (e) => {
+        e.preventDefault();
         const slot = e.target.closest(".card-slot");
         if (slot && !slot.classList.contains("upload-default")) slot.classList.add("drag-over");
       });
@@ -139,12 +215,12 @@
         if (slot) slot.classList.remove("drag-over");
       });
       cardsGrid.addEventListener("drop", async (e) => {
+        e.preventDefault();
         const slot = e.target.closest(".card-slot");
         if (!slot || slot.classList.contains("upload-default")) return;
-        e.preventDefault();
         slot.classList.remove("drag-over");
         const file = e.dataTransfer.files[0];
-        if (!file || !/\.(jpe?g|png)$/i.test(file.name)) return;
+        if (!file || !isImageFile(file)) return;
         const deckId = deckSelect.value;
         const cardKey = slot.dataset.key;
         await uploadCard(deckId, cardKey, file, slot);

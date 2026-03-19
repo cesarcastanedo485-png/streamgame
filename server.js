@@ -7,16 +7,27 @@ import multer from "multer";
 import { fileURLToPath } from "url";
 import { TikTokLiveConnection } from "tiktok-live-connector";
 
-dotenv.config();
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Load .env from project directory so it works regardless of process cwd (e.g. Cursor/IDE or npm start from parent)
+dotenv.config({ path: path.join(__dirname, ".env") });
 
 const PORT = process.env.PORT || 3000;
 const TIKTOK_USERNAME = process.env.TIKTOK_USERNAME || "your_tiktok_username_here";
 
 const app = express();
 app.use(express.json());
+
+// PWA manifest and service worker: no-cache so updates are always read
+app.get("/manifest.json", (req, res) => {
+  res.setHeader("Cache-Control", "no-cache, max-age=0");
+  res.sendFile(path.join(__dirname, "public", "manifest.json"));
+});
+app.get("/sw.js", (req, res) => {
+  res.setHeader("Cache-Control", "no-cache, max-age=0");
+  res.sendFile(path.join(__dirname, "public", "sw.js"));
+});
 
 // Static files for frontend
 app.use(express.static(path.join(__dirname, "public")));
@@ -150,7 +161,7 @@ function inferSuit(card, index) {
 function getDeckImagePath(deckId, cardKey) {
   const dir = path.join(DECKS_DIR, deckId);
   if (!existsSync(dir)) return null;
-  for (const ext of [".jpg", ".jpeg", ".png"]) {
+  for (const ext of [".jpg", ".jpeg", ".png", ".webp", ".gif"]) {
     const p = path.join(dir, cardKey + ext);
     if (existsSync(p)) return "/decks/" + deckId + "/" + path.basename(p);
   }
@@ -248,8 +259,8 @@ let processing = false;
 const GIFT_SPREAD_TIERS = [
   { minCoins: 25000, type: "equilibrium", label: "Santa Muerte Equilibrium" },
   { minCoins: 900, type: "celtic7", requiredCards: 7, label: "7-card Celtic" },
-  { minCoins: 400, type: "five_card", requiredCards: 5, label: "5-card" },
-  { minCoins: 150, type: "three_card", requiredCards: 3, label: "3-card" },
+  { minCoins: 400, type: "five_card", requiredCards: 5, label: "Path of Five" },
+  { minCoins: 150, type: "three_card", requiredCards: 3, label: "Past · Present · Future" },
 ];
 
 function shuffle(arr) {
@@ -263,9 +274,14 @@ function shuffle(arr) {
 
 function getRandomCard(fromDeck) {
   if (!fromDeck) fromDeck = getDeck();
-  const card = fromDeck[Math.floor(Math.random() * fromDeck.length)];
-  const upright = Math.random() < 0.5;
-  return { ...card, upright };
+  const c = fromDeck[Math.floor(Math.random() * fromDeck.length)];
+  const isUpright = Math.random() < 0.5;
+  const upText = typeof c.upright === "string" ? c.upright : "";
+  const revText = typeof c.reversed === "string" ? c.reversed : "";
+  let meaning = isUpright ? upText : revText;
+  if (!meaning) meaning = isUpright ? revText : upText;
+  if (!meaning) meaning = `${c.name || "Card"} (${isUpright ? "upright" : "reversed"}): Trust your intuition.`;
+  return { ...c, upright: isUpright, meaning };
 }
 
 function drawCards(n, fromDeck) {
@@ -278,8 +294,10 @@ function drawCards(n, fromDeck) {
 }
 
 function getCardMeaning(card) {
-  const text = card.upright ? card.upright : card.reversed;
-  return text || `${card.name} (${card.upright ? "upright" : "reversed"}): Trust your intuition.`;
+  if (card.meaning != null && card.meaning !== "") return card.meaning;
+  if (typeof card.upright === "string") return card.upright;
+  if (typeof card.reversed === "string") return card.reversed;
+  return `${card.name} (${card.upright ? "upright" : "reversed"}): Trust your intuition.`;
 }
 
 /** Build interpretation from local database based on spread type (no external API). */
@@ -321,33 +339,9 @@ function divideDecks() {
   };
 }
 
-async function getAdviceOfTheDead(card, question) {
+function getAdviceOfTheDead(card) {
   if (!card.advice) return "Reflect on the present card and seek clarity within.";
-  if (!process.env.GROK_API_KEY) return card.advice;
-  try {
-    const res = await fetch(`${process.env.GROK_API_BASE_URL || "https://api.x.ai/v1"}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.GROK_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: process.env.GROK_MODEL || "grok-4-1-fast",
-        messages: [
-          { role: "system", content: "You are a Santa Muerte tarot reader. Give brief, compassionate advice from the perspective of the dead/ancestors for the querent's present situation." },
-          { role: "user", content: `Advice from the dead for present situation based on card: ${card.name} (${card.upright ? "upright" : "reversed"}). Meaning: ${(card.upright ? card.upright : card.reversed)?.slice(0, 200)}. Question: ${question}. One short paragraph only.` },
-        ],
-        max_tokens: 150,
-      }),
-    });
-    if (!res.ok) return card.advice;
-    const data = await res.json();
-    const text = data.choices?.[0]?.message?.content?.trim();
-    return text || card.advice;
-  } catch (err) {
-    console.error("Grok advice-of-the-dead error:", err);
-    return card.advice;
-  }
+  return card.advice;
 }
 
 const EQUILIBRIUM_POSITIONS = {
@@ -401,18 +395,30 @@ const EQUILIBRIUM_POSITIONS = {
 function equilibriumDraw(decks) {
   const out = {};
   const majorIndices = [0, 1, 2, 3, 4];
+  function ensureMeaning(c, isUpright) {
+    const upText = typeof c.upright === "string" ? c.upright : "";
+    const revText = typeof c.reversed === "string" ? c.reversed : "";
+    let meaning = isUpright ? upText : revText;
+    if (!meaning) meaning = isUpright ? revText : upText;
+    if (!meaning) meaning = `${c.name || "Card"} (${isUpright ? "upright" : "reversed"}): Trust your intuition.`;
+    return meaning;
+  }
   for (const key of ["A", "B", "C", "D", "E"]) {
     const pile = decks.majors;
     const i = majorIndices["ABCDE".indexOf(key)];
     if (!pile || !pile[i]) continue;
-    const card = { ...pile[i], upright: Math.random() < 0.5 };
+    const c = pile[i];
+    const isUpright = Math.random() < 0.5;
+    const card = { ...c, upright: isUpright, meaning: ensureMeaning(c, isUpright) };
     out[key] = { ...EQUILIBRIUM_POSITIONS[key], card };
   }
   for (const key of ["F", "G", "H", "I"]) {
     const deckKey = EQUILIBRIUM_POSITIONS[key].deck;
     const pile = decks[deckKey];
     if (!pile || pile.length === 0) continue;
-    const card = { ...pile[0], upright: Math.random() < 0.5 };
+    const c = pile[0];
+    const isUpright = Math.random() < 0.5;
+    const card = { ...c, upright: isUpright, meaning: ensureMeaning(c, isUpright) };
     out[key] = { ...EQUILIBRIUM_POSITIONS[key], card };
   }
   return out;
@@ -441,7 +447,7 @@ async function runEquilibriumSpread(username, question) {
           ? {
               label: v.label,
               description: v.description,
-              card: { ...v.card, name: v.card.name, file: v.card.file, upright: v.card.upright },
+              card: { ...v.card, name: v.card.name, file: v.card.file, upright: v.card.upright, meaning: v.card.meaning || interpretations[k] },
               interpretation: interpretations[k],
             }
           : null,
@@ -527,6 +533,26 @@ app.get("/control", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "control.html"));
 });
 
+// Spread pages (Past · Present · Future = 3-card, Path of Five = 5-card)
+app.get("/spread/yesno", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "spread-yesno.html"));
+});
+app.get("/spread/two-card", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "spread-two-card.html"));
+});
+app.get("/spread/past-present-future", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "spread-past-present-future.html"));
+});
+app.get("/spread/path-of-five", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "spread-path-of-five.html"));
+});
+app.get("/spread/celtic-seven", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "spread-celtic-seven.html"));
+});
+app.get("/spread/equilibrium", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "spread-equilibrium.html"));
+});
+
 // --- Deck library: list, active, upload, serve images ---
 app.get("/library", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "library.html"));
@@ -579,8 +605,11 @@ app.post("/api/decks/:deckId/cards/:cardKey/upload", upload.single("file"), (req
   if (deckId === "default") return res.status(400).json({ error: "Cannot upload to default deck; create a custom deck first" });
   const file = req.file;
   if (!file) return res.status(400).json({ error: "No file" });
-  const ext = path.extname(file.originalname).toLowerCase() || ".jpg";
-  if (![".jpg", ".jpeg", ".png"].includes(ext)) return res.status(400).json({ error: "Use .jpg or .png" });
+  let ext = path.extname(file.originalname).toLowerCase();
+  if (!ext && file.mimetype && file.mimetype.startsWith("image/")) ext = ".jpg";
+  if (!ext) ext = ".jpg";
+  const allowed = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
+  if (!allowed.includes(ext)) return res.status(400).json({ error: "Use .jpg, .png, .webp or .gif" });
   const dir = path.join(DECKS_DIR, deckId);
   mkdirSync(dir, { recursive: true });
   const outPath = path.join(dir, cardKey + ext);
@@ -690,6 +719,7 @@ if (!TIKTOK_USERNAME || TIKTOK_USERNAME === "your_tiktok_username_here") {
         event: "attuning",
         username,
         spreadLabel: "Santa Muerte Equilibrium Spread",
+        spreadRoute: "/spread/equilibrium",
       });
       broadcastToClients({
         event: "notification",
@@ -704,10 +734,16 @@ if (!TIKTOK_USERNAME || TIKTOK_USERNAME === "your_tiktok_username_here") {
       requiredCards: tier.requiredCards,
       createdAt: Date.now(),
     });
+    const spreadRoutes = {
+      three_card: "/spread/past-present-future",
+      five_card: "/spread/path-of-five",
+      celtic7: "/spread/celtic-seven",
+    };
     broadcastToClients({
       event: "attuning",
       username,
       spreadLabel: tier.label,
+      spreadRoute: spreadRoutes[tier.type] || "/",
     });
     broadcastToClients({
       event: "notification",

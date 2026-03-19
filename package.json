@@ -6,7 +6,13 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "generate-pwa-icons": "node scripts/generate-pwa-icons.js",
+    "copy-apk-to-desktop": "node scripts/copy-apk-to-desktop.js",
+    "apk-to-desktop": "node scripts/copy-latest-apk-to-desktop.js",
+    "build-apk": "node scripts/build-apk.js",
+    "build-bubblewrap-sandbox": "bash scripts/build-bubblewrap-sandbox.sh",
+    "diagnose": "node scripts/diagnose.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

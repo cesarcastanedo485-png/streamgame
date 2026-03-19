@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Two-card — Live Tarot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" />
+    <style>
+      :root { --bg: #0f0e14; --panel: #1a1822; --border: rgba(245, 199, 106, 0.25); --accent: #f5c76a; --text: #e8e4f0; --muted: #888; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: "Jolly Lodger", cursive; background: var(--bg); color: var(--text); min-height: 100vh; padding: 1rem; }
+      h1 { font-size: 1.4rem; color: var(--accent); margin: 0 0 0.5rem 0; }
+      .subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+      .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; max-width: 720px; }
+      .panel h2 { font-size: 1rem; margin: 0 0 0.5rem 0; color: var(--accent); }
+      .panel ul { margin: 0.25rem 0 0 1rem; padding: 0; line-height: 1.7; color: var(--muted); }
+      .unlock { font-size: 0.95rem; color: var(--accent); margin-top: 1rem; }
+      a { color: var(--accent); font-size: 0.9rem; }
+      .links { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+      .app-tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+      .app-tabs a { font-size: 0.9rem; color: var(--muted); text-decoration: none; padding: 0.35rem 0.6rem; border-radius: 8px; border: 1px solid transparent; }
+      .app-tabs a:hover { color: var(--accent); background: rgba(245, 199, 106, 0.12); }
+      .app-tabs a.active { color: var(--accent); background: rgba(245, 199, 106, 0.18); }
+      .tab-sep { width: 1px; height: 1rem; background: var(--border); margin: 0 0.15rem; }
+    </style>
+  </head>
+  <body>
+    <nav class="app-tabs" aria-label="Main navigation">
+      <a href="/">Live</a><span class="tab-sep" aria-hidden="true"></span>
+      <a href="/library">Library</a><a href="/library">Decks</a><a href="/control">Control</a><span class="tab-sep" aria-hidden="true"></span>
+      <a href="/spread/yesno">Yes/No</a><a href="/spread/two-card" class="active">Two</a><a href="/spread/past-present-future">3-card</a><a href="/spread/path-of-five">5-card</a><a href="/spread/celtic-seven">7-card</a><a href="/spread/equilibrium">Equilibrium</a>
+    </nav>
+    <h1>Two-card</h1>
+    <p class="subtitle">Two-card reading — unlock by sharing the live.</p>
+    <div class="panel">
+      <h2>Positions</h2>
+      <ul>
+        <li><strong>Card 1:</strong> What you're going through now.</li>
+        <li><strong>Card 2:</strong> What's going to help you get through this.</li>
+      </ul>
+      <p class="unlock">Unlock when a viewer shares the live. Only the sharer may ask the question in chat.</p>
+    </div>
+    <div class="links">
+      <a href="/">Overlay</a>
+      <a href="/control">Control panel</a>
+      <a href="/library">Deck library</a>
+      <a href="/#spreads">How to get all spreads</a>
+    </div>
+  </body>
+</html>

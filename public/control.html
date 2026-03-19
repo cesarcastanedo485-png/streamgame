@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <title>Streamer Control — Hidden from stream</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" />
     <style>
       :root {
         --bg: #0f0e14;
@@ -16,7 +19,7 @@
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: system-ui, sans-serif;
+        font-family: "Jolly Lodger", cursive;
         background: var(--bg);
         color: var(--text);
         min-height: 100vh;
@@ -87,9 +90,42 @@
       .method-doc h3 { font-size: 0.9rem; margin: 1rem 0 0.35rem 0; color: var(--accent); }
       .method-doc h3:first-of-type { margin-top: 0; }
       .method-doc p, .method-doc ul { margin: 0 0 0.5rem 0; }
+      .app-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        padding-bottom: 0.75rem;
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .app-tabs a {
+        font-size: 0.9rem;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 0.35rem 0.6rem;
+        border-radius: 8px;
+        border: 1px solid transparent;
+      }
+      .app-tabs a:hover { color: var(--accent); background: rgba(245, 199, 106, 0.12); }
+      .app-tabs a.active { color: var(--accent); background: rgba(245, 199, 106, 0.18); }
+      .tab-sep { width: 1px; height: 1rem; background: var(--border); margin: 0 0.15rem; }
     </style>
   </head>
   <body>
+    <nav class="app-tabs" aria-label="Main navigation">
+      <a href="/">Live</a>
+      <span class="tab-sep" aria-hidden="true"></span>
+      <a href="/library">Library</a>
+      <a href="/library">Decks</a>
+      <a href="/control" class="active">Control</a>
+      <span class="tab-sep" aria-hidden="true"></span>
+      <a href="/spread/yesno">Yes/No</a>
+      <a href="/spread/two-card">Two</a>
+      <a href="/spread/past-present-future">3-card</a>
+      <a href="/spread/path-of-five">5-card</a>
+      <a href="/spread/celtic-seven">7-card</a>
+      <a href="/spread/equilibrium">Equilibrium</a>
+    </nav>
     <h1>Streamer control</h1>
     <p class="subtitle">Do not add this tab to OBS — for your eyes only. Notes are saved in this browser.</p>
 
@@ -99,13 +135,13 @@
     </div>
 
     <div class="panel">
-      <h2>Spread reference</h2>
+      <h2>Spread reference — how to get all spreads</h2>
       <div class="spread-list">
         <strong>Yes/No (1 card)</strong> — 1,000 likes. Only the user who sent the likes may ask. One card; upright = lean yes, reversed = lean no. <em>Always includes Advice from the dead.</em><br>
         <strong>Two-card</strong> — Share the live. Only the sharer may ask. 1: What you're going through now. 2: What's going to help you get through this.<br>
-        <strong>Three-card</strong> — Gift ~199+ coins (e.g. Sunglasses) only. Left: past. Middle: now. Right: future.<br>
-        <strong>Five-card</strong> — Gift ~500+ coins (e.g. Money Rain) only. 1: Present/theme. 2: Past influences. 3: Future. 4: Reason behind question. 5: Outcome.<br>
-        <strong>Seven-card (Horseshoe)</strong> — 1: Past. 2: Present. 3: Future. 4: Obstacles. 5: Attitudes of others. 6: What you should do (advice). 7: Outcome.<br>
+        <strong>Past · Present · Future (3 cards)</strong> — Gift ~150+ coins (e.g. Sunglasses) only. <a href="/spread/past-present-future">Details</a><br>
+        <strong>Path of Five (5 cards)</strong> — Gift ~400+ coins (e.g. Money Rain) only. <a href="/spread/path-of-five">Details</a><br>
+        <strong>Seven-card Celtic</strong> — Gift ~900+ coins (e.g. Galaxy). 1: Past. 2: Present. 3: Future. 4: Obstacles. 5: Attitudes of others. 6: Advice. 7: Outcome.<br>
         <strong>Santa Muerte Equilibrium (9 cards)</strong> — Gift 25k+ coins or <code>!equilibrium</code>. Only the gift sender may ask the question. Advice of the dead for B.
       </div>
     </div>
