@@ -2,16 +2,25 @@
 
 The app is a **Node.js server**. The APK is a **wrapper** that opens your **deployed** site in fullscreen. Deploy once to HTTPS, then use one command to open the builder and (optionally) build locally and copy the APK to your Desktop.
 
+### Already have Streamgame installed on your phone?
+
+You usually **do not need a new APK** for UI or feature updates.
+
+- The APK opens your **live URL** (e.g. Railway). When you **push new code and redeploy**, the next time you open the app it loads that updated site—same icon, same install.
+- **Fully close the app** (swipe it away from recents) and open it again if something looks cached. On Android you can also **clear cache** for the app in system settings if needed.
+- Build and install a **new APK only** if you change something **native** (different start URL/domain, new Android package name, or you want a fresh wrapper from PWABuilder for another reason).
+
 ---
 
 ## One-command flow (automated)
 
-1. **Deploy the app** to HTTPS (Railway, Render, Fly.io, VPS, etc.). Note the URL, e.g. `https://your-app.railway.app`.
+1. **Deploy the app** to HTTPS (Railway, Render, Fly.io, VPS, **or GitHub Pages** from `docs/`). Note the URL, e.g. `https://your-app.railway.app` or `https://youruser.github.io/your-repo`.
 
 2. **Set your live URL** in `.env`:
    ```bash
    DEPLOYED_URL=https://your-app.railway.app
    ```
+   For GitHub Pages static hosting, use your Pages URL (no trailing slash). You still set **Streaming server URL** in the app (Control) to your tunnel when streaming — see [DEPLOY-GITHUB.md](DEPLOY-GITHUB.md).
    (No trailing slash. Copy from `.env.example` if needed.)
 
 3. **Run:**
@@ -60,9 +69,10 @@ Supported: `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`.
 
 ## After code changes
 
-1. **Redeploy** the app (so the live URL has the new code).
-2. Run **`npm run build-apk`** again (PWABuilder will use the new site; or Bubblewrap will wrap the updated URL).
-3. Download the new APK (from PWABuilder or from Desktop if you use local build), then upload the new APK to Google Drive so the link points to the latest version.
+1. **Redeploy** the app (Railway / your host) so the live URL serves the new `public/` files and `server.js`.
+2. **That’s the update** for phones that already have the Streamgame APK—open the app (or force-close and reopen).
+
+Only if you need a **new APK file** (rare): run `npm run build-apk` again, download from PWABuilder (or Bubblewrap), then install over the old app—same package usually updates in place.
 
 ---
 

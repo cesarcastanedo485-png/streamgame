@@ -11,8 +11,10 @@
     "copy-apk-to-desktop": "node scripts/copy-apk-to-desktop.js",
     "apk-to-desktop": "node scripts/copy-latest-apk-to-desktop.js",
     "build-apk": "node scripts/build-apk.js",
+    "build-static": "node scripts/build-static.js",
     "build-bubblewrap-sandbox": "bash scripts/build-bubblewrap-sandbox.sh",
-    "diagnose": "node scripts/diagnose.js"
+    "diagnose": "node scripts/diagnose.js",
+    "deploy": "node scripts/deploy-railway.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

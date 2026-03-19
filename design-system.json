@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Portal Tarot — Neon Sci-Fi (no-likeness)",
+  "version": "1.0.0",
+  "notes": [
+    "Ignore device chrome: status bar and home indicator are not part of the design.",
+    "Do not use character faces or direct likenesses; portal/tech/tarot motifs only."
+  ],
+  "color": {
+    "space": {
+      "void": "#0B1214",
+      "deepTeal": "#121F1F",
+      "panelTeal": "#1A2E2E",
+      "haze": "rgba(18, 46, 46, 0.55)"
+    },
+    "portal": {
+      "acid": "#39FF14",
+      "acidSoft": "#ADFF2F",
+      "core": "#E8FFF0",
+      "spiralMid": "#1F5C3A",
+      "spiralDeep": "#0D2818",
+      "glowRgb": "57, 255, 20"
+    },
+    "purple": {
+      "frame": "#5D3A8E",
+      "frameDark": "#3D2560",
+      "frameLight": "#7B52B0",
+      "slimeMix": "#4A2F6E"
+    },
+    "cyan": {
+      "headerBar": "#76D7C4",
+      "headerBarMuted": "#5FB8A8",
+      "circuit": "rgba(118, 215, 196, 0.35)",
+      "circuitBright": "rgba(57, 255, 20, 0.22)"
+    },
+    "parchment": {
+      "base": "#FFF9C4",
+      "warm": "#F5F5DC",
+      "shadow": "#E8D9A8",
+      "ink": "#0A0A0A"
+    },
+    "tape": {
+      "gray": "#9E9E9E",
+      "shadow": "rgba(0, 0, 0, 0.25)"
+    },
+    "text": {
+      "onDarkPrimary": "#F4FFF8",
+      "onDarkSecondary": "rgba(244, 255, 248, 0.72)",
+      "onDarkMuted": "rgba(244, 255, 248, 0.48)",
+      "onParchment": "#0A0A0A",
+      "onParchmentMuted": "rgba(10, 10, 10, 0.65)",
+      "outline": "#000000"
+    },
+    "ui": {
+      "danger": "#FF4D6D",
+      "warning": "#FFD166",
+      "success": "#39FF14",
+      "focusRing": "rgba(57, 255, 20, 0.55)"
+    }
+  },
+  "gradients": {
+    "backgroundSpace": {
+      "type": "radial-linear-composite",
+      "stops": [
+        { "at": "0%", "color": "#1A2E2E" },
+        { "at": "45%", "color": "#121F1F" },
+        { "at": "100%", "color": "#0B1214" }
+      ],
+      "overlayCircuitOpacity": 0.35
+    },
+    "portalVortex": {
+      "type": "conic-linear-stack",
+      "conic": {
+        "from": "180deg",
+        "stops": [
+          { "at": "0%", "color": "#0D2818" },
+          { "at": "35%", "color": "#39FF14" },
+          { "at": "55%", "color": "#ADFF2F" },
+          { "at": "100%", "color": "#1F5C3A" }
+        ]
+      },
+      "radialCore": {
+        "stops": [
+          { "at": "0%", "color": "rgba(232, 255, 240, 0.95)" },
+          { "at": "40%", "color": "rgba(57, 255, 20, 0.55)" },
+          { "at": "100%", "color": "rgba(13, 40, 24, 0)" }
+        ]
+      }
+    },
+    "titleLiveGate": {
+      "type": "linear",
+      "angle": "180deg",
+      "stops": [
+        { "at": "0%", "color": "#39FF14" },
+        { "at": "55%", "color": "#ADFF2F" },
+        { "at": "100%", "color": "#FFF59D" }
+      ]
+    },
+    "neonButton": {
+      "type": "linear",
+      "angle": "145deg",
+      "stops": [
+        { "at": "0%", "color": "#ADFF2F" },
+        { "at": "100%", "color": "#39FF14" }
+      ]
+    },
+    "schmeklesChip": {
+      "type": "linear",
+      "angle": "90deg",
+      "stops": [
+        { "at": "0%", "color": "#FFD166" },
+        { "at": "100%", "color": "#F4B942" }
+      ]
+    }
+  },
+  "typography": {
+    "families": {
+      "displayBubbly": "'Bungee', 'Titan One', system-ui, sans-serif",
+      "handUI": "'Permanent Marker', 'Caveat', 'Kalam', cursive",
+      "monoReadout": "'Share Tech Mono', 'IBM Plex Mono', ui-monospace, monospace"
+    },
+    "scale": {
+      "displayXL": { "sizePx": 28, "lineHeightPx": 32, "weight": 800, "letterSpacingEm": 0.02, "textTransform": "uppercase" },
+      "displayL": { "sizePx": 22, "lineHeightPx": 26, "weight": 800, "letterSpacingEm": 0.03, "textTransform": "uppercase" },
+      "titleM": { "sizePx": 18, "lineHeightPx": 22, "weight": 700, "letterSpacingEm": 0.04, "textTransform": "uppercase" },
+      "body": { "sizePx": 15, "lineHeightPx": 20, "weight": 500, "letterSpacingEm": 0.01, "textTransform": "none" },
+      "caption": { "sizePx": 12, "lineHeightPx": 16, "weight": 600, "letterSpacingEm": 0.06, "textTransform": "uppercase" },
+      "micro": { "sizePx": 10, "lineHeightPx": 14, "weight": 600, "letterSpacingEm": 0.08, "textTransform": "uppercase" }
+    },
+    "effects": {
+      "titleStrokeWidthPx": 3,
+      "titleStrokeColor": "#000000",
+      "bodyOnDarkWeight": 500,
+      "bodyOnParchmentWeight": 600
+    }
+  },
+  "spacing": {
+    "unitPx": 4,
+    "scale": [0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64],
+    "layout": {
+      "screenPaddingX": 16,
+      "screenPaddingY": 12,
+      "sectionGap": 20,
+      "cardPadding": 16,
+      "tabClusterOffsetMaxPx": 6
+    }
+  },
+  "radius": {
+    "frameOuter": 22,
+    "frameInner": 16,
+    "portalWell": 9999,
+    "paperTab": 10,
+    "paperBanner": 6,
+    "buttonPill": 9999,
+    "iconButton": 12,
+    "modal": 20
+  },
+  "borders": {
+    "ink": {
+      "widthPx": 3,
+      "color": "#000000",
+      "style": "solid"
+    },
+    "inkThin": {
+      "widthPx": 2,
+      "color": "#000000",
+      "style": "solid"
+    },
+    "glowHairline": {
+      "widthPx": 1,
+      "color": "rgba(57, 255, 20, 0.45)"
+    }
+  },
+  "shadows": {
+    "neonPortal": "0 0 18px rgba(57, 255, 20, 0.55), 0 0 42px rgba(57, 255, 20, 0.28), inset 0 0 24px rgba(173, 255, 47, 0.12)",
+    "neonButton": "0 0 12px rgba(57, 255, 20, 0.65), 0 6px 0 rgba(0, 0, 0, 0.35)",
+    "paperLift": "4px 6px 0 rgba(0, 0, 0, 0.35)",
+    "tape": "1px 2px 0 rgba(0, 0, 0, 0.25)",
+    "frameDepth": "0 10px 0 rgba(0, 0, 0, 0.45)",
+    "focusRing": "0 0 0 3px rgba(57, 255, 20, 0.45)"
+  },
+  "blur": {
+    "backdropModal": "14px",
+    "portalBloom": "24px"
+  },
+  "effectsLibrary": {
+    "circuitGrid": {
+      "lineColor": "rgba(118, 215, 196, 0.22)",
+      "nodeGlow": "rgba(57, 255, 20, 0.18)",
+      "strokeWidthPx": 1
+    },
+    "slimeDrip": {
+      "color": "rgba(57, 255, 20, 0.55)",
+      "secondary": "rgba(173, 255, 47, 0.35)"
+    },
+    "rivet": {
+      "diameterPx": 8,
+      "fill": "#1A0F24",
+      "strokeWidthPx": 2
+    },
+    "noiseOverlay": {
+      "opacity": 0.06,
+      "blendMode": "overlay"
+    }
+  },
+  "components": {
+    "appChrome": {
+      "safeArea": "respect env(safe-area-inset-*); do not paint black bars as design—only extend space/teal void into safe areas.",
+      "browserMockBar": {
+        "background": "#76D7C4",
+        "border": "3px solid #000000",
+        "heightPx": 44
+      }
+    },
+    "mainFrame": {
+      "background": "#5D3A8E",
+      "border": "3px solid #000000",
+      "radiusPx": 22,
+      "rivetInsetPx": 10,
+      "rivetSpacingPx": 36,
+      "slimeAccent": "gradient blobs bottom corners using portal.slimeMix + portal.acid at 35–55% opacity"
+    },
+    "tabsPaper": {
+      "background": "#FFF9C4",
+      "border": "3px solid #000000",
+      "paddingX": 12,
+      "paddingY": 8,
+      "rotationMaxDeg": 2.5,
+      "tapeCorners": ["top-left", "top-right"],
+      "tapeSizePx": { "w": 18, "h": 10 }
+    },
+    "bannerStrip": {
+      "background": "#F5F5DC",
+      "border": "2px solid #000000",
+      "tornEdge": "use SVG mask or clip-path with 2–4% jitter; alternate y-offset ±2px",
+      "paddingX": 14,
+      "paddingY": 10
+    },
+    "primaryButton": {
+      "shape": "pill",
+      "gradient": "gradients.neonButton",
+      "textColor": "#0A0A0A",
+      "border": "3px solid #000000",
+      "shadow": "shadows.neonButton",
+      "minHeightPx": 48,
+      "paddingX": 22
+    },
+    "secondaryButton": {
+      "background": "transparent",
+      "textColor": "#F4FFF8",
+      "border": "2px solid rgba(57, 255, 20, 0.55)"
+    },
+    "cardTarot": {
+      "background": "#121F1F",
+      "border": "2px solid #000000",
+      "glowOnHover": "shadows.neonPortal at 60% intensity"
+    },
+    "livePanel": {
+      "metricsRow": "monoReadout + caption style; separators as ' › ' or thin cyan circuit lines",
+      "density": "compact; 8px vertical rhythm between rows"
+    },
+    "modal": {
+      "scrim": "rgba(11, 18, 20, 0.72)",
+      "surface": "#1A2E2E",
+      "border": "3px solid #000000",
+      "glow": "0 0 28px rgba(118, 215, 196, 0.2)"
+    },
+    "input": {
+      "background": "#FFF9C4",
+      "color": "#0A0A0A",
+      "border": "2px solid #000000",
+      "radiusPx": 10,
+      "focus": "shadows.focusRing"
+    }
+  },
+  "aestheticRules": [
+    "Depth comes from thick black outlines and stacked offsets, not soft gray shadows.",
+    "Chaos is controlled: rotate tabs ±1–3°, but keep tap targets ≥44×44px and readable baselines.",
+    "Neon is concentrated: portal, primary CTA, and key accents—never full-screen acid green text.",
+    "Purple frames signal 'container / stage'; parchment signals 'human-readable note or control'.",
+    "Tarot energy: mystical copy can be dramatic, but UI chrome stays legible (contrast ≥ 4.5:1 on body).",
+    "Tech layer: circuit lines stay low-contrast; portal green is the hero saturation.",
+    "No character likenesses or face crops; use abstract portals, gauges, slime, rivets, tape, torn paper."
+  ],
+  "tailwindExtendSnippet": {
+    "theme": {
+      "extend": {
+        "colors": {
+          "void": "#0B1214",
+          "deep-teal": "#121F1F",
+          "panel-teal": "#1A2E2E",
+          "portal-acid": "#39FF14",
+          "portal-soft": "#ADFF2F",
+          "frame-purple": "#5D3A8E",
+          "frame-purple-dark": "#3D2560",
+          "header-cyan": "#76D7C4",
+          "parchment": "#FFF9C4",
+          "parchment-warm": "#F5F5DC",
+          "ink": "#0A0A0A"
+        },
+        "fontFamily": {
+          display: ["Bungee", "Titan One", "system-ui", "sans-serif"],
+          hand: ["Permanent Marker", "Caveat", "Kalam", "cursive"],
+          mono: ["Share Tech Mono", "IBM Plex Mono", "ui-monospace", "monospace"]
+        },
+        "boxShadow": {
+          neon: "0 0 18px rgba(57,255,20,0.55), 0 0 42px rgba(57,255,20,0.28)",
+          paper: "4px 6px 0 rgba(0,0,0,0.35)",
+          frame: "0 10px 0 rgba(0,0,0,0.45)"
+        },
+        "borderWidth": { sketch: "3px" }
+      }
+    }
+  }
+}

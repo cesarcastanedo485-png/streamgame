@@ -30,6 +30,11 @@ const requiredFiles = [
   "public/spread-path-of-five.html",
   "public/spread-celtic-seven.html",
   "public/spread-equilibrium.html",
+  "public/js/site-base.js",
+  "public/js/link-base.js",
+  "public/js/backend-url.js",
+  "public/js/static-deck.js",
+  "public/404.html",
 ];
 for (const f of requiredFiles) {
   const p = path.join(root, f);

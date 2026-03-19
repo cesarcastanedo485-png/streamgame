@@ -19,6 +19,26 @@ const TIKTOK_USERNAME = process.env.TIKTOK_USERNAME || "your_tiktok_username_her
 const app = express();
 app.use(express.json());
 
+// CORS: allow GitHub Pages / tunnel when app is opened from static host (comma-separated origins in .env)
+const CORS_ORIGINS = (process.env.CORS_ORIGINS || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && CORS_ORIGINS.length > 0 && CORS_ORIGINS.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 // PWA manifest and service worker: no-cache so updates are always read
 app.get("/manifest.json", (req, res) => {
   res.setHeader("Cache-Control", "no-cache, max-age=0");
@@ -27,6 +47,16 @@ app.get("/manifest.json", (req, res) => {
 app.get("/sw.js", (req, res) => {
   res.setHeader("Cache-Control", "no-cache, max-age=0");
   res.sendFile(path.join(__dirname, "public", "sw.js"));
+});
+
+// Deck data for static / library fallback (same file as server uses)
+app.get("/cards.json", (req, res) => {
+  const p = path.join(__dirname, "cards.json");
+  if (existsSync(p)) {
+    res.setHeader("Cache-Control", "public, max-age=60");
+    return res.sendFile(p);
+  }
+  res.status(404).send("Not found");
 });
 
 // Static files for frontend
@@ -182,12 +212,11 @@ function buildDeck() {
   }
   return meanings.slice(0, 78).map((c, i) => {
     const suit = c.suit || inferSuit(c, i);
-    let file = null;
-    if (deckId === "default") {
+    const key = CARD_KEYS[i];
+    let file = getDeckImagePath(deckId, key);
+    if (!file && deckId === "default") {
       if (i < 22) file = c.file || MAJOR_FILES[i];
       else if (i >= 50 && i < 64) file = c.file || getWandsFile(i - 50);
-    } else {
-      file = getDeckImagePath(deckId, CARD_KEYS[i]);
     }
     return { ...c, suit, file };
   });
@@ -510,6 +539,20 @@ app.post("/api/equilibrium", async (req, res) => {
   }
 });
 
+// Manual draw: Yes/No, Two, 3-card, 5-card, 7-card (for Live tab)
+const MANUAL_READING_CARDS = { yesno: 1, two_card: 2, three_card: 3, five_card: 5, celtic7: 7 };
+app.post("/api/reading", express.json(), (req, res) => {
+  const type = req.body?.type;
+  const requiredCards = type ? MANUAL_READING_CARDS[type] : undefined;
+  if (!requiredCards) {
+    return res.status(400).json({ error: "Invalid type; use yesno, two_card, three_card, five_card, or celtic7" });
+  }
+  const question = req.body?.question || "General guidance";
+  const username = req.body?.username || "Streamer";
+  enqueueReading({ type, username, question, requiredCards });
+  res.json({ ok: true, message: "Reading queued" });
+});
+
 // Test endpoint: local interpretation only (no API)
 app.get("/test-reading", (req, res) => {
   try {
@@ -602,7 +645,7 @@ const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 
 app.post("/api/decks/:deckId/cards/:cardKey/upload", upload.single("file"), (req, res) => {
   const { deckId, cardKey } = req.params;
   if (!CARD_KEYS.includes(cardKey)) return res.status(400).json({ error: "Invalid card key" });
-  if (deckId === "default") return res.status(400).json({ error: "Cannot upload to default deck; create a custom deck first" });
+  // default deck uploads go to decks/default so they show in The Dex and in readings
   const file = req.file;
   if (!file) return res.status(400).json({ error: "No file" });
   let ext = path.extname(file.originalname).toLowerCase();

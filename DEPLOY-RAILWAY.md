@@ -18,6 +18,24 @@ Railway deploys from a Git repo. If this project isn’t on GitHub yet:
 
 ---
 
+## Push updates (automated)
+
+After you edit the project locally, one command stages everything, commits, and pushes so Railway can redeploy:
+
+```bash
+npm run deploy -- "Short description of what changed"
+```
+
+Or use a default timestamp message:
+
+```bash
+npm run deploy
+```
+
+Requires: **Git** installed, this folder is a **clone** with `origin` pointing at GitHub, and you’re on the **same branch Railway watches** (usually `main`). If there’s nothing new to commit, it still **pushes** any unpushed commits.
+
+---
+
 ## 2. New project in Railway
 
 1. Go to [railway.app](https://railway.app) and log in.
