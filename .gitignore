@@ -13,6 +13,11 @@ wands_temp/
 # Build / output
 build/
 dist/
+.dart_tool/
+__pycache__/
+*.pyc
+.venv/
+venv/
 *.log
 .DS_Store
 
