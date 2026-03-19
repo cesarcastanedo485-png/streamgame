@@ -49,3 +49,24 @@
 
 - **http://localhost:3000/test-reading** — returns one random card and a yes/no-style interpretation (all from **cards.json**).
 - Trigger likes/share/Universe (or simulate in code) and send a question in chat to confirm 1-, 2-, and 7-card flows and that interpretations match **cards.json**.
+
+## New: pre-live simulator in Control tab
+
+Open **http://localhost:3000/control** and use **Pre-live event simulator (chat + gifts)**.
+
+### Gift flow test (3-card / 5-card / 7-card / Equilibrium)
+
+1. Set a test username (e.g. `viewer123`).
+2. Click one of the gift buttons:
+   - Sunglasses (150) → 3-card
+   - Money Rain (400) → 5-card
+   - Galaxy (900) → 7-card
+   - Universe (25k) → Equilibrium
+3. Send chat message from the same simulated username.
+4. Confirm the Live overlay receives attuning + notification + resulting spread.
+
+### Chat command test (`!equilibrium`)
+
+1. Use **Send !equilibrium command**.
+2. Then send a normal chat question from the same simulated user.
+3. Confirm Equilibrium spread appears and includes Advice of the dead for card B.

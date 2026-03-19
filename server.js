@@ -291,6 +291,7 @@ const GIFT_SPREAD_TIERS = [
   { minCoins: 400, type: "five_card", requiredCards: 5, label: "Path of Five" },
   { minCoins: 150, type: "three_card", requiredCards: 3, label: "Past · Present · Future" },
 ];
+const SIMULATION_EVENTS = new Set(["like", "share", "gift", "chat"]);
 
 function shuffle(arr) {
   const a = [...arr];
@@ -525,6 +526,166 @@ function enqueueReading({ type, username, question, requiredCards }) {
   processQueue(); // async; no need to await
 }
 
+function getUserIdentity(data) {
+  const userId = String(data.userId || data.uniqueId || "unknown");
+  const usernameRaw = data.uniqueId || data.nickname || data.username || "Unknown";
+  const username = String(usernameRaw || "Unknown").replace(/^@+/, "");
+  return { userId, username };
+}
+
+function handleLikeEvent(data) {
+  const { userId, username } = getUserIdentity(data);
+  const delta = Math.max(1, Number.parseInt(data.likeCount, 10) || 1);
+
+  const previous = likeCounts.get(userId) || 0;
+  const newTotal = previous + delta;
+  likeCounts.set(userId, newTotal);
+  const previousBlocks = Math.floor(previous / 1000);
+  const newBlocks = Math.floor(newTotal / 1000);
+
+  if (newBlocks > previousBlocks) {
+    console.log(
+      `User ${username} reached ${newBlocks * 1000} likes, flagging pending yes/no question.`
+    );
+    pendingQuestions.set(userId, {
+      type: "yesno",
+      requiredCards: 1,
+      createdAt: Date.now(),
+    });
+    broadcastToClients({
+      event: "notification",
+      message: `@${username} reached 1,000 likes! Only they may ask a yes/no question in chat now.`,
+    });
+    return { triggered: true, type: "yesno", newTotal };
+  }
+
+  return { triggered: false, type: "yesno", newTotal };
+}
+
+function handleShareEvent(data) {
+  const { userId, username } = getUserIdentity(data);
+
+  console.log(`Share from ${username}, awaiting question for 2-card reading.`);
+  pendingQuestions.set(userId, {
+    type: "two_card",
+    requiredCards: 2,
+    createdAt: Date.now(),
+  });
+
+  broadcastToClients({
+    event: "notification",
+    message: `@${username} shared the live! Only they may ask the question for their 2-card reading in chat.`,
+  });
+
+  return { triggered: true, type: "two_card" };
+}
+
+function handleGiftEvent(data) {
+  const { userId, username } = getUserIdentity(data);
+  const giftName =
+    data.giftName || data.extendedGiftInfo?.name || data.extendedGiftInfo?.giftName || "Unknown gift";
+
+  // Only act on single gifts or when streak ends (avoid triggering on every repeat)
+  const repeatCount = Math.max(1, data.repeatCount || data.gift?.repeat_count || 1);
+  const explicitCoins = Number.isFinite(Number(data.totalCoins))
+    ? Math.max(0, Number(data.totalCoins))
+    : null;
+  const diamondPerUnit = data.diamondCount ?? data.extendedGiftInfo?.diamondCount ?? 0;
+  const totalCoins = explicitCoins != null ? explicitCoins : diamondPerUnit * repeatCount;
+  const isRepeatEnd = data.repeatEnd === true || explicitCoins != null;
+
+  if (!isRepeatEnd && repeatCount > 1) return { triggered: false, reason: "mid_streak", totalCoins };
+
+  console.log(`Gift from ${username}: ${giftName} (${totalCoins} coins)`);
+
+  const tier = GIFT_SPREAD_TIERS.find((t) => totalCoins >= t.minCoins);
+  if (!tier) return { triggered: false, reason: "below_threshold", totalCoins };
+
+  if (tier.type === "equilibrium") {
+    pendingQuestions.set(userId, { type: "equilibrium", createdAt: Date.now() });
+    broadcastToClients({
+      event: "attuning",
+      username,
+      spreadLabel: "Santa Muerte Equilibrium Spread",
+      spreadRoute: "/spread/equilibrium",
+    });
+    broadcastToClients({
+      event: "notification",
+      message: `Only @${username} may ask the question for this reading. Center yourself and ask in chat.`,
+    });
+    console.log(`Premium gift from ${username}: Santa Muerte Equilibrium (only they may ask).`);
+    return { triggered: true, type: "equilibrium", totalCoins, label: tier.label };
+  }
+
+  pendingQuestions.set(userId, {
+    type: tier.type,
+    requiredCards: tier.requiredCards,
+    createdAt: Date.now(),
+  });
+  const spreadRoutes = {
+    three_card: "/spread/past-present-future",
+    five_card: "/spread/path-of-five",
+    celtic7: "/spread/celtic-seven",
+  };
+  broadcastToClients({
+    event: "attuning",
+    username,
+    spreadLabel: tier.label,
+    spreadRoute: spreadRoutes[tier.type] || "/",
+  });
+  broadcastToClients({
+    event: "notification",
+    message: `Only @${username} may ask the question for this ${tier.label} reading. Ask in chat when ready.`,
+  });
+  console.log(`Gift from ${username}: ${tier.label} (only they may ask).`);
+  return { triggered: true, type: tier.type, totalCoins, label: tier.label };
+}
+
+async function handleChatEvent(data) {
+  const { userId, username } = getUserIdentity(data);
+  const text = (data.comment || "").trim();
+
+  if (/!equilibrium/i.test(text)) {
+    pendingQuestions.set(userId, { type: "equilibrium", createdAt: Date.now() });
+    broadcastToClients({
+      event: "notification",
+      message: `@${username} requested the Santa Muerte Equilibrium Spread. Ask your question in chat now!`,
+    });
+    console.log(`Equilibrium spread requested by ${username}`);
+    return { triggered: true, type: "equilibrium_request" };
+  }
+
+  const pending = pendingQuestions.get(userId);
+  if (!pending) return { triggered: false, reason: "no_pending_question" };
+
+  if (Date.now() - pending.createdAt > 5 * 60 * 1000) {
+    pendingQuestions.delete(userId);
+    return { triggered: false, reason: "pending_expired" };
+  }
+
+  pendingQuestions.delete(userId);
+
+  if (pending.type === "equilibrium") {
+    try {
+      const result = await runEquilibriumSpread(username, text || "General guidance");
+      broadcastToClients({ event: "equilibrium_reading", ...result });
+      return { triggered: true, type: "equilibrium" };
+    } catch (err) {
+      console.error("Equilibrium spread error:", err);
+      return { triggered: false, reason: "equilibrium_error", error: err.message };
+    }
+  }
+
+  console.log(`Received question from ${username} for ${pending.type} reading: ${text}`);
+  enqueueReading({
+    type: pending.type,
+    username,
+    question: text,
+    requiredCards: pending.requiredCards,
+  });
+  return { triggered: true, type: pending.type };
+}
+
 // Trigger Santa Muerte Equilibrium Spread (manual or from control panel)
 app.post("/api/equilibrium", async (req, res) => {
   try {
@@ -551,6 +712,59 @@ app.post("/api/reading", express.json(), (req, res) => {
   const username = req.body?.username || "Streamer";
   enqueueReading({ type, username, question, requiredCards });
   res.json({ ok: true, message: "Reading queued" });
+});
+
+// Simulate TikTok events locally (chat, gifts, likes, shares) before going live.
+app.post("/api/simulate/event", express.json(), async (req, res) => {
+  const event = String(req.body?.event || "").toLowerCase();
+  if (!SIMULATION_EVENTS.has(event)) {
+    return res.status(400).json({ ok: false, error: "Invalid event. Use like, share, gift, or chat." });
+  }
+
+  const username = String(req.body?.username || "sim_viewer").replace(/^@+/, "");
+  const baseData = {
+    userId: String(req.body?.userId || username || "sim-user"),
+    uniqueId: username,
+    nickname: req.body?.displayName || username,
+  };
+
+  try {
+    let result = null;
+    if (event === "like") {
+      const likeCount = Number.parseInt(req.body?.likeCount, 10);
+      result = handleLikeEvent({
+        ...baseData,
+        likeCount: Number.isFinite(likeCount) && likeCount > 0 ? likeCount : 1000,
+      });
+    } else if (event === "share") {
+      result = handleShareEvent(baseData);
+    } else if (event === "gift") {
+      const totalCoins = Number(req.body?.totalCoins);
+      if (!Number.isFinite(totalCoins) || totalCoins <= 0) {
+        return res.status(400).json({ ok: false, error: "Gift simulation requires totalCoins > 0." });
+      }
+      result = handleGiftEvent({
+        ...baseData,
+        giftName: req.body?.giftName || "Simulated gift",
+        totalCoins,
+        repeatEnd: true,
+      });
+    } else if (event === "chat") {
+      const comment = String(req.body?.comment || req.body?.text || "").trim();
+      if (!comment) {
+        return res.status(400).json({ ok: false, error: "Chat simulation requires comment text." });
+      }
+      result = await handleChatEvent({
+        ...baseData,
+        comment,
+      });
+    }
+
+    res.json({ ok: true, event, username, result });
+  } catch (err) {
+    console.error("simulate event error:", err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
 });
 
 // Test endpoint: local interpretation only (no API)
@@ -692,152 +906,17 @@ if (!TIKTOK_USERNAME || TIKTOK_USERNAME === "your_tiktok_username_here") {
     });
 
   // Likes: per-user 1000 -> yes/no (only that user can ask the question)
-  tiktokConnection.on("like", (data) => {
-    const userId = data.userId || data.uniqueId || "unknown";
-    const username = data.uniqueId || data.nickname || "Unknown";
-    const delta = data.likeCount || 1;
-
-    const previous = likeCounts.get(userId) || 0;
-    const newTotal = previous + delta;
-    likeCounts.set(userId, newTotal);
-    const previousBlocks = Math.floor(previous / 1000);
-    const newBlocks = Math.floor(newTotal / 1000);
-    if (newBlocks > previousBlocks) {
-      console.log(
-        `User ${username} reached ${newBlocks * 1000} likes, flagging pending yes/no question.`
-      );
-      pendingQuestions.set(userId, {
-        type: "yesno",
-        requiredCards: 1,
-        createdAt: Date.now(),
-      });
-      broadcastToClients({
-        event: "notification",
-        message: `@${username} reached 1,000 likes! Only they may ask a yes/no question in chat now.`,
-      });
-    }
-  });
+  tiktokConnection.on("like", handleLikeEvent);
 
   // Share: 2-card reading (only the sharer may ask the question)
-  tiktokConnection.on("share", (data) => {
-    const userId = data.userId || data.uniqueId || "unknown";
-    const username = data.uniqueId || data.nickname || "Unknown";
+  tiktokConnection.on("share", handleShareEvent);
 
-    console.log(`Share from ${username}, awaiting question for 2-card reading.`);
-    pendingQuestions.set(userId, {
-      type: "two_card",
-      requiredCards: 2,
-      createdAt: Date.now(),
-    });
+  // Gifts: coin tiers -> premium spreads
+  tiktokConnection.on("gift", handleGiftEvent);
 
-    broadcastToClients({
-      event: "notification",
-      message: `@${username} shared the live! Only they may ask the question for their 2-card reading in chat.`,
-    });
-  });
-
-  // Gifts: coin tiers -> premium spreads (3-card ~199, 5-card ~500, 7-card ~1000, Equilibrium 29k+)
-  tiktokConnection.on("gift", (data) => {
-    const userId = data.userId || data.uniqueId || "unknown";
-    const username = data.uniqueId || data.nickname || "Unknown";
-    const giftName =
-      data.giftName || data.extendedGiftInfo?.name || data.extendedGiftInfo?.giftName || "Unknown gift";
-
-    // Only act on single gifts or when streak ends (avoid triggering on every repeat)
-    const isRepeatEnd = data.repeatEnd === true;
-    const repeatCount = Math.max(1, data.repeatCount || data.gift?.repeat_count || 1);
-    const diamondPerUnit = data.diamondCount ?? data.extendedGiftInfo?.diamondCount ?? 0;
-    const totalCoins = diamondPerUnit * repeatCount;
-
-    if (!isRepeatEnd && repeatCount > 1) return; // mid-streak, wait for repeatEnd
-
-    console.log(`Gift from ${username}: ${giftName} (${totalCoins} coins)`);
-
-    const tier = GIFT_SPREAD_TIERS.find((t) => totalCoins >= t.minCoins);
-    if (!tier) return;
-
-    if (tier.type === "equilibrium") {
-      pendingQuestions.set(userId, { type: "equilibrium", createdAt: Date.now() });
-      broadcastToClients({
-        event: "attuning",
-        username,
-        spreadLabel: "Santa Muerte Equilibrium Spread",
-        spreadRoute: "/spread/equilibrium",
-      });
-      broadcastToClients({
-        event: "notification",
-        message: `Only @${username} may ask the question for this reading. Center yourself and ask in chat.`,
-      });
-      console.log(`Premium gift from ${username}: Santa Muerte Equilibrium (only they may ask).`);
-      return;
-    }
-
-    pendingQuestions.set(userId, {
-      type: tier.type,
-      requiredCards: tier.requiredCards,
-      createdAt: Date.now(),
-    });
-    const spreadRoutes = {
-      three_card: "/spread/past-present-future",
-      five_card: "/spread/path-of-five",
-      celtic7: "/spread/celtic-seven",
-    };
-    broadcastToClients({
-      event: "attuning",
-      username,
-      spreadLabel: tier.label,
-      spreadRoute: spreadRoutes[tier.type] || "/",
-    });
-    broadcastToClients({
-      event: "notification",
-      message: `Only @${username} may ask the question for this ${tier.label} reading. Ask in chat when ready.`,
-    });
-    console.log(`Gift from ${username}: ${tier.label} (only they may ask).`);
-  });
-
-  // Chat: !equilibrium triggers spread (next message = question). 3-card and 5-card are gift-only.
+  // Chat: commands and pending questions.
   tiktokConnection.on("chat", async (data) => {
-    const userId = data.userId || data.uniqueId || "unknown";
-    const username = data.uniqueId || data.nickname || "Unknown";
-    const text = (data.comment || "").trim();
-
-    if (/!equilibrium/i.test(text)) {
-      pendingQuestions.set(userId, { type: "equilibrium", createdAt: Date.now() });
-      broadcastToClients({
-        event: "notification",
-        message: `@${username} requested the Santa Muerte Equilibrium Spread. Ask your question in chat now!`,
-      });
-      console.log(`Equilibrium spread requested by ${username}`);
-      return;
-    }
-
-    const pending = pendingQuestions.get(userId);
-    if (!pending) return;
-
-    if (Date.now() - pending.createdAt > 5 * 60 * 1000) {
-      pendingQuestions.delete(userId);
-      return;
-    }
-
-    pendingQuestions.delete(userId);
-
-    if (pending.type === "equilibrium") {
-      try {
-        const result = await runEquilibriumSpread(username, text || "General guidance");
-        broadcastToClients({ event: "equilibrium_reading", ...result });
-      } catch (err) {
-        console.error("Equilibrium spread error:", err);
-      }
-      return;
-    }
-
-    console.log(`Received question from ${username} for ${pending.type} reading: ${text}`);
-    enqueueReading({
-      type: pending.type,
-      username,
-      question: text,
-      requiredCards: pending.requiredCards,
-    });
+    await handleChatEvent(data);
   });
 
   tiktokConnection.on("disconnected", () => {

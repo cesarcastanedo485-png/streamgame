@@ -44,6 +44,55 @@
     </div>
 
     <div class="panel">
+      <h2>Pre-live event simulator (chat + gifts)</h2>
+      <p class="spread-list" style="margin: 0">
+        Use this to dry-run chat and gift logic without TikTok. The Live overlay will receive the same notifications and readings.
+      </p>
+      <div class="sim-grid">
+        <div class="sim-field">
+          <label for="simUsername">Username</label>
+          <input type="text" id="simUsername" placeholder="viewer123" autocomplete="off" />
+        </div>
+        <div class="sim-field">
+          <label for="simUserId">User ID</label>
+          <input type="text" id="simUserId" placeholder="viewer123" autocomplete="off" />
+        </div>
+      </div>
+      <div class="sim-actions">
+        <button type="button" data-gift-name="Sunglasses" data-gift-coins="150">Gift: Sunglasses (150)</button>
+        <button type="button" data-gift-name="Money Rain" data-gift-coins="400">Gift: Money Rain (400)</button>
+        <button type="button" data-gift-name="Galaxy" data-gift-coins="900">Gift: Galaxy (900)</button>
+        <button type="button" data-gift-name="Universe" data-gift-coins="25000">Gift: Universe (25k)</button>
+      </div>
+      <div class="sim-grid">
+        <div class="sim-field">
+          <label for="simGiftName">Custom gift name</label>
+          <input type="text" id="simGiftName" placeholder="Rose" autocomplete="off" />
+        </div>
+        <div class="sim-field">
+          <label for="simGiftCoins">Custom gift coins</label>
+          <input type="number" id="simGiftCoins" min="1" step="1" placeholder="50" />
+        </div>
+      </div>
+      <div class="sim-actions">
+        <button type="button" id="simCustomGiftBtn">Send custom gift</button>
+        <button type="button" id="simShareBtn" class="secondary">Simulate share</button>
+        <button type="button" id="simLikesBtn" class="secondary">Simulate 1,000 likes</button>
+      </div>
+      <div class="sim-grid">
+        <div class="sim-field">
+          <label for="simChatText">Chat message</label>
+          <input type="text" id="simChatText" placeholder="What should I focus on this week?" autocomplete="off" />
+        </div>
+      </div>
+      <div class="sim-actions">
+        <button type="button" id="simChatBtn">Send chat message</button>
+        <button type="button" id="simEquilibriumCmdBtn" class="secondary">Send !equilibrium command</button>
+      </div>
+      <pre class="sim-result" id="simResult" aria-live="polite">Simulator idle.</pre>
+    </div>
+
+    <div class="panel">
       <h2>Quick bulletin / notes</h2>
       <textarea id="bulletin" placeholder="Talking points, reminders, or notes for during the stream…"></textarea>
     </div>
@@ -115,6 +164,94 @@
           input.value = "";
           setBackendBaseUrl("");
           showStatus("Cleared — app uses this site only.", true);
+        });
+      })();
+
+      (function () {
+        var usernameInput = document.getElementById("simUsername");
+        var userIdInput = document.getElementById("simUserId");
+        var giftNameInput = document.getElementById("simGiftName");
+        var giftCoinsInput = document.getElementById("simGiftCoins");
+        var chatInput = document.getElementById("simChatText");
+        var resultEl = document.getElementById("simResult");
+
+        function getIdentity() {
+          var username = (usernameInput.value || "").trim() || "sim_viewer";
+          var userId = (userIdInput.value || "").trim() || username;
+          return { username: username, userId: userId };
+        }
+
+        function writeResult(msg, payload) {
+          var stamp = new Date().toLocaleTimeString();
+          var text = "[" + stamp + "] " + msg;
+          if (payload) text += "\n" + JSON.stringify(payload, null, 2);
+          resultEl.textContent = text;
+        }
+
+        async function sendSimEvent(eventName, body) {
+          var identity = getIdentity();
+          try {
+            var response = await fetch(apiUrl("/api/simulate/event"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(Object.assign({ event: eventName }, identity, body || {})),
+            });
+            var json = await response.json();
+            if (!response.ok || !json.ok) {
+              throw new Error(json.error || response.statusText || "Simulation failed");
+            }
+            writeResult("Simulated " + eventName + " for @" + identity.username, json);
+            return json;
+          } catch (err) {
+            writeResult("Simulation failed: " + err.message);
+            throw err;
+          }
+        }
+
+        document.querySelectorAll("button[data-gift-coins]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var coins = Number(btn.getAttribute("data-gift-coins") || 0);
+            var giftName = btn.getAttribute("data-gift-name") || "Simulated gift";
+            sendSimEvent("gift", { giftName: giftName, totalCoins: coins });
+          });
+        });
+
+        document.getElementById("simCustomGiftBtn").addEventListener("click", function () {
+          var giftName = (giftNameInput.value || "").trim() || "Custom gift";
+          var coins = Number(giftCoinsInput.value || 0);
+          if (!coins || coins < 1) {
+            writeResult("Enter custom gift coins greater than 0.");
+            return;
+          }
+          sendSimEvent("gift", { giftName: giftName, totalCoins: coins });
+        });
+
+        document.getElementById("simShareBtn").addEventListener("click", function () {
+          sendSimEvent("share");
+        });
+
+        document.getElementById("simLikesBtn").addEventListener("click", function () {
+          sendSimEvent("like", { likeCount: 1000 });
+        });
+
+        document.getElementById("simChatBtn").addEventListener("click", function () {
+          var comment = (chatInput.value || "").trim();
+          if (!comment) {
+            writeResult("Enter a chat message first.");
+            return;
+          }
+          sendSimEvent("chat", { comment: comment });
+        });
+
+        document.getElementById("simEquilibriumCmdBtn").addEventListener("click", function () {
+          sendSimEvent("chat", { comment: "!equilibrium" });
+        });
+
+        chatInput.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("simChatBtn").click();
+          }
         });
       })();
     </script>
