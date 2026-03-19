@@ -14,12 +14,13 @@
       "haze": "rgba(18, 46, 46, 0.55)"
     },
     "portal": {
-      "acid": "#39FF14",
-      "acidSoft": "#ADFF2F",
+      "acid": "#1EA30D",
+      "acidSoft": "#6FBF3A",
+      "deep": "#0D4A0A",
       "core": "#E8FFF0",
       "spiralMid": "#1F5C3A",
       "spiralDeep": "#0D2818",
-      "glowRgb": "57, 255, 20"
+      "glowRgb": "30, 163, 13"
     },
     "purple": {
       "frame": "#5D3A8E",
@@ -31,7 +32,7 @@
       "headerBar": "#76D7C4",
       "headerBarMuted": "#5FB8A8",
       "circuit": "rgba(118, 215, 196, 0.35)",
-      "circuitBright": "rgba(57, 255, 20, 0.22)"
+      "circuitBright": "rgba(30, 163, 13, 0.22)"
     },
     "parchment": {
       "base": "#FFF9C4",
@@ -54,8 +55,8 @@
     "ui": {
       "danger": "#FF4D6D",
       "warning": "#FFD166",
-      "success": "#39FF14",
-      "focusRing": "rgba(57, 255, 20, 0.55)"
+      "success": "#1EA30D",
+      "focusRing": "rgba(12, 72, 18, 0.75)"
     }
   },
   "gradients": {
@@ -74,15 +75,15 @@
         "from": "180deg",
         "stops": [
           { "at": "0%", "color": "#0D2818" },
-          { "at": "35%", "color": "#39FF14" },
-          { "at": "55%", "color": "#ADFF2F" },
+          { "at": "35%", "color": "#1EA30D" },
+          { "at": "55%", "color": "#6FBF3A" },
           { "at": "100%", "color": "#1F5C3A" }
         ]
       },
       "radialCore": {
         "stops": [
           { "at": "0%", "color": "rgba(232, 255, 240, 0.95)" },
-          { "at": "40%", "color": "rgba(57, 255, 20, 0.55)" },
+          { "at": "40%", "color": "rgba(30, 163, 13, 0.55)" },
           { "at": "100%", "color": "rgba(13, 40, 24, 0)" }
         ]
       }
@@ -91,17 +92,17 @@
       "type": "linear",
       "angle": "180deg",
       "stops": [
-        { "at": "0%", "color": "#39FF14" },
-        { "at": "55%", "color": "#ADFF2F" },
-        { "at": "100%", "color": "#FFF59D" }
+        { "at": "0%", "color": "#1EA30D" },
+        { "at": "52%", "color": "#6FBF3A" },
+        { "at": "100%", "color": "#F2E8A8" }
       ]
     },
     "neonButton": {
       "type": "linear",
       "angle": "145deg",
       "stops": [
-        { "at": "0%", "color": "#ADFF2F" },
-        { "at": "100%", "color": "#39FF14" }
+        { "at": "0%", "color": "#6FBF3A" },
+        { "at": "100%", "color": "#1EA30D" }
       ]
     },
     "schmeklesChip": {
@@ -115,9 +116,11 @@
   },
   "typography": {
     "families": {
-      "displayBubbly": "'Bungee', 'Titan One', system-ui, sans-serif",
-      "handUI": "'Permanent Marker', 'Caveat', 'Kalam', cursive",
-      "monoReadout": "'Share Tech Mono', 'IBM Plex Mono', ui-monospace, monospace"
+      "displayRMVibe": "'Creepster', system-ui, fantasy",
+      "sciFiUI": "'Orbitron', system-ui, sans-serif",
+      "handUI": "'Permanent Marker', cursive",
+      "monoReadout": "'Share Tech Mono', 'Orbitron', ui-monospace, monospace",
+      "note": "Official Rick and Morty logo fonts are not bundled; Creepster + Orbitron are Google-licensed stand-ins."
     },
     "scale": {
       "displayXL": { "sizePx": 28, "lineHeightPx": 32, "weight": 800, "letterSpacingEm": 0.02, "textTransform": "uppercase" },
@@ -289,8 +292,8 @@
           "void": "#0B1214",
           "deep-teal": "#121F1F",
           "panel-teal": "#1A2E2E",
-          "portal-acid": "#39FF14",
-          "portal-soft": "#ADFF2F",
+          "portal-acid": "#1EA30D",
+          "portal-soft": "#6FBF3A",
           "frame-purple": "#5D3A8E",
           "frame-purple-dark": "#3D2560",
           "header-cyan": "#76D7C4",
@@ -299,12 +302,13 @@
           "ink": "#0A0A0A"
         },
         "fontFamily": {
-          display: ["Bungee", "Titan One", "system-ui", "sans-serif"],
-          hand: ["Permanent Marker", "Caveat", "Kalam", "cursive"],
-          mono: ["Share Tech Mono", "IBM Plex Mono", "ui-monospace", "monospace"]
+          display: ["Creepster", "system-ui", "fantasy"],
+          ui: ["Orbitron", "system-ui", "sans-serif"],
+          hand: ["Permanent Marker", "cursive"],
+          mono: ["Share Tech Mono", "Orbitron", "ui-monospace", "monospace"]
         },
         "boxShadow": {
-          neon: "0 0 18px rgba(57,255,20,0.55), 0 0 42px rgba(57,255,20,0.28)",
+          neon: "0 0 18px rgba(30,163,13,0.5), 0 0 42px rgba(30,163,13,0.22)",
           paper: "4px 6px 0 rgba(0,0,0,0.35)",
           frame: "0 10px 0 rgba(0,0,0,0.45)"
         },

@@ -1,0 +1,550 @@
+/**
+ * Live home (index) — layout matching mobile “Live Tarot Gate” reference:
+ * fake chrome, purple nav band, gate frame, portal, taped banner, paper strips, footer bubble.
+ * Scoped to body.live-home only.
+ */
+
+@keyframes live-portal-vortex-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes live-portal-glow-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+body.live-home {
+  background: #0a1520;
+  background-image: radial-gradient(ellipse 120% 80% at 50% 100%, rgba(20, 60, 90, 0.55) 0%, transparent 50%),
+    linear-gradient(180deg, #0b1214 0%, #0d1a22 40%, #0a1528 100%);
+}
+
+body.live-home::before {
+  opacity: 0.35;
+  background-size: 20px 20px;
+}
+
+/* --- Fake browser chrome --- */
+.live-fake-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem max(0.5rem, env(safe-area-inset-left)) 0.5rem max(0.5rem, env(safe-area-inset-right));
+  padding-top: max(0.45rem, env(safe-area-inset-top));
+  background: #2a8f8a;
+  background-image: repeating-linear-gradient(
+      -8deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.06) 2px,
+      rgba(0, 0, 0, 0.06) 3px
+    ),
+    radial-gradient(ellipse 80% 120% at 20% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 45%),
+    linear-gradient(165deg, #3aafaa 0%, #1e6d68 55%, #164a48 100%);
+  border-bottom: 3px solid #000;
+  position: relative;
+  z-index: 5;
+}
+
+.live-chrome-round {
+  flex-shrink: 0;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 50%;
+  border: 3px solid #000;
+  background: linear-gradient(145deg, #6fbf3a 0%, #1ea30d 55%, #0d4a0a 100%);
+  box-shadow: 0 0 12px rgba(30, 163, 13, 0.65), 0 4px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  line-height: 1;
+  color: #0a0a0a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.live-chrome-round:hover {
+  filter: brightness(1.06);
+}
+
+.live-chrome-urlbar {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #f8f4e8;
+  border: 3px solid #000;
+  border-radius: 10px 12px 9px 11px;
+  padding: 0.35rem 0.5rem;
+  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transform: rotate(-0.4deg);
+}
+
+.live-chrome-portal-ico {
+  font-size: 0.95rem;
+  line-height: 1;
+  color: #1ea30d;
+  filter: drop-shadow(0 0 4px rgba(30, 163, 13, 0.8));
+}
+
+.live-chrome-url-text {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-hand);
+  font-size: 0.82rem;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.live-chrome-share {
+  font-size: 0.85rem;
+  color: #333;
+  opacity: 0.85;
+}
+
+/* --- Nav: purple band, two rows --- */
+body.live-home .app-tabs.app-tabs-live {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.4rem;
+  padding: 0.5rem max(0.65rem, env(safe-area-inset-left)) 0.55rem max(0.65rem, env(safe-area-inset-right));
+  padding-top: 0.5rem;
+  background: linear-gradient(180deg, #4a2d73 0%, #3d2560 45%, #2d1a4a 100%);
+  border-bottom: 3px solid #000;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+body.live-home .app-tabs-live .app-tabs-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+body.live-home .app-tabs.app-tabs-live a {
+  font-family: var(--font-hand);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  padding: 0.38rem 0.55rem;
+  border-width: 2px;
+  border-radius: 4px 9px 6px 8px;
+}
+
+body.live-home .app-tabs.app-tabs-live a:nth-child(odd) {
+  transform: rotate(-1.2deg);
+}
+
+body.live-home .app-tabs.app-tabs-live a:nth-child(even) {
+  transform: rotate(0.8deg);
+}
+
+body.live-home .app-tabs.app-tabs-live a.tab-live-hazard {
+  background: repeating-linear-gradient(
+    -45deg,
+    #1a1a1a,
+    #1a1a1a 6px,
+    #f4d03f 6px,
+    #f4d03f 12px
+  );
+  color: #f4d03f;
+  text-shadow: 0 0 1px #000, 1px 1px 0 #000, -1px -1px 0 #000;
+  border-color: #000;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+body.live-home .app-tabs.app-tabs-live a.tab-live-hazard.active {
+  box-shadow: var(--shadow-paper), 0 0 16px rgba(244, 208, 63, 0.45);
+}
+
+body.live-home .app-tabs .tab-sep {
+  display: none;
+}
+
+/* --- Overlay / panel: single-column gate --- */
+body.live-home.portal-app.is-live .overlay {
+  align-items: flex-start;
+  padding: 0.65rem max(0.65rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-bottom))
+    max(0.65rem, env(safe-area-inset-right));
+  padding-top: 0.65rem;
+}
+
+body.live-home .portal-glow-spin {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: min(72vw, 280px);
+  height: min(72vw, 280px);
+  z-index: 1;
+  animation: live-portal-glow-spin 12s linear infinite;
+  pointer-events: none;
+}
+
+body.live-home.portal-app.is-live .portal-glow-spin .glow-orb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0.85;
+  filter: blur(18px) saturate(1.25);
+  animation: none;
+}
+
+body.live-home.portal-app.is-live .panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 0;
+  border-width: 5px;
+  border-color: #000;
+  border-radius: 18px 22px 16px 20px;
+  background: linear-gradient(165deg, #6b48a0 0%, #5d3a8e 35%, #3d2560 100%);
+  box-shadow: 0 12px 0 rgba(0, 0, 0, 0.42), 0 0 28px rgba(30, 163, 13, 0.2);
+  overflow: visible;
+}
+
+body.live-home.portal-app.is-live .panel::before {
+  inset: auto -8% -12% -8%;
+  height: 40%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(40, 120, 180, 0.35) 0%, transparent 60%);
+}
+
+body.live-home .gate-canvas {
+  position: relative;
+  padding: 0.85rem 1rem 1rem;
+  border-radius: 12px 14px 10px 14px;
+  margin: 0.65rem 0.65rem 0;
+  background: #0d1818;
+  background-image: linear-gradient(rgba(118, 215, 196, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(118, 215, 196, 0.09) 1px, transparent 1px);
+  background-size: 18px 18px;
+  border: 3px solid #000;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(118, 215, 196, 0.08);
+}
+
+body.live-home .gate-canvas::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0.15;
+  background-image: radial-gradient(circle at 20% 30%, rgba(30, 163, 13, 0.4) 0%, transparent 35%),
+    radial-gradient(circle at 80% 70%, rgba(118, 215, 196, 0.3) 0%, transparent 40%);
+}
+
+body.live-home .panel-header {
+  grid-column: unset;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.15rem;
+  margin-bottom: 0.35rem;
+}
+
+body.live-home .panel-header > div:first-child {
+  width: 100%;
+}
+
+body.live-home.portal-app.is-live .title {
+  font-family: "Creepster", var(--font-display);
+  font-size: clamp(1.5rem, 6.5vw, 1.85rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #ffe066 0%, #f4b942 45%, #e67e22 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000)
+    drop-shadow(0 0 12px rgba(244, 176, 66, 0.4));
+}
+
+body.live-home.portal-app.is-live .subtitle {
+  font-family: var(--font-hand);
+  font-size: 0.7rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.35;
+}
+
+body.live-home.portal-app.is-live .status {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 0.75rem;
+  text-transform: none;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0.15rem;
+}
+
+/* Portal stage */
+body.live-home .portal-stage {
+  position: relative;
+  min-height: min(64vw, 248px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.35rem 0 0.15rem;
+  z-index: 1;
+}
+
+body.live-home .portal-vortex {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: min(68vw, 260px);
+  height: min(68vw, 260px);
+  border-radius: 50%;
+  z-index: 2;
+  pointer-events: none;
+  background: conic-gradient(from 0deg, #0d4a0a, #1ea30d, #b8ff5a, #1ea30d, #0d2818, #6fbf3a, #0d4a0a);
+  animation: live-portal-vortex-spin 6s linear infinite;
+  box-shadow: 0 0 40px rgba(30, 255, 80, 0.55), 0 0 80px rgba(30, 163, 13, 0.35), inset 0 0 30px rgba(255, 255, 255, 0.15);
+  mask-image: radial-gradient(circle, black 25%, transparent 62%);
+  -webkit-mask-image: radial-gradient(circle, black 25%, transparent 62%);
+  opacity: 0.92;
+}
+
+body.live-home .question-banner-wrap {
+  position: relative;
+  z-index: 4;
+  width: 92%;
+  max-width: 320px;
+  margin-top: min(18vw, 72px);
+  margin-bottom: 0.65rem;
+}
+
+body.live-home .question-banner-wrap::before,
+body.live-home .question-banner-wrap::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 12px;
+  background: #f4d03f;
+  border: 2px solid #000;
+  top: -5px;
+  z-index: 2;
+  box-shadow: 1px 2px 0 rgba(0, 0, 0, 0.25);
+}
+body.live-home .question-banner-wrap::before {
+  left: 12%;
+  transform: rotate(-14deg);
+}
+body.live-home .question-banner-wrap::after {
+  right: 14%;
+  transform: rotate(10deg);
+}
+
+body.live-home .question-banner-input {
+  width: 100%;
+  display: block;
+  font-family: var(--font-hand);
+  font-size: 0.82rem;
+  color: #0a0a0a;
+  padding: 0.55rem 0.75rem;
+  border: 3px solid #000;
+  border-radius: 3px 8px 5px 7px;
+  background: #efe8d8;
+  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.3);
+  transform: rotate(-0.8deg);
+}
+
+body.live-home .question-banner-input::placeholder {
+  color: rgba(10, 10, 10, 0.55);
+}
+
+body.live-home .question-banner-input:focus {
+  outline: none;
+  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.3), 0 0 0 3px rgba(30, 163, 13, 0.45);
+}
+
+body.live-home .gate-equilibrium-cta {
+  position: relative;
+  z-index: 4;
+  font-family: "Creepster", var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.75rem;
+  border-radius: 999px;
+  border: 3px solid #000;
+  background: linear-gradient(145deg, #b8ff5a 0%, #1ea30d 45%, #0d4a0a 100%);
+  color: #061806;
+  cursor: pointer;
+  box-shadow: 0 0 22px rgba(80, 255, 100, 0.65), 0 8px 0 rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+body.live-home .gate-equilibrium-cta:hover {
+  filter: brightness(1.06);
+}
+
+/* Streamer: other reading triggers */
+body.live-home .gate-streamer-tools {
+  margin-top: 0.65rem;
+  border-top: 2px dashed rgba(118, 215, 196, 0.25);
+  padding-top: 0.45rem;
+}
+
+body.live-home .gate-streamer-tools > summary {
+  cursor: pointer;
+  font-family: "Share Tech Mono", var(--font-mono);
+  font-size: 0.65rem;
+  color: rgba(200, 255, 220, 0.65);
+  list-style: none;
+  text-align: center;
+}
+
+body.live-home .gate-streamer-tools > summary::-webkit-details-marker {
+  display: none;
+}
+
+body.live-home .gate-streamer-tools[open] > summary {
+  margin-bottom: 0.5rem;
+}
+
+body.live-home .gate-streamer-tools .equilibrium-actions {
+  margin-top: 0;
+  justify-content: center;
+}
+
+body.live-home .gate-streamer-tools .equilibrium-actions input {
+  display: none;
+}
+
+body.live-home .gate-streamer-tools .equilibrium-actions button {
+  font-size: 0.58rem;
+  padding: 0.4rem 0.55rem;
+}
+
+/* Reading output below gate canvas */
+body.live-home .reading-below {
+  padding: 0.65rem 0.85rem 3.25rem;
+  position: relative;
+}
+
+body.live-home.portal-app.is-live .cards-area {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+body.live-home.portal-app.is-live .badge-row {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+body.live-home.portal-app.is-live .badge {
+  font-family: var(--font-hand);
+  font-size: 0.68rem;
+  letter-spacing: 0;
+  text-transform: none;
+  border-radius: 2px 6px 4px 5px;
+  padding: 0.4rem 0.6rem;
+  line-height: 1.35;
+  background: #efe8d8;
+}
+
+body.live-home.portal-app.is-live .how-to-spreads summary {
+  font-family: var(--font-hand);
+  color: #f4b942;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+body.live-home.portal-app.is-live .how-to-spreads summary::-webkit-details-marker {
+  display: none;
+}
+
+body.live-home.portal-app.is-live .how-to-spreads summary::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 8px solid #e67e22;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+body.live-home.portal-app.is-live .hint {
+  font-family: var(--font-hand);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.45;
+}
+
+/* Wubba bubble */
+body.live-home .gate-wubba {
+  position: absolute;
+  right: 0.35rem;
+  bottom: 0.35rem;
+  max-width: 7.5rem;
+  padding: 0.35rem 0.45rem;
+  background: #4a90d9;
+  border: 3px solid #000;
+  border-radius: 12px 12px 4px 12px;
+  font-family: "Share Tech Mono", var(--font-mono);
+  font-size: 0.52rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.35);
+  z-index: 6;
+  transform: rotate(-2deg);
+}
+
+body.live-home.portal-app.is-live .panel {
+  position: relative;
+}
+
+/* Toast below fake chrome */
+body.live-home.portal-app.is-live .notification {
+  top: calc(max(0.5rem, env(safe-area-inset-top)) + 3.35rem);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 769px) {
+  body.live-home.portal-app.is-live .panel {
+    max-width: 480px;
+  }
+}

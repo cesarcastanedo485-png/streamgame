@@ -16,26 +16,37 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Caveat:wght@600;700&family=Kalam:wght@700&family=Permanent+Marker&family=Share+Tech+Mono&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;500;600;700;800&family=Permanent+Marker&family=Share+Tech+Mono&display=swap" />
     <link rel="stylesheet" href="css/portal-theme.css" />
-    
+    <link rel="stylesheet" href="css/live-gate-mock.css" />
   </head>
-  <body class="portal-app is-live">
-    <nav class="app-tabs" aria-label="Main navigation">
-      <a href="/" class="active">Live</a>
-      <span class="tab-sep" aria-hidden="true"></span>
-      <a href="/library">The Dex</a>
-      <a href="/control">Control</a>
-      <span class="tab-sep" aria-hidden="true"></span>
-      <a href="/spread/yesno">Yes/No</a>
-      <a href="/spread/two-card">Two</a>
-      <a href="/spread/past-present-future">3-card</a>
-      <a href="/spread/path-of-five">5-card</a>
-      <a href="/spread/celtic-seven">7-card</a>
-      <a href="/spread/equilibrium">Equilibrium</a>
+  <body class="portal-app is-live live-home">
+    <header class="live-fake-chrome">
+      <button type="button" class="live-chrome-round" id="chromeBackBtn" aria-label="Back">×</button>
+      <div class="live-chrome-urlbar">
+        <span class="live-chrome-portal-ico" aria-hidden="true">◎</span>
+        <span class="live-chrome-url-text" id="chromeUrlText">…</span>
+        <span class="live-chrome-share" aria-hidden="true">↗</span>
+      </div>
+      <button type="button" class="live-chrome-round" id="chromeLabBtn" aria-label="Streamer tools">⚗</button>
+    </header>
+    <nav class="app-tabs app-tabs-live" aria-label="Main navigation">
+      <div class="app-tabs-row">
+        <a href="/" class="active tab-live-hazard">Live</a>
+        <a href="/library">Library</a>
+        <a href="/library#deckToolbar">Decks</a>
+        <a href="/control">Control</a>
+        <a href="/spread/yesno">Yes/No</a>
+        <a href="/spread/two-card">Two</a>
+      </div>
+      <div class="app-tabs-row">
+        <a href="/spread/past-present-future">3-card</a>
+        <a href="/spread/path-of-five">5-card</a>
+        <a href="/spread/celtic-seven">7-card</a>
+        <a href="/spread/equilibrium">Equilibrium</a>
+      </div>
     </nav>
     <div class="overlay">
-      <div class="glow-orb"></div>
       <div class="notification" id="notification"></div>
 
       <div class="attuning-overlay" id="attuningOverlay">
@@ -61,36 +72,59 @@
       </div>
 
       <div class="panel">
-        <div class="panel-header">
-          <div>
-            <div class="title mystical-title">Live Tarot Gate</div>
-            <div class="subtitle">
-              1k likes · shares · Universe gifts → automatic readings
+        <div class="gate-canvas">
+          <div class="panel-header">
+            <div>
+              <div class="title mystical-title">LIVE TAROT GATE</div>
+              <div class="subtitle">
+                1k likes – shares – Universe gifts → automatic readings
+              </div>
             </div>
+            <div class="status" id="status">Connecting…</div>
           </div>
-          <div class="status" id="status">Connecting…</div>
+
+          <div class="portal-stage">
+            <div class="portal-glow-spin" aria-hidden="true">
+              <div class="glow-orb"></div>
+            </div>
+            <div class="portal-vortex" aria-hidden="true"></div>
+            <div class="question-banner-wrap">
+              <label class="visually-hidden" for="liveQuestion">Question for reading</label>
+              <input
+                type="text"
+                id="liveQuestion"
+                class="question-banner-input"
+                placeholder="Question for Equilibrium Spread"
+                autocomplete="off"
+              />
+            </div>
+            <button type="button" id="equilibriumBtn" class="gate-equilibrium-cta">Equilibrium Spread</button>
+          </div>
+
+          <details class="gate-streamer-tools" id="gateStreamerTools">
+            <summary>Other readings (streamer)</summary>
+            <div class="equilibrium-actions" aria-label="Trigger other spreads">
+              <button type="button" id="yesnoBtn">Yes/No</button>
+              <button type="button" id="twoCardBtn">Two</button>
+              <button type="button" id="threeCardBtn">3-card</button>
+              <button type="button" id="fiveCardBtn">5-card</button>
+              <button type="button" id="sevenCardBtn">7-card</button>
+            </div>
+          </details>
         </div>
 
-        <div class="cards-area" id="cards"></div>
-        <div class="grid-container" id="equilibriumGrid"></div>
+        <div class="reading-below">
+          <div class="cards-area" id="cards"></div>
+          <div class="grid-container" id="equilibriumGrid"></div>
 
-        <div class="text-area">
-          <div class="equilibrium-actions" aria-label="Do a reading">
-            <input type="text" id="liveQuestion" placeholder="Question for the reading" />
-            <button type="button" id="yesnoBtn">Yes/No</button>
-            <button type="button" id="twoCardBtn">Two</button>
-            <button type="button" id="threeCardBtn">3-card</button>
-            <button type="button" id="fiveCardBtn">5-card</button>
-            <button type="button" id="sevenCardBtn">7-card</button>
-            <button type="button" id="equilibriumBtn">Equilibrium</button>
-          </div>
+          <div class="text-area">
           <div class="user-line" id="user"></div>
           <div class="question" id="question"></div>
           <div class="ai-text interp-text" id="aiText"></div>
           <div class="badge-row">
             <div class="badge">1,000 likes (you) → yes/no · Share (you) → 2-card · Gifts → Past·Present·Future, Path of Five, 7-card, Equilibrium</div>
             <div class="badge">Gifts: Sunglasses→Past·Present·Future · Money Rain→Path of Five · Galaxy→7-card · Lion/Universe→Equilibrium</div>
-            <div class="badge">!equilibrium → Santa Muerte 9-card</div>
+            <div class="badge">Equilibrium → Santa Muerte 9-card</div>
           </div>
           <details class="how-to-spreads" id="spreads">
             <summary>How to get all spreads</summary>
@@ -108,10 +142,33 @@
             or a Universe gift and then ask their question in chat.
           </div>
         </div>
+        </div>
+
+        <div class="gate-wubba" aria-hidden="true">Wubba Lubba Dub Dub</div>
       </div>
     </div>
 
     <script>
+      (function () {
+        var urlEl = document.getElementById("chromeUrlText");
+        if (urlEl) {
+          urlEl.textContent = window.location.hostname || window.location.host || "live gate";
+        }
+        var lab = document.getElementById("chromeLabBtn");
+        var tools = document.getElementById("gateStreamerTools");
+        if (lab && tools) {
+          lab.addEventListener("click", function () {
+            tools.open = !tools.open;
+          });
+        }
+        var back = document.getElementById("chromeBackBtn");
+        if (back) {
+          back.addEventListener("click", function () {
+            if (window.history.length > 1) window.history.back();
+          });
+        }
+      })();
+
       const statusEl = document.getElementById("status");
       const cardsEl = document.getElementById("cards");
       const userEl = document.getElementById("user");
