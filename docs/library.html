@@ -58,6 +58,9 @@
       const newDeckBtn = document.getElementById("newDeckBtn");
       const cardsGrid = document.getElementById("cardsGrid");
 
+      /** True after we successfully use /api/decks (Control URL or same-origin Railway, etc.). */
+      let deckLibraryInteractive = false;
+
       function mediaUrl(file) {
         return typeof tarotMediaUrl === "function" ? tarotMediaUrl(file) : file || "";
       }
@@ -122,7 +125,7 @@
       });
 
       cardsGrid.addEventListener("click", (e) => {
-        if (!getBackendBaseUrl()) return;
+        if (!deckLibraryInteractive) return;
         const slot = e.target.closest(".card-slot");
         if (!slot || slot.classList.contains("upload-default")) return;
         pendingSlot = slot;
@@ -130,14 +133,14 @@
       });
 
       cardsGrid.addEventListener("dragover", (e) => {
-        if (!getBackendBaseUrl()) return;
+        if (!deckLibraryInteractive) return;
         e.preventDefault();
         e.dataTransfer.dropEffect = "copy";
         const slot = e.target.closest(".card-slot");
         if (slot && !slot.classList.contains("upload-default")) slot.classList.add("drag-over");
       });
       cardsGrid.addEventListener("dragenter", (e) => {
-        if (!getBackendBaseUrl()) return;
+        if (!deckLibraryInteractive) return;
         e.preventDefault();
         const slot = e.target.closest(".card-slot");
         if (slot && !slot.classList.contains("upload-default")) slot.classList.add("drag-over");
@@ -147,7 +150,7 @@
         if (slot) slot.classList.remove("drag-over");
       });
       cardsGrid.addEventListener("drop", async (e) => {
-        if (!getBackendBaseUrl()) return;
+        if (!deckLibraryInteractive) return;
         e.preventDefault();
         const slot = e.target.closest(".card-slot");
         if (!slot || slot.classList.contains("upload-default")) return;
@@ -225,21 +228,38 @@
         await loadCards(id);
       });
 
+      async function sameOriginDeckApiAvailable() {
+        try {
+          const res = await fetch(apiUrl("/api/decks"), { method: "GET" });
+          return res.ok;
+        } catch (_) {
+          return false;
+        }
+      }
+
       (async function init() {
-        if (getBackendBaseUrl()) {
+        const useRemoteFromControl = !!getBackendBaseUrl();
+        const useSameOrigin =
+          !useRemoteFromControl && (await sameOriginDeckApiAvailable());
+
+        if (useRemoteFromControl || useSameOrigin) {
           try {
+            deckLibraryInteractive = true;
             const deckId = await loadDecks();
             await loadCards(deckId);
           } catch (e) {
+            deckLibraryInteractive = false;
             console.error(e);
-            cardsGrid.innerHTML = "<p class=\"subtitle\">Could not reach the streaming server. Check the URL in Control or your connection.</p>";
+            cardsGrid.innerHTML =
+              "<p class=\"subtitle\">Could not reach the deck server. If you use Control’s tunnel URL, check it; otherwise confirm this host runs the streaming server (e.g. Railway).</p>";
           }
         } else {
           try {
             await loadStaticDefaultDeck();
           } catch (e) {
             console.error(e);
-            cardsGrid.innerHTML = "<p class=\"subtitle\">Could not load cards.json. For full deck management, set Streaming server URL in Control.</p>";
+            cardsGrid.innerHTML =
+              "<p class=\"subtitle\">Could not load cards.json. Open the app on your streaming server or set Streaming server URL in Control.</p>";
           }
         }
       })();
