@@ -35,7 +35,7 @@
       <a href="/spread/equilibrium">Equilibrium</a>
     </nav>
     <h1>The Dex</h1>
-    <p class="subtitle">Your deck library. Tap a card slot to pick an image (camera, gallery, or Google Lens), or drag an image onto a slot. Switch decks from the dropdown. <strong>Google Lens:</strong> Scan a card with Lens, save or share the photo to your device, then tap a slot and choose that photo.</p>
+    <p class="subtitle">Your deck library. Tap a card slot to pick an image (camera, gallery, or Google Lens), or drag an image onto a slot—including when <strong>Default</strong> is selected (uploads save on the server and override bundled art). Switch decks from the dropdown. <strong>Google Lens:</strong> Scan a card with Lens, save or share the photo to your device, then tap a slot and choose that photo.</p>
 
     <input type="file" id="cardFileInput" accept="image/*" style="display: none" />
 
@@ -79,9 +79,9 @@
       async function loadCards(deckId) {
         const res = await fetch(apiUrl("/api/decks/active/cards"));
         const cards = await res.json();
-        const canUpload = deckId !== "default";
+        /* default deck: server stores overrides in decks/default/ — same taps/uploads as any deck */
         cardsGrid.innerHTML = cards.map((c) => {
-          const cls = "card-slot" + (c.file ? " has-image" : "") + (canUpload ? "" : " upload-default");
+          const cls = "card-slot" + (c.file ? " has-image" : "");
           const src = c.file ? mediaUrl(c.file) : "";
           return `<div class="${cls}" data-key="${escapeAttr(c.key)}">${src ? `<img src="${escapeAttr(src)}" alt="" />` : ""}<span class="name">${escapeHtml(c.name)}</span><span>Tap or drop image</span></div>`;
         }).join("");
