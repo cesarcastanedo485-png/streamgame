@@ -39,14 +39,19 @@ app.use((req, res, next) => {
   next();
 });
 
+// Static root: prefer public/, fallback to docs/ (GitHub Pages source)
+const STATIC_ROOT = existsSync(path.join(__dirname, "public"))
+  ? path.join(__dirname, "public")
+  : path.join(__dirname, "docs");
+
 // PWA manifest and service worker: no-cache so updates are always read
 app.get("/manifest.json", (req, res) => {
   res.setHeader("Cache-Control", "no-cache, max-age=0");
-  res.sendFile(path.join(__dirname, "public", "manifest.json"));
+  res.sendFile(path.join(STATIC_ROOT, "manifest.json"));
 });
 app.get("/sw.js", (req, res) => {
   res.setHeader("Cache-Control", "no-cache, max-age=0");
-  res.sendFile(path.join(__dirname, "public", "sw.js"));
+  res.sendFile(path.join(STATIC_ROOT, "sw.js"));
 });
 
 // Deck data for static / library fallback (same file as server uses)
@@ -60,7 +65,7 @@ app.get("/cards.json", (req, res) => {
 });
 
 // Static files for frontend
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(STATIC_ROOT));
 
 // Major Arcana image filenames: your actual files in project root (indices 0–21)
 // Use these if they exist; otherwise fall back to default names in a "cards" folder
@@ -109,8 +114,16 @@ app.use("/cards", (req, res, next) => {
 });
 
 // Load cards.json as single source of truth (78 cards: 22 Major + 14×4 Minor suits)
-const cardsData = JSON.parse(readFileSync(path.join(__dirname, "cards.json"), "utf-8"));
-const rawDeck = Array.isArray(cardsData) ? cardsData : cardsData.cards || [];
+let rawDeck = [];
+try {
+  const cardsPath = path.join(__dirname, "cards.json");
+  if (existsSync(cardsPath)) {
+    const cardsData = JSON.parse(readFileSync(cardsPath, "utf-8"));
+    rawDeck = Array.isArray(cardsData) ? cardsData : (cardsData && cardsData.cards) || [];
+  }
+} catch (err) {
+  console.error("Failed to load cards.json:", err.message);
+}
 
 // Card keys for deck library (index 0–77): major_0..major_21, then ace,2..10,page,knight,queen,king per suit
 const MINOR_NAMES = ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "page", "knight", "queen", "king"];
@@ -200,17 +213,17 @@ function getDeckImagePath(deckId, cardKey) {
 
 function buildDeck() {
   const deckId = getActiveDeckId();
-  let meanings = rawDeck;
-  if (deckId !== "default") {
+  let meanings = rawDeck && rawDeck.length > 0 ? rawDeck : [];
+  if (deckId && deckId !== "default") {
     const deckPath = path.join(DECKS_DIR, deckId, "cards.json");
     if (existsSync(deckPath)) {
       try {
         const data = JSON.parse(readFileSync(deckPath, "utf-8"));
-        meanings = Array.isArray(data) ? data : data.cards || rawDeck;
+        meanings = Array.isArray(data) ? data : (data && data.cards) || meanings;
       } catch (_) {}
     }
   }
-  return meanings.slice(0, 78).map((c, i) => {
+  return (meanings.length > 0 ? meanings : []).slice(0, 78).map((c, i) => {
     const suit = c.suit || inferSuit(c, i);
     const key = CARD_KEYS[i];
     let file = getDeckImagePath(deckId, key);
@@ -368,9 +381,11 @@ function divideDecks() {
   };
 }
 
-function getAdviceOfTheDead(card) {
-  if (!card.advice) return "Reflect on the present card and seek clarity within.";
-  return card.advice;
+function getAdviceOfTheDead(card, _question) {
+  if (!card || typeof card !== "object") return "Reflect on the present card and seek clarity within.";
+  const advice = card.advice;
+  if (advice == null || String(advice).trim() === "") return "Reflect on the present card and seek clarity within.";
+  return String(advice).trim();
 }
 
 const EQUILIBRIUM_POSITIONS = {
@@ -461,8 +476,8 @@ async function runEquilibriumSpread(username, question) {
     if (!data.card) continue;
     interpretations[key] = getCardMeaning(data.card);
   }
-  const cardB = positions.B?.card;
-  const adviceOfTheDead = cardB ? await getAdviceOfTheDead(cardB, question) : "";
+  const cardB = positions.B?.card ?? null;
+  const adviceOfTheDead = cardB ? getAdviceOfTheDead(cardB, question) : "";
   if (adviceOfTheDead && cardB) {
     console.log("[Advice of the dead for B]", adviceOfTheDead);
   }
@@ -573,32 +588,98 @@ app.get("/test-reading", (req, res) => {
 
 // Hidden streamer control panel (open in a separate tab — do not add to OBS)
 app.get("/control", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "control.html"));
+  res.sendFile(path.join(STATIC_ROOT, "control.html"));
+});
+
+// Capabilities tab: connect accounts, post to YouTube/TikTok, send emails
+app.get("/capabilities", (req, res) => {
+  res.sendFile(path.join(STATIC_ROOT, "capabilities.html"));
+});
+
+// Mordechaius Maximus — Cursor-inspired AI chat
+app.get("/mordecai", (req, res) => {
+  res.sendFile(path.join(STATIC_ROOT, "mordecai.html"));
+});
+
+// Mordechaius Maximus chat API — proxies to OpenAI when OPENAI_API_KEY is set
+app.post("/api/mordecai/chat", express.json(), async (req, res) => {
+  try {
+    const body = req.body || {};
+    const messages = Array.isArray(body.messages) ? body.messages : [];
+    const mode = body.mode || "ask";
+    const agent = body.agent || "agent";
+
+    const apiKey = process.env.OPENAI_API_KEY || "";
+    if (!apiKey.trim()) {
+      return res.json({
+        content: "Add OPENAI_API_KEY to your server .env to enable AI. Until then, Mordechaius Maximus is in demo mode.",
+        code: null,
+        changes: [],
+      });
+    }
+
+    const systemPrompt = mode === "plan"
+      ? "You are Mordechaius Maximus, a helpful AI. The user is in Planning mode — provide structured, step-by-step plans."
+      : "You are Mordechaius Maximus, a helpful AI assistant. Be concise and helpful.";
+
+    const apiMessages = [
+      { role: "system", content: systemPrompt },
+      ...messages.slice(-20),
+    ];
+
+    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + apiKey.trim(),
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: apiMessages,
+        max_tokens: 1024,
+      }),
+    });
+
+    if (!openaiRes.ok) {
+      const errText = await openaiRes.text();
+      console.error("OpenAI API error:", errText);
+      return res.status(502).json({ error: "AI service error" });
+    }
+
+    const data = await openaiRes.json();
+    const choice = data.choices && data.choices[0];
+    const content = (choice && choice.message && choice.message.content) || "No response.";
+
+    res.json({ content, code: null, changes: [] });
+  } catch (err) {
+    console.error("Mordechaius Maximus chat error:", err);
+    res.status(500).json({ error: err.message || "Chat failed" });
+  }
 });
 
 // Spread pages (Past · Present · Future = 3-card, Path of Five = 5-card)
 app.get("/spread/yesno", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "spread-yesno.html"));
+  res.sendFile(path.join(STATIC_ROOT, "spread-yesno.html"));
 });
 app.get("/spread/two-card", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "spread-two-card.html"));
+  res.sendFile(path.join(STATIC_ROOT, "spread-two-card.html"));
 });
 app.get("/spread/past-present-future", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "spread-past-present-future.html"));
+  res.sendFile(path.join(STATIC_ROOT, "spread-past-present-future.html"));
 });
 app.get("/spread/path-of-five", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "spread-path-of-five.html"));
+  res.sendFile(path.join(STATIC_ROOT, "spread-path-of-five.html"));
 });
 app.get("/spread/celtic-seven", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "spread-celtic-seven.html"));
+  res.sendFile(path.join(STATIC_ROOT, "spread-celtic-seven.html"));
 });
 app.get("/spread/equilibrium", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "spread-equilibrium.html"));
+  res.sendFile(path.join(STATIC_ROOT, "spread-equilibrium.html"));
 });
 
 // --- Deck library: list, active, upload, serve images ---
 app.get("/library", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "library.html"));
+  res.sendFile(path.join(STATIC_ROOT, "library.html"));
 });
 
 app.get("/api/decks", (req, res) => {
@@ -607,6 +688,16 @@ app.get("/api/decks", (req, res) => {
 
 app.get("/api/decks/active", (req, res) => {
   res.json({ deckId: getActiveDeckId() });
+});
+
+// Capabilities: OAuth client IDs (non-secret; used by frontend for sign-in)
+app.get("/api/capabilities/config", (req, res) => {
+  const googleClientId = process.env.GOOGLE_CLIENT_ID || "";
+  const tiktokClientKey = process.env.TIKTOK_CLIENT_KEY || "";
+  res.json({
+    googleClientId: googleClientId.trim() || null,
+    tiktokClientKey: tiktokClientKey.trim() || null,
+  });
 });
 
 app.get("/api/decks/active/cards", (req, res) => {
@@ -619,26 +710,38 @@ app.get("/api/decks/active/cards", (req, res) => {
 });
 
 app.post("/api/decks/active", express.json(), (req, res) => {
-  const deckId = (req.body && req.body.deckId) || "default";
-  const decks = listDecks();
-  if (!decks.some((d) => d.id === deckId)) {
-    return res.status(400).json({ error: "Unknown deck" });
+  try {
+    const body = req.body || {};
+    const deckId = (typeof body.deckId === "string" && body.deckId.trim()) ? body.deckId.trim() : "default";
+    const decks = listDecks();
+    if (!Array.isArray(decks) || !decks.some((d) => d && d.id === deckId)) {
+      return res.status(400).json({ error: "Unknown deck" });
+    }
+    setActiveDeckId(deckId);
+    clearDeckCache();
+    res.json({ deckId });
+  } catch (err) {
+    console.error("setActiveDeck error:", err);
+    res.status(500).json({ error: "Failed to set active deck" });
   }
-  setActiveDeckId(deckId);
-  clearDeckCache();
-  res.json({ deckId });
 });
 
 app.post("/api/decks", express.json(), (req, res) => {
-  const name = (req.body && req.body.name) || "New deck";
-  const id = (req.body && req.body.id) || name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-  if (!id) return res.status(400).json({ error: "Invalid name" });
-  const dir = path.join(DECKS_DIR, id);
-  if (existsSync(dir)) return res.status(409).json({ error: "Deck already exists" });
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(path.join(dir, "meta.json"), JSON.stringify({ name }, null, 2));
-  clearDeckCache();
-  res.json({ id, name });
+  try {
+    const body = req.body || {};
+    const name = (typeof body.name === "string" && body.name.trim()) ? body.name.trim() : "New deck";
+    const id = (typeof body.id === "string" && body.id.trim()) ? body.id.trim() : name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+    if (!id) return res.status(400).json({ error: "Invalid name" });
+    const dir = path.join(DECKS_DIR, id);
+    if (existsSync(dir)) return res.status(409).json({ error: "Deck already exists" });
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(path.join(dir, "meta.json"), JSON.stringify({ name }, null, 2));
+    clearDeckCache();
+    res.json({ id, name });
+  } catch (err) {
+    console.error("createDeck error:", err);
+    res.status(500).json({ error: "Failed to create deck" });
+  }
 });
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });

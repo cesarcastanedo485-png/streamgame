@@ -6,6 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "setup-check": "node scripts/setup-check.js",
+    "init-env": "node scripts/init-env.js",
     "dev": "nodemon server.js",
     "generate-pwa-icons": "node scripts/generate-pwa-icons.js",
     "copy-apk-to-desktop": "node scripts/copy-apk-to-desktop.js",

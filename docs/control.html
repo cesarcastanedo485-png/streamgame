@@ -15,17 +15,19 @@
   </head>
   <body class="portal-app">
     <nav class="app-tabs" aria-label="Main navigation">
-      <a href="/">Live</a>
+      <a href="index.html">Live</a>
       <span class="tab-sep" aria-hidden="true"></span>
-      <a href="/library">The Dex</a>
-      <a href="/control" class="active">Control</a>
+      <a href="library.html">The Dex</a>
+      <a href="control.html" class="active">Control</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="mordecai.html">Mordechaius Maximus</a>
       <span class="tab-sep" aria-hidden="true"></span>
-      <a href="/spread/yesno">Yes/No</a>
-      <a href="/spread/two-card">Two</a>
-      <a href="/spread/past-present-future">3-card</a>
-      <a href="/spread/path-of-five">5-card</a>
-      <a href="/spread/celtic-seven">7-card</a>
-      <a href="/spread/equilibrium">Equilibrium</a>
+      <a href="spread-yesno.html">Yes/No</a>
+      <a href="spread-two-card.html">Two</a>
+      <a href="spread-past-present-future.html">3-card</a>
+      <a href="spread-path-of-five.html">5-card</a>
+      <a href="spread-celtic-seven.html">7-card</a>
+      <a href="spread-equilibrium.html">Equilibrium</a>
     </nav>
     <h1>Streamer control</h1>
     <p class="subtitle">Do not add this tab to OBS — for your eyes only. Notes are saved in this browser.</p>
@@ -53,8 +55,8 @@
       <div class="spread-list">
         <strong>Yes/No (1 card)</strong> — 1,000 likes. Only the user who sent the likes may ask. One card; upright = lean yes, reversed = lean no. <em>Always includes Advice from the dead.</em><br>
         <strong>Two-card</strong> — Share the live. Only the sharer may ask. 1: What you're going through now. 2: What's going to help you get through this.<br>
-        <strong>Past · Present · Future (3 cards)</strong> — Gift ~150+ coins (e.g. Sunglasses) only. <a href="/spread/past-present-future">Details</a><br>
-        <strong>Path of Five (5 cards)</strong> — Gift ~400+ coins (e.g. Money Rain) only. <a href="/spread/path-of-five">Details</a><br>
+        <strong>Past · Present · Future (3 cards)</strong> — Gift ~150+ coins (e.g. Sunglasses) only. <a href="spread-past-present-future.html">Details</a><br>
+        <strong>Path of Five (5 cards)</strong> — Gift ~400+ coins (e.g. Money Rain) only. <a href="spread-path-of-five.html">Details</a><br>
         <strong>Seven-card Celtic</strong> — Gift ~900+ coins (e.g. Galaxy). 1: Past. 2: Present. 3: Future. 4: Obstacles. 5: Attitudes of others. 6: Advice. 7: Outcome.<br>
         <strong>Santa Muerte Equilibrium (9 cards)</strong> — Gift 25k+ coins or <code>!equilibrium</code>. Only the gift sender may ask the question. Advice of the dead for B.
       </div>
@@ -85,35 +87,38 @@
       </details>
     </div>
 
-    <p><a href="/" target="_blank">Open overlay in new tab</a> (add that tab to OBS, not this one). <a href="/library">The Dex</a> — upload card images and switch decks.</p>
+    <p><a href="index.html" target="_blank">Open overlay in new tab</a> (add that tab to OBS, not this one). <a href="library.html">The Dex</a> — upload card images and switch decks. <a href="capabilities.html">Capabilities</a> — connect Google/TikTok. <a href="mordecai.html">Mordechaius Maximus</a> — AI chat.</p>
 
     <script>
       const KEY = "tarot_control_bulletin";
       const el = document.getElementById("bulletin");
-      const saved = localStorage.getItem(KEY);
-      if (saved) el.value = saved;
-      el.addEventListener("input", () => localStorage.setItem(KEY, el.value));
+      if (el) {
+        const saved = localStorage.getItem(KEY);
+        if (saved) el.value = saved;
+        el.addEventListener("input", () => localStorage.setItem(KEY, el.value));
+      }
 
       (function () {
         var input = document.getElementById("backendUrlInput");
         var status = document.getElementById("backendUrlStatus");
-        input.value = getBackendBaseUrl() || "";
+        if (input) input.value = (typeof getBackendBaseUrl === "function" ? getBackendBaseUrl() : "") || "";
         function showStatus(msg, ok) {
-          status.textContent = msg;
-          status.style.color = ok ? "var(--accent)" : "var(--muted)";
+          if (status) { status.textContent = msg; status.style.color = ok ? "var(--accent)" : "var(--muted)"; }
         }
-        document.getElementById("backendUrlSave").addEventListener("click", function () {
-          var v = (input.value || "").trim();
+        var saveBtn = document.getElementById("backendUrlSave");
+        if (saveBtn) saveBtn.addEventListener("click", function () {
+          var v = (input && input.value ? input.value : "").trim();
           if (v && !/^https?:\/\//i.test(v)) {
             showStatus("URL should start with https:// or http://", false);
             return;
           }
-          setBackendBaseUrl(v);
+          if (typeof setBackendBaseUrl === "function") setBackendBaseUrl(v);
           showStatus(v ? "Saved. Reload Live / The Dex if they were already open." : "Cleared — app uses this site only.", true);
         });
-        document.getElementById("backendUrlClear").addEventListener("click", function () {
-          input.value = "";
-          setBackendBaseUrl("");
+        var clearBtn = document.getElementById("backendUrlClear");
+        if (clearBtn) clearBtn.addEventListener("click", function () {
+          if (input) input.value = "";
+          if (typeof setBackendBaseUrl === "function") setBackendBaseUrl("");
           showStatus("Cleared — app uses this site only.", true);
         });
       })();

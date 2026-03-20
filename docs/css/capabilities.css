@@ -1,0 +1,185 @@
+/**
+ * Capabilities tab — connect accounts, post, send email
+ */
+
+.capabilities-page .panel {
+  margin-bottom: 1.5rem;
+}
+
+.cap-error {
+  background: rgba(180, 50, 50, 0.25);
+  border: 2px solid rgba(220, 80, 80, 0.6);
+  border-radius: var(--radius-inner);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-on-dark-primary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.cap-error[hidden] {
+  display: none !important;
+}
+
+.capabilities-accounts .account-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(30, 120, 40, 0.3);
+}
+
+.capabilities-accounts .account-row:last-of-type {
+  border-bottom: none;
+}
+
+.account-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.account-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-panel-teal);
+  border: var(--border-ink-thin);
+  border-radius: var(--radius-paper);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-portal-soft);
+}
+
+.account-info strong {
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.account-status {
+  font-size: 0.8rem;
+  color: var(--text-on-dark-muted);
+}
+
+.account-status.connected {
+  color: var(--color-portal-soft);
+}
+
+.account-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cap-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 28rem;
+}
+
+.cap-form label {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-on-dark-secondary);
+}
+
+.cap-form input,
+.cap-form textarea {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 0.5rem 0.65rem;
+  background: rgba(11, 18, 20, 0.7);
+  border: var(--border-ink-thin);
+  border-radius: var(--radius-paper);
+  color: var(--text-on-dark-primary);
+}
+
+.cap-form input::placeholder,
+.cap-form textarea::placeholder {
+  color: var(--text-on-dark-muted);
+}
+
+.cap-form input:focus,
+.cap-form textarea:focus {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.cap-form textarea {
+  resize: vertical;
+  min-height: 4rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: var(--border-ink);
+  border-radius: var(--radius-paper);
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--grad-cta);
+  color: var(--color-void);
+  box-shadow: var(--shadow-paper);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-on-dark-secondary);
+  border-color: rgba(30, 120, 40, 0.5);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  color: var(--text-on-dark-primary);
+  border-color: var(--color-portal-soft);
+}
+
+.cap-result {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-paper);
+  font-size: 0.85rem;
+}
+
+.cap-result.success {
+  background: rgba(30, 163, 13, 0.2);
+  border: 1px solid rgba(30, 163, 13, 0.5);
+  color: var(--color-portal-soft);
+}
+
+.cap-result.error {
+  background: rgba(180, 50, 50, 0.2);
+  border: 1px solid rgba(220, 80, 80, 0.5);
+  color: #f4a0a0;
+}
+
+.cap-result[hidden] {
+  display: none !important;
+}
+
+.cap-hint {
+  font-size: 0.8rem;
+  color: var(--text-on-dark-muted);
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}

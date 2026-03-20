@@ -32,18 +32,20 @@
     </header>
     <nav class="app-tabs app-tabs-live" aria-label="Main navigation">
       <div class="app-tabs-row">
-        <a href="/" class="active tab-live-hazard">Live</a>
-        <a href="/library">Library</a>
-        <a href="/library#deckToolbar">Decks</a>
-        <a href="/control">Control</a>
-        <a href="/spread/yesno">Yes/No</a>
-        <a href="/spread/two-card">Two</a>
+        <a href="index.html" class="active tab-live-hazard">Live</a>
+        <a href="library.html">Library</a>
+        <a href="library.html#deckToolbar">Decks</a>
+        <a href="control.html">Control</a>
+        <a href="capabilities.html">Capabilities</a>
+        <a href="mordecai.html">Mordechaius Maximus</a>
+        <a href="spread-yesno.html">Yes/No</a>
+        <a href="spread-two-card.html">Two</a>
       </div>
       <div class="app-tabs-row">
-        <a href="/spread/past-present-future">3-card</a>
-        <a href="/spread/path-of-five">5-card</a>
-        <a href="/spread/celtic-seven">7-card</a>
-        <a href="/spread/equilibrium">Equilibrium</a>
+        <a href="spread-past-present-future.html">3-card</a>
+        <a href="spread-path-of-five.html">5-card</a>
+        <a href="spread-celtic-seven.html">7-card</a>
+        <a href="spread-equilibrium.html">Equilibrium</a>
       </div>
     </nav>
     <div class="overlay">
@@ -56,6 +58,17 @@
           <p class="attuning-copy">
             Breathe. Still your mind. Let your question rise to <strong>La Santa Muerte</strong>—she who walks between worlds. Do not fear her. In the end, we each meet the Night Mother; let her guide you while you still live. Speak your question in chat when the moment is right. Only you may ask.
           </p>
+        </div>
+      </div>
+
+      <div class="shuffling-overlay" id="shufflingOverlay" aria-live="polite">
+        <div class="shuffling-content">
+          <div class="shuffling-deck" aria-hidden="true">
+            <div class="shuffle-card"></div>
+            <div class="shuffle-card"></div>
+            <div class="shuffle-card"></div>
+          </div>
+          <p class="shuffling-text mystical-title">Shuffling the deck…</p>
         </div>
       </div>
 
@@ -101,8 +114,8 @@
             <button type="button" id="equilibriumBtn" class="gate-equilibrium-cta">Equilibrium Spread</button>
           </div>
 
-          <details class="gate-streamer-tools" id="gateStreamerTools">
-            <summary>Other readings (streamer)</summary>
+          <details class="gate-streamer-tools" id="gateStreamerTools" open>
+            <summary>Other readings (streamer) — click a spread to draw cards</summary>
             <div class="equilibrium-actions" aria-label="Trigger other spreads">
               <button type="button" id="yesnoBtn">Yes/No</button>
               <button type="button" id="twoCardBtn">Two</button>
@@ -129,12 +142,12 @@
           <details class="how-to-spreads" id="spreads">
             <summary>How to get all spreads</summary>
             <ul class="spreads-list">
-              <li><strong>Yes/No (1 card):</strong> 1,000 likes from a viewer — only that viewer may ask. <a href="/spread/yesno">Details</a></li>
-              <li><strong>Two-card:</strong> Share the live — only the sharer may ask. <a href="/spread/two-card">Details</a></li>
-              <li><strong>Past · Present · Future (3 cards):</strong> Gift ~150+ coins (e.g. Sunglasses). <a href="/spread/past-present-future">Details</a></li>
-              <li><strong>Path of Five (5 cards):</strong> Gift ~400+ coins (e.g. Money Rain). <a href="/spread/path-of-five">Details</a></li>
-              <li><strong>7-card Celtic:</strong> Gift ~900+ coins (e.g. Galaxy). <a href="/spread/celtic-seven">Details</a></li>
-              <li><strong>Santa Muerte Equilibrium (9 cards):</strong> Gift 25k+ coins or type <code>!equilibrium</code> in chat, then ask. <a href="/spread/equilibrium">Details</a></li>
+              <li><strong>Yes/No (1 card):</strong> 1,000 likes from a viewer — only that viewer may ask. <a href="spread-yesno.html">Details</a></li>
+              <li><strong>Two-card:</strong> Share the live — only the sharer may ask. <a href="spread-two-card.html">Details</a></li>
+              <li><strong>Past · Present · Future (3 cards):</strong> Gift ~150+ coins (e.g. Sunglasses). <a href="spread-past-present-future.html">Details</a></li>
+              <li><strong>Path of Five (5 cards):</strong> Gift ~400+ coins (e.g. Money Rain). <a href="spread-path-of-five.html">Details</a></li>
+              <li><strong>7-card Celtic:</strong> Gift ~900+ coins (e.g. Galaxy). <a href="spread-celtic-seven.html">Details</a></li>
+              <li><strong>Santa Muerte Equilibrium (9 cards):</strong> Gift 25k+ coins or type <code>!equilibrium</code> in chat, then ask. <a href="spread-equilibrium.html">Details</a></li>
             </ul>
           </details>
           <div class="hint" id="hint">
@@ -180,20 +193,20 @@
       let ws;
 
       function connectWebSocket() {
-        const url = getWebSocketUrl();
+        const url = typeof getWebSocketUrl === "function" ? getWebSocketUrl() : (location.protocol === "https:" ? "wss:" : "ws:") + "//" + location.host;
         ws = new WebSocket(url);
 
         ws.onopen = () => {
-          statusEl.textContent = "Connected";
+          if (statusEl) statusEl.textContent = "Connected";
         };
 
         ws.onclose = () => {
-          statusEl.textContent = "Disconnected – retrying…";
+          if (statusEl) statusEl.textContent = "Disconnected – retrying…";
           setTimeout(connectWebSocket, 2000);
         };
 
         ws.onerror = () => {
-          statusEl.textContent = "Error – reconnecting…";
+          if (statusEl) statusEl.textContent = "Error – reconnecting…";
         };
 
         ws.onmessage = (event) => {
@@ -203,18 +216,25 @@
               document.getElementById("attuningOverlay").classList.remove("visible");
               document.getElementById("equilibriumGrid").classList.remove("visible");
               document.getElementById("cards").style.display = "flex";
-              renderReading(data);
+              var shufflingEl = document.getElementById("shufflingOverlay");
+              if (shufflingEl) shufflingEl.classList.add("visible");
+              setTimeout(function () {
+                if (shufflingEl) shufflingEl.classList.remove("visible");
+                renderReading(data);
+              }, 1800);
             } else if (data.event === "equilibrium_reading") {
               document.getElementById("attuningOverlay").classList.remove("visible");
               document.getElementById("cards").style.display = "none";
-              renderEquilibrium(data);
+              var shufflingEl = document.getElementById("shufflingOverlay");
+              if (shufflingEl) shufflingEl.classList.add("visible");
+              setTimeout(function () {
+                if (shufflingEl) shufflingEl.classList.remove("visible");
+                renderEquilibrium(data);
+              }, 1800);
             } else if (data.event === "attuning") {
               document.getElementById("attuningUsername").textContent = "@" + (data.username || "viewer");
               document.getElementById("attuningSpread").textContent = data.spreadLabel || "Reading";
               document.getElementById("attuningOverlay").classList.add("visible");
-              if (data.spreadRoute) {
-                window.location.href = tarotResolvePath(data.spreadRoute);
-              }
               setTimeout(function () {
                 document.getElementById("attuningOverlay").classList.remove("visible");
               }, 12000);
@@ -237,18 +257,20 @@
           body: JSON.stringify(payload),
         }).then((res) => { if (!res.ok) throw new Error(res.statusText); }).catch((e) => console.error("Reading failed", e));
       }
-      document.getElementById("yesnoBtn").addEventListener("click", () => doReading("yesno", "/api/reading", { type: "yesno" }));
-      document.getElementById("twoCardBtn").addEventListener("click", () => doReading("two_card", "/api/reading", { type: "two_card" }));
-      document.getElementById("threeCardBtn").addEventListener("click", () => doReading("three_card", "/api/reading", { type: "three_card" }));
-      document.getElementById("fiveCardBtn").addEventListener("click", () => doReading("five_card", "/api/reading", { type: "five_card" }));
-      document.getElementById("sevenCardBtn").addEventListener("click", () => doReading("celtic7", "/api/reading", { type: "celtic7" }));
-      document.getElementById("equilibriumBtn").addEventListener("click", () => doReading("equilibrium", "/api/equilibrium", {}));
+      ["yesnoBtn", "twoCardBtn", "threeCardBtn", "fiveCardBtn", "sevenCardBtn", "equilibriumBtn"].forEach(function (id, i) {
+        var btn = document.getElementById(id);
+        var types = ["yesno", "two_card", "three_card", "five_card", "celtic7", "equilibrium"];
+        var endpoints = ["/api/reading", "/api/reading", "/api/reading", "/api/reading", "/api/reading", "/api/equilibrium"];
+        var bodies = [{ type: types[i] }, { type: types[i] }, { type: types[i] }, { type: types[i] }, { type: types[i] }, {}];
+        if (btn) btn.addEventListener("click", function () { doReading(types[i], endpoints[i], bodies[i]); });
+      });
 
       function showNotification(message) {
-        notificationEl.textContent = message;
+        if (!notificationEl) return;
+        notificationEl.textContent = message || "";
         notificationEl.classList.add("visible");
         setTimeout(() => {
-          notificationEl.classList.remove("visible");
+          if (notificationEl) notificationEl.classList.remove("visible");
         }, 4500);
       }
 
@@ -281,9 +303,12 @@
       document.getElementById("cardEnlargeClose").addEventListener("click", closeCardModal);
 
       function renderReading(payload) {
-        const { type, username, question, cards } = payload;
+        if (!payload || !cardsEl) return;
+        const type = payload.type;
+        const username = payload.username;
+        const question = payload.question;
+        const cards = Array.isArray(payload.cards) ? payload.cards : [];
 
-        // Clear cards
         cardsEl.innerHTML = "";
 
         const positionsMap = {
@@ -312,7 +337,8 @@
 
         cards.forEach((card, idx) => {
           const wrapper = document.createElement("div");
-          wrapper.className = "card" + (card.upright ? "" : " reversed") + (card.meaning || card.file ? " clickable" : "");
+          wrapper.className = "card card-reveal" + (card.upright ? "" : " reversed") + (card.meaning || card.file ? " clickable" : "");
+          wrapper.style.animationDelay = (idx * 0.12) + "s";
           const src = cardImageSrc(card.file);
           if (card.meaning) wrapper.dataset.cardMeaning = card.meaning;
           if (src) wrapper.dataset.cardSrc = src;
@@ -345,42 +371,35 @@
           cardsEl.appendChild(wrapper);
         });
 
-        userEl.textContent = username ? "Reading for @" + username : "";
-        questionEl.textContent = question || "";
-        if (payload.aiText) {
-          aiTextEl.innerHTML = payload.aiText.replace(/\n/g, "<br>");
-        } else {
-          aiTextEl.textContent = "";
+        if (userEl) userEl.textContent = username ? "Reading for @" + username : "";
+        if (questionEl) questionEl.textContent = question || "";
+        if (aiTextEl) {
+          if (payload.aiText) {
+            aiTextEl.innerHTML = String(payload.aiText).replace(/\n/g, "<br>");
+          } else {
+            aiTextEl.textContent = "";
+          }
         }
 
-        if (type === "yesno") {
-          hintEl.textContent =
-            "1,000 likes unlocks a yes/no card. Only the user who sent the likes may ask.";
-        } else if (type === "two_card") {
-          hintEl.textContent =
-            "Share the live to unlock a 2-card reading. Only the sharer may ask.";
-        } else if (type === "three_card") {
-          hintEl.textContent =
-            "Past · Present · Future: gift ~150+ coins (e.g. Sunglasses). Only the gift sender may ask.";
-        } else if (type === "five_card") {
-          hintEl.textContent =
-            "Path of Five: gift ~400+ coins (e.g. Money Rain). Only the gift sender may ask.";
-        } else if (type === "celtic7") {
-          hintEl.textContent =
-            "7-card Celtic: gift ~1,000+ coins (Galaxy/Universe) or premium gift.";
-        } else {
-          hintEl.textContent =
-            "Likes, share, !equilibrium, or gifts (Sunglasses→3, Money Rain→5, Galaxy→7, Lion/Universe→Equilibrium).";
+        if (hintEl) {
+          if (type === "yesno") hintEl.textContent = "1,000 likes unlocks a yes/no card. Only the user who sent the likes may ask.";
+          else if (type === "two_card") hintEl.textContent = "Share the live to unlock a 2-card reading. Only the sharer may ask.";
+          else if (type === "three_card") hintEl.textContent = "Past · Present · Future: gift ~150+ coins (e.g. Sunglasses). Only the gift sender may ask.";
+          else if (type === "five_card") hintEl.textContent = "Path of Five: gift ~400+ coins (e.g. Money Rain). Only the gift sender may ask.";
+          else if (type === "celtic7") hintEl.textContent = "7-card Celtic: gift ~1,000+ coins (Galaxy/Universe) or premium gift.";
+          else hintEl.textContent = "Likes, share, !equilibrium, or gifts (Sunglasses→3, Money Rain→5, Galaxy→7, Lion/Universe→Equilibrium).";
         }
       }
 
       function renderEquilibrium(payload) {
+        if (!payload) return;
         const grid = document.getElementById("equilibriumGrid");
+        if (!grid) return;
         grid.classList.add("visible");
         grid.innerHTML = "";
         const order = ["D", "E", "F", "G", "H", "I", "A", "B", "C"];
         const positions = payload.positions || {};
-        order.forEach((key) => {
+        order.forEach((key, cellIdx) => {
           const data = positions[key];
           const cell = document.createElement("div");
           cell.className = "pos-" + key.toLowerCase();
@@ -388,7 +407,8 @@
           if (data && data.card) {
             const wrapper = document.createElement("div");
             const meaning = data.card.meaning || data.interpretation || "";
-            wrapper.className = "card" + (data.card.upright ? "" : " reversed") + " clickable";
+            wrapper.className = "card card-reveal" + (data.card.upright ? "" : " reversed") + " clickable";
+            wrapper.style.animationDelay = (cellIdx * 0.08) + "s";
             const src = cardImageSrc(data.card.file);
             if (meaning) wrapper.dataset.cardMeaning = meaning;
             if (src) wrapper.dataset.cardSrc = src;
@@ -412,11 +432,11 @@
           }
           grid.appendChild(cell);
         });
-        userEl.textContent = payload.username ? "Reading for @" + payload.username : "";
-        questionEl.textContent = payload.question || "";
-        aiTextEl.textContent = (payload.adviceOfTheDead ? "Advice of the dead: " + payload.adviceOfTheDead + "\n\n" : "") + "Santa Muerte Equilibrium Spread — see grid.";
+        if (userEl) userEl.textContent = payload.username ? "Reading for @" + payload.username : "";
+        if (questionEl) questionEl.textContent = payload.question || "";
+        if (aiTextEl) aiTextEl.textContent = (payload.adviceOfTheDead ? "Advice of the dead: " + payload.adviceOfTheDead + "\n\n" : "") + "Santa Muerte Equilibrium Spread — see grid.";
         if (payload.adviceOfTheDead) console.log("[Advice of the dead]", payload.adviceOfTheDead);
-        hintEl.textContent = "Type !equilibrium in chat to request this spread, then ask your question.";
+        if (hintEl) hintEl.textContent = "Type !equilibrium in chat to request this spread, then ask your question.";
       }
 
       document.getElementById("cards").addEventListener("click", (e) => {

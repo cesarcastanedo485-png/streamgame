@@ -22,17 +22,19 @@
   </head>
   <body class="portal-app">
     <nav class="app-tabs" aria-label="Main navigation">
-      <a href="/">Live</a>
+      <a href="index.html">Live</a>
       <span class="tab-sep" aria-hidden="true"></span>
-      <a href="/library" class="active">The Dex</a>
-      <a href="/control">Control</a>
+      <a href="library.html" class="active">The Dex</a>
+      <a href="control.html">Control</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="mordecai.html">Mordechaius Maximus</a>
       <span class="tab-sep" aria-hidden="true"></span>
-      <a href="/spread/yesno">Yes/No</a>
-      <a href="/spread/two-card">Two</a>
-      <a href="/spread/past-present-future">3-card</a>
-      <a href="/spread/path-of-five">5-card</a>
-      <a href="/spread/celtic-seven">7-card</a>
-      <a href="/spread/equilibrium">Equilibrium</a>
+      <a href="spread-yesno.html">Yes/No</a>
+      <a href="spread-two-card.html">Two</a>
+      <a href="spread-past-present-future.html">3-card</a>
+      <a href="spread-path-of-five.html">5-card</a>
+      <a href="spread-celtic-seven.html">7-card</a>
+      <a href="spread-equilibrium.html">Equilibrium</a>
     </nav>
     <h1>The Dex</h1>
     <p class="subtitle">Your deck library. Tap a card slot to pick an image (camera, gallery, or Google Lens), or drag an image onto a slot—including when <strong>Default</strong> is selected (uploads save on the server and override bundled art). Switch decks from the dropdown. <strong>Google Lens:</strong> Scan a card with Lens, save or share the photo to your device, then tap a slot and choose that photo.</p>
@@ -47,8 +49,8 @@
       <label for="deck-select">Active deck:</label>
       <select id="deckSelect"></select>
       <button type="button" id="newDeckBtn">New deck</button>
-      <a href="/control">Control panel</a>
-      <a href="/">Overlay</a>
+      <a href="control.html">Control panel</a>
+      <a href="index.html">Overlay</a>
     </div>
 
     <div class="cards-grid" id="cardsGrid"></div>
@@ -66,40 +68,54 @@
       }
 
       async function loadDecks() {
-        const res = await fetch(apiUrl("/api/decks"));
+        const res = await fetch(typeof apiUrl === "function" ? apiUrl("/api/decks") : "/api/decks");
+        if (!res.ok) throw new Error("Could not load decks");
         const decks = await res.json();
-        const activeRes = await fetch(apiUrl("/api/decks/active"));
-        const { deckId } = await activeRes.json();
-        deckSelect.innerHTML = decks.map((d) =>
-          `<option value="${d.id}" ${d.id === deckId ? "selected" : ""}>${escapeHtml(d.name)}</option>`
+        if (!Array.isArray(decks)) throw new Error("Invalid decks response");
+        const activeRes = await fetch(typeof apiUrl === "function" ? apiUrl("/api/decks/active") : "/api/decks/active");
+        if (!activeRes.ok) throw new Error("Could not load active deck");
+        const activeData = await activeRes.json();
+        const deckId = activeData?.deckId ?? "default";
+        if (deckSelect) deckSelect.innerHTML = decks.map((d) =>
+          `<option value="${escapeAttr(d?.id ?? "")}" ${(d?.id ?? "") === deckId ? "selected" : ""}>${escapeHtml(d?.name ?? "Unknown")}</option>`
         ).join("");
         return deckId;
       }
 
       async function loadCards(deckId) {
         const res = await fetch(apiUrl("/api/decks/active/cards"));
+        if (!res.ok) throw new Error("Could not load cards");
         const cards = await res.json();
+        if (!Array.isArray(cards)) throw new Error("Invalid cards response");
         /* default deck: server stores overrides in decks/default/ — same taps/uploads as any deck */
+        if (!cardsGrid) return;
         cardsGrid.innerHTML = cards.map((c) => {
-          const cls = "card-slot" + (c.file ? " has-image" : "");
-          const src = c.file ? mediaUrl(c.file) : "";
-          return `<div class="${cls}" data-key="${escapeAttr(c.key)}">${src ? `<img src="${escapeAttr(src)}" alt="" />` : ""}<span class="name">${escapeHtml(c.name)}</span><span>Tap or drop image</span></div>`;
+          const key = c?.key ?? "";
+          const name = c?.name ?? "Unknown";
+          const file = c?.file ?? null;
+          const cls = "card-slot" + (file ? " has-image" : "");
+          const src = file ? mediaUrl(file) : "";
+          return `<div class="${cls}" data-key="${escapeAttr(key)}">${src ? `<img src="${escapeAttr(src)}" alt="" />` : ""}<span class="name">${escapeHtml(name)}</span><span>Tap or drop image</span></div>`;
         }).join("");
       }
 
       async function loadStaticDefaultDeck() {
-        document.getElementById("staticDeckNotice").style.display = "block";
-        document.getElementById("newDeckBtn").style.display = "none";
-        deckSelect.innerHTML = `<option value="default" selected>Default (Santa Muerte)</option>`;
-        deckSelect.disabled = true;
+        const notice = document.getElementById("staticDeckNotice");
+        if (notice) notice.style.display = "block";
+        if (newDeckBtn) newDeckBtn.style.display = "none";
+        if (deckSelect) {
+          deckSelect.innerHTML = `<option value="default" selected>Default (Santa Muerte)</option>`;
+          deckSelect.disabled = true;
+        }
         const res = await fetch((window.TAROT_BASE_PATH || "") + "/cards.json");
         if (!res.ok) throw new Error("cards.json not found");
         const data = await res.json();
-        const rows = buildStaticDefaultCardRows(data);
+        const rows = (typeof buildStaticDefaultCardRows === "function" ? buildStaticDefaultCardRows(data) : null) || [];
+        if (!cardsGrid) return;
         cardsGrid.innerHTML = rows.map((c) => {
           const cls = "card-slot" + (c.file ? " has-image" : "") + " upload-default";
           const src = c.file ? mediaUrl(c.file) : "";
-          return `<div class="${cls}" data-key="${escapeAttr(c.key)}">${src ? `<img src="${escapeAttr(src)}" alt="" />` : ""}<span class="name">${escapeHtml(c.name)}</span><span>Static preview</span></div>`;
+          return `<div class="${cls}" data-key="${escapeAttr(c?.key ?? "")}">${src ? `<img src="${escapeAttr(src)}" alt="" />` : ""}<span class="name">${escapeHtml(c?.name ?? "Unknown")}</span><span>Static preview</span></div>`;
         }).join("");
       }
 
@@ -112,7 +128,7 @@
         const okType = file.type && file.type.startsWith("image/");
         return okExt || okType;
       }
-      fileInput.addEventListener("change", async (e) => {
+      if (fileInput) fileInput.addEventListener("change", async (e) => {
         const file = e.target.files && e.target.files[0];
         e.target.value = "";
         const slot = pendingSlot;
@@ -124,7 +140,7 @@
         await uploadCard(deckId, cardKey, file, slot);
       });
 
-      cardsGrid.addEventListener("click", (e) => {
+      if (cardsGrid) cardsGrid.addEventListener("click", (e) => {
         if (!deckLibraryInteractive) return;
         const slot = e.target.closest(".card-slot");
         if (!slot || slot.classList.contains("upload-default")) return;
@@ -132,20 +148,20 @@
         fileInput.click();
       });
 
-      cardsGrid.addEventListener("dragover", (e) => {
+      if (cardsGrid) cardsGrid.addEventListener("dragover", (e) => {
         if (!deckLibraryInteractive) return;
         e.preventDefault();
         e.dataTransfer.dropEffect = "copy";
         const slot = e.target.closest(".card-slot");
         if (slot && !slot.classList.contains("upload-default")) slot.classList.add("drag-over");
       });
-      cardsGrid.addEventListener("dragenter", (e) => {
+      if (cardsGrid) cardsGrid.addEventListener("dragenter", (e) => {
         if (!deckLibraryInteractive) return;
         e.preventDefault();
         const slot = e.target.closest(".card-slot");
         if (slot && !slot.classList.contains("upload-default")) slot.classList.add("drag-over");
       });
-      cardsGrid.addEventListener("dragleave", (e) => {
+      if (cardsGrid) cardsGrid.addEventListener("dragleave", (e) => {
         const slot = e.target.closest(".card-slot");
         if (slot) slot.classList.remove("drag-over");
       });
@@ -194,17 +210,27 @@
         slotEl.classList.add("has-image");
       }
 
-      deckSelect.addEventListener("change", async () => {
-        const deckId = deckSelect.value;
-        await fetch(apiUrl("/api/decks/active"), {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ deckId }),
-        });
-        await loadCards(deckId);
+      if (deckSelect) deckSelect.addEventListener("change", async () => {
+        const deckId = deckSelect?.value;
+        if (!deckId) return;
+        try {
+          const res = await fetch(apiUrl("/api/decks/active"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ deckId }),
+          });
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err?.error || "Failed to switch deck");
+          }
+          await loadCards(deckId);
+        } catch (e) {
+          console.error("Deck switch failed", e);
+          alert(e?.message || "Failed to switch deck");
+        }
       });
 
-      newDeckBtn.addEventListener("click", async () => {
+      if (newDeckBtn) newDeckBtn.addEventListener("click", async () => {
         const name = prompt("Deck name:");
         if (!name) return;
         const res = await fetch(apiUrl("/api/decks"), {
@@ -250,7 +276,7 @@
           } catch (e) {
             deckLibraryInteractive = false;
             console.error(e);
-            cardsGrid.innerHTML =
+            if (cardsGrid) cardsGrid.innerHTML =
               "<p class=\"subtitle\">Could not reach the deck server. If you use Control’s tunnel URL, check it; otherwise confirm this host runs the streaming server (e.g. Railway).</p>";
           }
         } else {
@@ -258,7 +284,7 @@
             await loadStaticDefaultDeck();
           } catch (e) {
             console.error(e);
-            cardsGrid.innerHTML =
+            if (cardsGrid) cardsGrid.innerHTML =
               "<p class=\"subtitle\">Could not load cards.json. Open the app on your streaming server or set Streaming server URL in Control.</p>";
           }
         }

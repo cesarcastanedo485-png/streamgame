@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mordechaius Maximus — AI Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0d1117" />
+    <script src="js/site-base.js"></script>
+    <script src="js/link-base.js"></script>
+    <script src="js/backend-url.js"></script>
+    <link rel="manifest" href="manifest.json" />
+    <script>
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="css/portal-theme.css" />
+    <link rel="stylesheet" href="css/mordecai.css" />
+  </head>
+  <body class="portal-app mordecai-page">
+    <nav class="app-tabs" aria-label="Main navigation">
+      <a href="index.html">Live</a>
+      <span class="tab-sep" aria-hidden="true"></span>
+      <a href="library.html">The Dex</a>
+      <a href="control.html">Control</a>
+      <a href="capabilities.html">Capabilities</a>
+      <a href="mordecai.html" class="active">Mordechaius Maximus</a>
+      <span class="tab-sep" aria-hidden="true"></span>
+      <a href="spread-yesno.html">Yes/No</a>
+      <a href="spread-two-card.html">Two</a>
+      <a href="spread-past-present-future.html">3-card</a>
+      <a href="spread-path-of-five.html">5-card</a>
+      <a href="spread-celtic-seven.html">7-card</a>
+      <a href="spread-equilibrium.html">Equilibrium</a>
+    </nav>
+
+    <div class="mordecai-layout">
+      <aside class="mordecai-sidebar">
+        <button type="button" id="newChatBtn" class="mordecai-new-chat">+ New chat</button>
+        <div class="mordecai-chat-list" id="chatList"></div>
+      </aside>
+
+      <main class="mordecai-main">
+        <div class="mordecai-toolbar">
+          <select id="agentSelect" class="mordecai-agent-select" aria-label="Select agent">
+            <option value="agent">Agent</option>
+            <option value="chat">Chat</option>
+            <option value="planning">Planning</option>
+          </select>
+          <button type="button" id="screenShareBtn" class="mordecai-toolbar-btn" aria-label="Share screen" title="Share screen">🖥</button>
+          <div class="mordecai-mode-toggle" role="group" aria-label="Mode">
+            <button type="button" id="modeAsk" class="mordecai-mode-btn active">Ask</button>
+            <button type="button" id="modePlan" class="mordecai-mode-btn">Plan</button>
+          </div>
+        </div>
+
+        <div class="mordecai-messages" id="messages"></div>
+
+        <div class="mordecai-actions-bar" id="actionsBar" hidden>
+          <button type="button" id="keepAllBtn" class="mordecai-action-btn primary">Keep all</button>
+          <button type="button" id="undoAllBtn" class="mordecai-action-btn">Undo all</button>
+        </div>
+
+        <div class="mordecai-input-wrap">
+          <textarea id="mordecaiInput" class="mordecai-input" placeholder="Ask Mordechaius Maximus anything… (or use the mic)" rows="1"></textarea>
+          <div class="mordecai-input-actions">
+            <button type="button" id="micBtn" class="mordecai-mic-btn" aria-label="Voice input" title="Voice input">
+              <span class="mic-icon" aria-hidden="true">🎤</span>
+            </button>
+            <button type="button" id="sendBtn" class="mordecai-send-btn" aria-label="Send">Send</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="mordecaiScreenOverlay" class="mordecai-screen-overlay" hidden>
+      <div class="mordecai-screen-header">
+        <span>Screen shared</span>
+        <button type="button" id="stopScreenBtn">Stop sharing</button>
+      </div>
+      <video id="mordecaiScreenVideo" autoplay muted playsinline></video>
+    </div>
+    <div id="mordecaiStatus" class="mordecai-status" role="status" aria-live="polite" hidden></div>
+
+    <script src="js/mordecai.js"></script>
+  </body>
+</html>

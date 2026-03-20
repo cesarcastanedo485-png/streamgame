@@ -1055,6 +1055,112 @@ body.portal-app.is-live .attuning-copy strong {
   color: var(--color-portal-soft);
 }
 
+/* Shuffling overlay */
+body.portal-app.is-live .shuffling-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(26, 46, 46, 0.96) 0%, rgba(11, 18, 20, 0.98) 70%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  pointer-events: none;
+}
+
+body.portal-app.is-live .shuffling-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.portal-app.is-live .shuffling-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+body.portal-app.is-live .shuffling-deck {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  perspective: 400px;
+}
+
+@keyframes shuffle-card-1 {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  25% { transform: translateY(-12px) rotate(4deg) translateX(8px); }
+  50% { transform: translateY(0) rotate(8deg) translateX(-4px); }
+  75% { transform: translateY(-8px) rotate(-4deg) translateX(4px); }
+}
+
+@keyframes shuffle-card-2 {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  25% { transform: translateY(-8px) rotate(-6deg) translateX(-6px); }
+  50% { transform: translateY(-14px) rotate(6deg) translateX(6px); }
+  75% { transform: translateY(-6px) rotate(-2deg); }
+}
+
+@keyframes shuffle-card-3 {
+  0%, 100% { transform: translateY(0) rotate(6deg); }
+  25% { transform: translateY(-10px) rotate(-8deg) translateX(4px); }
+  50% { transform: translateY(-6px) rotate(4deg) translateX(-8px); }
+  75% { transform: translateY(-12px) rotate(-6deg); }
+}
+
+body.portal-app.is-live .shuffle-card {
+  width: 44px;
+  height: 64px;
+  border-radius: 6px;
+  background: linear-gradient(145deg, #1f5c3a 0%, #0d2818 50%, #0b1214 100%);
+  border: 2px solid rgba(var(--portal-rgb), 0.5);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+body.portal-app.is-live .shuffle-card:nth-child(1) {
+  animation: shuffle-card-1 0.6s ease-in-out infinite;
+}
+
+body.portal-app.is-live .shuffle-card:nth-child(2) {
+  animation: shuffle-card-2 0.6s ease-in-out infinite 0.1s;
+}
+
+body.portal-app.is-live .shuffle-card:nth-child(3) {
+  animation: shuffle-card-3 0.6s ease-in-out infinite 0.2s;
+}
+
+body.portal-app.is-live .shuffling-text {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  color: var(--color-portal-acid);
+  text-shadow: 0 0 18px rgba(var(--portal-rgb), 0.5);
+  animation: attune-pulse 2s ease-in-out infinite;
+}
+
+/* Card reveal animation */
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+body.portal-app.is-live .card.card-reveal {
+  opacity: 0;
+  animation: card-reveal 0.5s ease-out forwards;
+}
+
+body.portal-app.is-live .grid-container .card.card-reveal {
+  opacity: 0;
+  animation: card-reveal 0.4s ease-out forwards;
+}
+
 /* Card enlarge modal */
 body.portal-app.is-live .card-enlarge-overlay {
   position: fixed;

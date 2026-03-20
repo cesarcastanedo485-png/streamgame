@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Capabilities — Connect & post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1214" />
+    <script src="js/site-base.js"></script>
+    <script src="js/link-base.js"></script>
+    <script src="js/backend-url.js"></script>
+    <link rel="manifest" href="manifest.json" />
+    <script>
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;500;600;700;800&family=Permanent+Marker&family=Share+Tech+Mono&display=swap" />
+    <link rel="stylesheet" href="css/portal-theme.css" />
+    <link rel="stylesheet" href="css/capabilities.css" />
+  </head>
+  <body class="portal-app capabilities-page">
+    <nav class="app-tabs" aria-label="Main navigation">
+      <a href="index.html">Live</a>
+      <span class="tab-sep" aria-hidden="true"></span>
+      <a href="library.html">The Dex</a>
+      <a href="control.html">Control</a>
+      <a href="capabilities.html" class="active">Capabilities</a>
+      <a href="mordecai.html">Mordechaius Maximus</a>
+      <span class="tab-sep" aria-hidden="true"></span>
+      <a href="spread-yesno.html">Yes/No</a>
+      <a href="spread-two-card.html">Two</a>
+      <a href="spread-past-present-future.html">3-card</a>
+      <a href="spread-path-of-five.html">5-card</a>
+      <a href="spread-celtic-seven.html">7-card</a>
+      <a href="spread-equilibrium.html">Equilibrium</a>
+    </nav>
+
+    <h1>Capabilities</h1>
+    <p class="subtitle">Connect your accounts to post to YouTube, TikTok, and send emails from your phone. Sign in once and use your app for everything.</p>
+
+    <div id="capabilitiesError" class="cap-error" role="alert" aria-live="polite" hidden></div>
+
+    <div class="panel capabilities-accounts">
+      <h2>Connected accounts</h2>
+      <div class="account-row" id="googleAccountRow">
+        <div class="account-info">
+          <span class="account-icon" aria-hidden="true">G</span>
+          <div>
+            <strong>Google</strong> — YouTube, Gmail
+            <span class="account-status" id="googleStatus">Not connected</span>
+          </div>
+        </div>
+        <div class="account-actions">
+          <button type="button" id="googleSignInBtn" class="btn-primary" disabled>Sign in with Google</button>
+          <button type="button" id="googleSignOutBtn" class="btn-secondary" hidden>Sign out</button>
+        </div>
+      </div>
+      <div class="account-row" id="tiktokAccountRow">
+        <div class="account-info">
+          <span class="account-icon" aria-hidden="true">T</span>
+          <div>
+            <strong>TikTok</strong> — Post videos
+            <span class="account-status" id="tiktokStatus">Not connected</span>
+          </div>
+        </div>
+        <div class="account-actions">
+          <button type="button" id="tiktokSignInBtn" class="btn-primary" disabled>Sign in with TikTok</button>
+          <button type="button" id="tiktokSignOutBtn" class="btn-secondary" hidden>Sign out</button>
+        </div>
+      </div>
+      <p class="cap-hint" id="configHint">Loading config…</p>
+    </div>
+
+    <div class="panel capabilities-actions">
+      <h2>Send email (Gmail)</h2>
+      <p class="subtitle">Requires Google sign-in.</p>
+      <form id="emailForm" class="cap-form">
+        <label for="emailTo">To</label>
+        <input type="email" id="emailTo" required placeholder="recipient@example.com" autocomplete="email" />
+        <label for="emailSubject">Subject</label>
+        <input type="text" id="emailSubject" required placeholder="Subject line" />
+        <label for="emailBody">Message</label>
+        <textarea id="emailBody" rows="4" required placeholder="Your message…"></textarea>
+        <button type="submit" id="emailSubmitBtn" class="btn-primary" disabled>Send email</button>
+      </form>
+      <div id="emailResult" class="cap-result" role="status" aria-live="polite" hidden></div>
+    </div>
+
+    <div class="panel capabilities-actions">
+      <h2>Post to YouTube (Community)</h2>
+      <p class="subtitle">Create a text post on your channel’s Community tab. Requires Google sign-in. Note: YouTube deprecated the posting API — if it fails, use YouTube Studio on your phone.</p>
+      <form id="youtubeForm" class="cap-form">
+        <label for="ytText">Post text</label>
+        <textarea id="ytText" rows="3" required placeholder="What's on your mind?"></textarea>
+        <label for="ytLink">Link (optional)</label>
+        <input type="url" id="ytLink" placeholder="https://…" />
+        <button type="submit" id="ytSubmitBtn" class="btn-primary" disabled>Post to YouTube</button>
+      </form>
+      <div id="ytResult" class="cap-result" role="status" aria-live="polite" hidden></div>
+    </div>
+
+    <div class="panel capabilities-actions">
+      <h2>Post to TikTok</h2>
+      <p class="subtitle">Requires TikTok sign-in. Video upload coming soon — for now you can connect your account.</p>
+      <p class="cap-hint" id="tiktokHint">TikTok posting requires a TikTok for Developers app. Set TIKTOK_CLIENT_KEY in your server .env.</p>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="js/capabilities.js"></script>
+  </body>
+</html>
